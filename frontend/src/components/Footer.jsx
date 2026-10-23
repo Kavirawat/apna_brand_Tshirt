@@ -67,7 +67,7 @@ export default function Footer({ onSelectCategory, onViewPhilosophy }) {
           <div className="flex items-center gap-4 text-gray-400 pt-2">
             <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1 text-[11px]"><Share2 size={15} /> Instagram</a>
             <a href="https://whatsapp.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1 text-[11px]"><MessageCircle size={15} /> WhatsApp</a>
-            <a href="https://thebrahmmanstore.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1 text-[11px]"><Globe size={15} /> Global</a>
+            <a href="https://apna-brand-tshirt-frontend.onrender.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1 text-[11px]"><Globe size={15} /> Global</a>
           </div>
         </div>
 
