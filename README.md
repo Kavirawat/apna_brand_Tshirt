@@ -4,13 +4,28 @@ A complete, high-fashion e-commerce platform featuring **Dynamic T-Shirt Color A
 
 ---
 
+## 🔗 Live Deployed URLs
+
+| Service | Live Deployment URL | Description |
+| :--- | :--- | :--- |
+| 🛍️ **Customer Storefront** | [https://apna-brand-tshirt-frontend.onrender.com](https://apna-brand-tshirt-frontend.onrender.com) | Customer shopping portal, cart, live tracking & authentication |
+| ⚙️ **Admin Portal & Studio** | [https://apna-brand-tshirt-admin.onrender.com](https://apna-brand-tshirt-admin.onrender.com) | Superuser control panel for catalog, drops, tracking & chat desk |
+| ⚡ **Backend REST API** | [https://apna-brand-tshirt.onrender.com](https://apna-brand-tshirt.onrender.com) | Node.js + Express API server with resilient dual-engine data storage |
+
+> **Admin Access Credentials**:
+> - **Username**: `admin`
+> - **Password**: `admin`
+> - *(Or click the **"⚡ 1-Click Superuser Access"** button on the login screen)*
+
+---
+
 ## 📁 Project Architecture
 
 ```
 Tshirts/
 ├── backend/          # Node.js + Express REST API & MongoDB Database
 │   ├── config/       # Database connection config
-│   ├── data/         # Fallback JSON storage for products, orders, chats
+│   ├── data/         # Fallback JSON storage for products, orders, chats, users
 │   ├── middleware/   # Express logger, error handling
 │   ├── models/       # Mongoose Schemas (User, Order)
 │   ├── routes/       # API Routes (auth, orders, products, chats, stats)
@@ -18,17 +33,21 @@ Tshirts/
 │   └── package.json
 │
 ├── frontend/         # Customer Storefront (React + Vite + Tailwind CSS)
+│   ├── public/       # Static assets and SPA _redirects
 │   ├── src/
 │   │   ├── components/  # Navbar, HeroBanner, ProductView, CartDrawer, TrackOrderView, etc.
 │   │   ├── context/     # ThemeColorContext & CartContext
 │   │   ├── data/        # Seeded authentic products
+│   │   ├── config.js    # API endpoints & environment config
 │   │   ├── App.jsx
 │   │   └── index.css
 │   └── package.json
 │
 └── adminPanel/       # Store Management & Atmosphere Studio (React + Vite)
+    ├── public/       # Brand logo and SPA _redirects
     ├── src/
     │   ├── App.jsx   # Product CRUD, Orders fulfillment & Live tracking studio
+    │   ├── config.js # Storefront URL & API endpoints
     │   └── index.css
     └── package.json
 ```
@@ -61,57 +80,25 @@ NODE_ENV=development
 
 ---
 
-## 🌐 How to Deploy on Render (Step-by-Step)
+## 🌐 Deployed Services on Render
 
-### Step 1: Deploy Backend (Web Service)
-1. Log in to [Render Dashboard](https://dashboard.render.com).
-2. Click **New +** ➔ **Web Service**.
-3. Connect your GitHub repository: `https://github.com/Kavirawat/apna_brand_Tshirt`.
-4. Configure the settings:
-   - **Name**: `apna-brand-backend`
-   - **Root Directory**: `backend`
-   - **Environment**: `Node`
-   - **Build Command**: `npm install`
-   - **Start Command**: `node server.js`
-   - **Instance Type**: `Free`
-5. Under **Environment Variables**, add:
-   - `PORT`: `5000` (Render sets its own port automatically, but fallback is good)
-   - `MONGODB_URI`: *Your MongoDB connection string*
-   - `JWT_SECRET`: *Your secret JWT key*
-   - `NODE_ENV`: `production`
-6. Click **Create Web Service**. Wait for the build to finish.
-7. Note down your backend URL (e.g. `https://apna-brand-backend.onrender.com`).
+### 1. Backend Web Service (`apna-brand-tshirt`)
+- **Live URL**: `https://apna-brand-tshirt.onrender.com`
+- **Health Check**: `https://apna-brand-tshirt.onrender.com/api/health`
+- **Root Directory**: `backend`
+- **Build Command**: `npm install && npm run build`
+- **Start Command**: `npm start` (or `node server.js`)
 
----
+### 2. Frontend Static Site (`apna-brand-tshirt-frontend`)
+- **Live URL**: `https://apna-brand-tshirt-frontend.onrender.com`
+- **Root Directory**: `frontend`
+- **Build Command**: `npm install && npm run build`
+- **Publish Directory**: `dist`
+- **Routing**: Handled via `public/_redirects` (`/* /index.html 200`)
 
-### Step 2: Deploy Frontend Store (Static Site)
-1. On Render, click **New +** ➔ **Static Site**.
-2. Connect the same repository.
-3. Configure the settings:
-   - **Name**: `apna-brand-store`
-   - **Root Directory**: `frontend`
-   - **Build Command**: `npm install && npm run build`
-   - **Publish Directory**: `dist`
-4. Under **Redirects/Rewrites**:
-   - Add a rewrite rule for Single Page Application routing:
-     - **Source**: `/*`
-     - **Destination**: `/index.html`
-     - **Action**: `Rewrite`
-5. Click **Create Static Site**.
-
----
-
-### Step 3: Deploy Admin Panel (Static Site)
-1. On Render, click **New +** ➔ **Static Site**.
-2. Connect the same repository.
-3. Configure the settings:
-   - **Name**: `apna-brand-admin`
-   - **Root Directory**: `adminPanel`
-   - **Build Command**: `npm install && npm run build`
-   - **Publish Directory**: `dist`
-4. Under **Redirects/Rewrites**:
-   - Add a rewrite rule:
-     - **Source**: `/*`
-     - **Destination**: `/index.html`
-     - **Action**: `Rewrite`
-5. Click **Create Static Site**.
+### 3. Admin Panel Static Site (`apna-brand-tshirt-admin`)
+- **Live URL**: `https://apna-brand-tshirt-admin.onrender.com`
+- **Root Directory**: `adminPanel`
+- **Build Command**: `npm install && npm run build`
+- **Publish Directory**: `dist`
+- **Routing**: Handled via `public/_redirects` (`/* /index.html 200`)
