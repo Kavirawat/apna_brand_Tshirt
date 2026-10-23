@@ -1,0 +1,41 @@
+[
+  {
+    "id": "session-1792654385358-51xhmr",
+    "customerName": "Rahul Sharma",
+    "customerEmail": "rahul.sharma@gmail.com",
+    "customerPhone": "+91 98765 43210",
+    "status": "active",
+    "unreadAdmin": 0,
+    "lastUpdated": "2026-10-22T10:01:42.289Z",
+    "messages": [
+      {
+        "id": "msg-1792661601071-bie9",
+        "sender": "customer",
+        "senderName": "Rahul Sharma",
+        "text": "hii",
+        "timestamp": "2026-10-22T09:33:21.071Z"
+      },
+      {
+        "id": "msg-1792661613972-c9n2",
+        "sender": "admin",
+        "senderName": "Support Team (Admin)",
+        "text": "hlo",
+        "timestamp": "2026-10-22T09:33:33.972Z"
+      },
+      {
+        "id": "msg-1792662009772-9ae3",
+        "sender": "customer",
+        "senderName": "Rahul Sharma",
+        "text": "Track my order",
+        "timestamp": "2026-10-22T09:40:09.772Z"
+      },
+      {
+        "id": "msg-1792663302289-21i8",
+        "sender": "admin",
+        "senderName": "Support Team (Admin)",
+        "text": "Yes, we provide a 7-day hassle-free exchange on all sizes if tags remain intact.",
+        "timestamp": "2026-10-22T10:01:42.289Z"
+      }
+    ]
+  }
+]

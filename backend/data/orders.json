@@ -1,0 +1,257 @@
+[
+  {
+    "id": "ORD-64151",
+    "orderId": "ORD-64151",
+    "customer": {
+      "name": "kavi",
+      "phone": "8966856380",
+      "email": "kavi@gmail.com",
+      "address": "00, datia, datia, madhya pradesh, 475661"
+    },
+    "items": [
+      {
+        "id": 15406667038794,
+        "handle": "kundalini",
+        "title": "KUNDALINI/कुण्डलिनी — OVERSIZED T-SHIRT",
+        "sanskritTitle": "KUNDALINI/कुण्डलिनी",
+        "price": 5450,
+        "compareAtPrice": 2430,
+        "image": "https://cdn.shopify.com/s/files/1/0665/6638/9834/files/Kundalini_ubg2.png?v=1791201886",
+        "size": "L",
+        "color": "Off White",
+        "quantity": 1
+      },
+      {
+        "id": 15406666842186,
+        "handle": "aghori",
+        "title": "AGHORI/अघोरी — OVERSIZED T-SHIRT",
+        "sanskritTitle": "AGHORI/अघोरी",
+        "price": 5450,
+        "compareAtPrice": 2430,
+        "image": "https://cdn.shopify.com/s/files/1/0665/6638/9834/files/Aghori_ubg.png?v=1791202359",
+        "size": "L",
+        "color": "Black",
+        "quantity": 1
+      },
+      {
+        "id": 15406666776650,
+        "handle": "tat-tvam-asi",
+        "title": "TAT TVAM ASI — OVERSIZED T-SHIRT",
+        "sanskritTitle": "TAT TVAM ASI",
+        "price": 5450,
+        "compareAtPrice": 2430,
+        "image": "https://cdn.shopify.com/s/files/1/0665/6638/9834/files/45.png?v=1789397586",
+        "size": "L",
+        "color": "Maroon",
+        "quantity": 1
+      }
+    ],
+    "total": 16350,
+    "status": "Delivered",
+    "currentLocation": "Customer Delivery Address",
+    "transitNote": "Package safely delivered to recipient.",
+    "paymentMethod": "Cash on Delivery (COD)",
+    "courier": {
+      "name": "Bluedart Express",
+      "trackingNumber": "BD-6468301",
+      "expectedDelivery": "2026-10-26T00:00:00.000Z"
+    },
+    "createdAt": "2026-10-23T06:31:20.089Z"
+  },
+  {
+    "id": "ORD-40812",
+    "orderId": "ORD-40812",
+    "customer": {
+      "name": "Test Seeker",
+      "phone": "9876543210",
+      "email": "seeker@gmail.com",
+      "address": "Delhi, India"
+    },
+    "items": [
+      {
+        "title": "MOKSHA TEE",
+        "price": 5450,
+        "quantity": 1
+      }
+    ],
+    "total": 5450,
+    "status": "Confirmed",
+    "currentLocation": "Brahmman Central Fulfillment Hub, New Delhi",
+    "transitNote": "Order confirmed and registered in production queue.",
+    "paymentMethod": "UPI",
+    "courier": {
+      "name": "Bluedart Express",
+      "trackingNumber": "BD-8235808",
+      "expectedDelivery": "2026-10-25T11:24:40.447Z"
+    },
+    "createdAt": "2026-10-22T11:24:40.447Z"
+  },
+  {
+    "id": "ORD-18193",
+    "orderId": "ORD-18193",
+    "customer": {
+      "name": "kavi",
+      "phone": "8966856380",
+      "email": "kavi@gmail.com",
+      "address": "00, datia, datia, madhya pradesh, 475661"
+    },
+    "items": [
+      {
+        "id": 15406666743882,
+        "handle": "agni",
+        "title": "AGNI/अग्नि — OVERSIZED T-SHIRT",
+        "sanskritTitle": "AGNI/अग्नि",
+        "price": 5450,
+        "compareAtPrice": 2430,
+        "image": "https://cdn.shopify.com/s/files/1/0665/6638/9834/files/Agni_ubg.png?v=1791201501",
+        "size": "L",
+        "color": "Maroon",
+        "quantity": 1
+      }
+    ],
+    "total": 5450,
+    "status": "Out for Delivery",
+    "currentLocation": "Destination City Delivery Station",
+    "transitNote": "Out for delivery with courier delivery executive.",
+    "paymentMethod": "Cash on Delivery (COD)",
+    "courier": {
+      "name": "Bluedart Express",
+      "trackingNumber": "BD-9826287",
+      "expectedDelivery": "2026-10-25T00:00:00.000Z"
+    },
+    "createdAt": "2026-10-22T11:01:13.184Z"
+  },
+  {
+    "id": "ORD-36572",
+    "orderId": "ORD-36572",
+    "customer": {
+      "name": "kavi",
+      "phone": "8966856380",
+      "email": "kavi@gmail.com",
+      "address": "datia jhansichungi "
+    },
+    "items": [
+      {
+        "id": 15406667464778,
+        "handle": "ahankaar",
+        "title": "AHANKAAR/अहंकार",
+        "sanskritTitle": "AHANKAAR/अहंकार",
+        "price": 5450,
+        "compareAtPrice": 2430,
+        "image": "https://cdn.shopify.com/s/files/1/0665/6638/9834/files/ahankaar_thumbnail.png?v=1789398151",
+        "size": "L",
+        "color": "Black",
+        "quantity": 1
+      }
+    ],
+    "total": 5450,
+    "status": "Delivered",
+    "paymentMethod": "COD",
+    "courier": {
+      "name": "Bluedart Express",
+      "trackingNumber": "BD-8156091",
+      "expectedDelivery": "2026-10-25T00:00:00.000Z"
+    },
+    "createdAt": "2026-10-22T10:39:32.901Z",
+    "currentLocation": "Local City Delivery Station",
+    "transitNote": "Package successfully delivered to customer."
+  },
+  {
+    "id": "ORD-53929",
+    "customer": {
+      "name": "Kavi Rawat",
+      "phone": "8966856380",
+      "email": "kavirrawat896@gmail.com",
+      "address": "datia"
+    },
+    "items": [
+      {
+        "id": 15406667268170,
+        "handle": "ritual-study-002",
+        "title": "RITUAL STUDY 002",
+        "sanskritTitle": "RITUAL STUDY 002",
+        "price": 1800,
+        "compareAtPrice": 2430,
+        "image": "https://cdn.shopify.com/s/files/1/0665/6638/9834/files/rs2_pro_exp.png?v=1788420010",
+        "size": "L",
+        "color": "White",
+        "quantity": 1
+      }
+    ],
+    "total": 1800,
+    "status": "Delivered",
+    "paymentMethod": "UPI",
+    "createdAt": "2026-10-22T05:12:13.206Z",
+    "currentLocation": "Local City Delivery Station",
+    "transitNote": "Package successfully delivered to customer.",
+    "courier": {
+      "name": "Bluedart Express",
+      "trackingNumber": "BD-5400483",
+      "expectedDelivery": "2026-10-25T00:00:00.000Z"
+    }
+  },
+  {
+    "id": "ORD-10821",
+    "customer": {
+      "name": "Aarav Sharma",
+      "email": "aarav.sharma@example.com",
+      "phone": "+91 98765 43210",
+      "address": "402 Nirvana Heights, Bandra West, Mumbai, MH - 400050"
+    },
+    "items": [
+      {
+        "productId": 15406667235434,
+        "title": "PRAKRITI/प्रकृति — OVERSIZED T-SHIRT",
+        "color": "Baby Pink",
+        "size": "L",
+        "price": 1800,
+        "quantity": 1,
+        "image": "https://cdn.shopify.com/s/files/1/0665/6638/9834/files/1_b650828b-0037-4f2d-9a8d-fe604d2e872f.png?v=1791630582"
+      }
+    ],
+    "total": 1800,
+    "status": "Delivered",
+    "paymentMethod": "UPI / Online",
+    "createdAt": "2026-10-20T14:32:00.000Z",
+    "currentLocation": "Brahmman Fulfillment Center, New Delhi",
+    "transitNote": "Package successfully delivered to customer.",
+    "courier": {
+      "name": "Bluedart Express",
+      "trackingNumber": "BD-1498784",
+      "expectedDelivery": "2026-10-25T00:00:00.000Z"
+    }
+  },
+  {
+    "id": "ORD-10822",
+    "customer": {
+      "name": "Rhea Kapoor",
+      "email": "rhea.kapoor@example.com",
+      "phone": "+91 91234 56789",
+      "address": "12 Lotus Lane, Indiranagar, Bengaluru, KA - 560038"
+    },
+    "items": [
+      {
+        "productId": 15406667661386,
+        "title": "MAYA/माया — OVERSIZED SWEATSHIRT",
+        "color": "Lavender",
+        "size": "M",
+        "price": 2600,
+        "quantity": 1,
+        "image": "https://cdn.shopify.com/s/files/1/0665/6638/9834/files/55_14772461-f8e1-41f4-868d-2e8988329195.png?v=1791192979"
+      },
+      {
+        "productId": 15406667071594,
+        "title": "AGHORI/अघोरी — OVERSIZED T-SHIRT",
+        "color": "Black",
+        "size": "XL",
+        "price": 1800,
+        "quantity": 1,
+        "image": "https://cdn.shopify.com/s/files/1/0665/6638/9834/files/Aghori_ubg.png?v=1791202359"
+      }
+    ],
+    "total": 4400,
+    "status": "Delivered",
+    "paymentMethod": "COD",
+    "createdAt": "2026-10-21T09:15:00.000Z"
+  }
+]

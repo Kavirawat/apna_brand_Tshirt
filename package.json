@@ -1,0 +1,20 @@
+{
+  "name": "apna-brand-tshirts",
+  "version": "1.0.0",
+  "description": "Apna Brand - Indian Philosophy Streetwear E-Commerce Platform",
+  "scripts": {
+    "start": "npm --prefix backend start",
+    "backend": "npm --prefix backend start",
+    "frontend": "npm --prefix frontend run dev",
+    "admin": "npm --prefix adminPanel run dev",
+    "build": "npm --prefix frontend run build && npm --prefix adminPanel run build"
+  },
+  "keywords": [
+    "apna-brand",
+    "streetwear",
+    "oversized-tshirts",
+    "indian-philosophy"
+  ],
+  "author": "Kavirawat",
+  "license": "ISC"
+}
