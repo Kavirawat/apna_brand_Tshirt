@@ -23,12 +23,14 @@ app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
 
+const mongoose = require('mongoose');
+
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'online',
     timestamp: new Date().toISOString(),
     service: 'Apna Brand API',
-    database: 'MongoDB Connected'
+    database: mongoose.connection.readyState === 1 ? 'MongoDB Connected' : 'Local JSON Storage Active'
   });
 });
 

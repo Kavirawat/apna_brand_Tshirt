@@ -1,14 +1,22 @@
 const mongoose = require('mongoose');
 
+mongoose.set('bufferCommands', false);
+
 const connectDB = async () => {
+  const connUri = process.env.MONGODB_URI;
+  if (!connUri) {
+    console.log('MONGODB_URI not provided. Running in resilient local JSON storage mode.');
+    return null;
+  }
   try {
-    const connUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/apna_brand_db';
-    const conn = await mongoose.connect(connUri);
-    console.log(`🍃 Connected to MongoDB successfully at ${conn.connection.host}/${conn.connection.name}`);
+    const conn = await mongoose.connect(connUri, {
+      serverSelectionTimeoutMS: 4000
+    });
+    console.log(`Connected to MongoDB successfully at ${conn.connection.host}/${conn.connection.name}`);
     return conn;
   } catch (error) {
-    console.error('⚠️ MongoDB connection error:', error.message);
-
+    console.error('MongoDB connection error:', error.message);
+    return null;
   }
 };
 

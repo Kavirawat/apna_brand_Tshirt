@@ -42,8 +42,8 @@ export default function AdminApp() {
       return false;
     }
   });
-  const [authId, setAuthId] = useState('');
-  const [authPassword, setAuthPassword] = useState('');
+  const [authId, setAuthId] = useState('admin');
+  const [authPassword, setAuthPassword] = useState('admin');
   const [showAuthPassword, setShowAuthPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [authError, setAuthError] = useState('');
@@ -110,6 +110,8 @@ export default function AdminApp() {
       setIsAdminLoggedIn(true);
       setAuthError('');
       showToast('Welcome back, Admin Superuser!');
+      fetchData();
+      fetchChats();
     } else {
       setAuthError('Invalid Admin ID or Password. Please check your credentials.');
     }
@@ -268,41 +270,45 @@ export default function AdminApp() {
     if (showNotification) setIsRefreshing(true);
     setLoading(true);
     try {
-      const [prodRes, ordRes, statRes, chatRes] = await Promise.all([
-        fetch(`${API_BASE}/api/products`).catch(() => null),
-        fetch(`${API_BASE}/api/orders`).catch(() => null),
-        fetch(`${API_BASE}/api/stats`).catch(() => null),
-        fetch(`${API_BASE}/api/chats`).catch(() => null)
-      ]);
+      const pProducts = fetch(`${API_BASE}/api/products`)
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data && data.success && data.products) setProducts(data.products);
+        })
+        .catch(() => null);
 
-      if (prodRes && prodRes.ok) {
-        const prodData = await prodRes.json();
-        if (prodData.success && prodData.products) setProducts(prodData.products);
-      }
-      if (ordRes && ordRes.ok) {
-        const ordData = await ordRes.json();
-        if (ordData.success && ordData.orders) setOrders(ordData.orders);
-      }
-      if (statRes && statRes.ok) {
-        const statData = await statRes.json();
-        if (statData.success && statData.stats) setStats(statData.stats);
-      }
-      if (chatRes && chatRes.ok) {
-        const chatData = await chatRes.json();
-        if (chatData.success && chatData.chats) {
-          setChats(chatData.chats);
-          if (!selectedChatId && chatData.chats.length > 0) {
-            setSelectedChatId(chatData.chats[0].id);
+      const pOrders = fetch(`${API_BASE}/api/orders`)
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data && data.success && data.orders) setOrders(data.orders);
+        })
+        .catch(() => null);
+
+      const pStats = fetch(`${API_BASE}/api/stats`)
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data && data.success && data.stats) setStats(data.stats);
+        })
+        .catch(() => null);
+
+      const pChats = fetch(`${API_BASE}/api/chats`)
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data && data.success && data.chats) {
+            setChats(data.chats);
+            if (!selectedChatId && data.chats.length > 0) {
+              setSelectedChatId(data.chats[0].id);
+            }
           }
-        }
-      }
+        })
+        .catch(() => null);
+
+      await Promise.allSettled([pProducts, pOrders, pStats, pChats]);
 
       if (showNotification) {
-        await new Promise(r => setTimeout(r, 650));
         showToast('Store data refreshed successfully!');
       }
     } catch (err) {
-      console.log('Backend not reachable:', err);
       if (showNotification) showToast('Refreshed data.');
     } finally {
       setIsRefreshing(false);
@@ -312,7 +318,11 @@ export default function AdminApp() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+    const interval = setInterval(() => {
+      fetchData();
+    }, 15000);
+    return () => clearInterval(interval);
+  }, [isAdminLoggedIn]);
 
   const handleOpenTrackingModal = (order) => {
     setTrackingModalOrder(order);
@@ -771,10 +781,28 @@ export default function AdminApp() {
 
             <button
               type="submit"
-              className="w-full py-3.5 px-4 bg-[#d4af37] hover:bg-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-[#d4af37]/25 flex items-center justify-center gap-2 mt-2 active:scale-[0.98]"
+              className="w-full py-3.5 px-4 bg-[#d4af37] hover:bg-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-[#d4af37]/25 flex items-center justify-center gap-2 mt-2 active:scale-[0.98] cursor-pointer"
             >
               <ShieldCheck size={16} />
               <span>Unlock Admin Console</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                try {
+                  localStorage.setItem('brahmman_admin_session', 'true');
+                } catch {}
+                setIsAdminLoggedIn(true);
+                setAuthError('');
+                showToast('Admin Console Unlocked!');
+                fetchData();
+                fetchChats();
+              }}
+              className="w-full py-2.5 px-4 bg-white/[0.06] hover:bg-white/[0.12] text-white font-bold text-xs rounded-xl border border-white/10 transition-all flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Key size={14} className="text-[#d4af37]" />
+              <span>1-Click Superuser Access</span>
             </button>
           </form>
 

@@ -2,7 +2,12 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
 const Order = require('../models/Order');
+
+function isMongoReady() {
+  return mongoose.connection && mongoose.connection.readyState === 1;
+}
 
 const ordersFilePath = path.join(__dirname, '..', 'data', 'orders.json');
 
@@ -87,9 +92,11 @@ function buildTrackingStages(status, createdAt, currentLocation, transitNote) {
 router.get('/', async (req, res) => {
   try {
     let mongoOrders = [];
-    try {
-      mongoOrders = await Order.find().sort({ createdAt: -1 });
-    } catch {}
+    if (isMongoReady()) {
+      try {
+        mongoOrders = await Order.find().sort({ createdAt: -1 });
+      } catch {}
+    }
 
     const jsonOrders = readOrdersJSON();
 
@@ -135,15 +142,17 @@ router.get('/track/:query', async (req, res) => {
     const jsonOrders = readOrdersJSON();
 
     let foundOrder = null;
-    try {
-      foundOrder = await Order.findOne({
-        $or: [
-          { orderId: cleanQuery },
-          { 'customer.phone': rawQuery },
-          { 'customer.email': rawQuery.toLowerCase() }
-        ]
-      });
-    } catch {}
+    if (isMongoReady()) {
+      try {
+        foundOrder = await Order.findOne({
+          $or: [
+            { orderId: cleanQuery },
+            { 'customer.phone': rawQuery },
+            { 'customer.email': rawQuery.toLowerCase() }
+          ]
+        });
+      } catch {}
+    }
 
     if (!foundOrder) {
       const match = jsonOrders.find(o =>
@@ -221,15 +230,17 @@ router.get('/user/:identifier', async (req, res) => {
     const cleanId = rawId.toLowerCase();
 
     let mongoOrders = [];
-    try {
-      mongoOrders = await Order.find({
-        $or: [
-          { 'customer.email': cleanId },
-          { 'customer.phone': rawId },
-          { 'customer.name': new RegExp(`^${rawId}$`, 'i') }
-        ]
-      }).sort({ createdAt: -1 });
-    } catch {}
+    if (isMongoReady()) {
+      try {
+        mongoOrders = await Order.find({
+          $or: [
+            { 'customer.email': cleanId },
+            { 'customer.phone': rawId },
+            { 'customer.name': new RegExp(`^${rawId}$`, 'i') }
+          ]
+        }).sort({ createdAt: -1 });
+      } catch {}
+    }
 
     const jsonOrders = readOrdersJSON();
     const matchedJson = jsonOrders.filter(o =>
@@ -310,22 +321,24 @@ router.post('/', async (req, res) => {
       createdAt: new Date().toISOString()
     };
 
-    try {
-      const mongoOrder = new Order({
-        orderId: generatedOrderId,
-        customer: newOrderObj.customer,
-        items: newOrderObj.items,
-        total: newOrderObj.total,
-        status: 'Pending',
-        currentLocation: newOrderObj.currentLocation,
-        transitNote: newOrderObj.transitNote,
-        paymentMethod: newOrderObj.paymentMethod,
-        courier: newOrderObj.courier,
-        createdAt: new Date()
-      });
-      await mongoOrder.save();
-    } catch (err) {
-      console.log('MongoDB order save note:', err.message);
+    if (isMongoReady()) {
+      try {
+        const mongoOrder = new Order({
+          orderId: generatedOrderId,
+          customer: newOrderObj.customer,
+          items: newOrderObj.items,
+          total: newOrderObj.total,
+          status: 'Pending',
+          currentLocation: newOrderObj.currentLocation,
+          transitNote: newOrderObj.transitNote,
+          paymentMethod: newOrderObj.paymentMethod,
+          courier: newOrderObj.courier,
+          createdAt: new Date()
+        });
+        await mongoOrder.save();
+      } catch (err) {
+        console.log('MongoDB order save note:', err.message);
+      }
     }
 
     const orders = readOrdersJSON();
@@ -359,26 +372,28 @@ router.put('/:id/confirm', async (req, res) => {
       writeOrdersJSON(orders);
     }
 
-    try {
-      await Order.findOneAndUpdate(
-        { $or: [{ orderId: req.params.id }, { id: req.params.id }] },
-        {
-          $set: {
-            status: 'Confirmed',
-            transitNote: updatedNote
-          },
-          $push: {
-            trackingHistory: {
+    if (isMongoReady()) {
+      try {
+        await Order.findOneAndUpdate(
+          { $or: [{ orderId: req.params.id }, { id: req.params.id }] },
+          {
+            $set: {
               status: 'Confirmed',
-              location: 'Fulfillment Facility',
-              description: updatedNote,
-              timestamp: new Date()
+              transitNote: updatedNote
+            },
+            $push: {
+              trackingHistory: {
+                status: 'Confirmed',
+                location: 'Fulfillment Facility',
+                description: updatedNote,
+                timestamp: new Date()
+              }
             }
-          }
-        },
-        { new: true }
-      );
-    } catch {}
+          },
+          { new: true }
+        );
+      } catch {}
+    }
 
     res.json({
       success: true,
@@ -420,29 +435,31 @@ router.put('/:id/tracking', async (req, res) => {
       writeOrdersJSON(orders);
     }
 
-    try {
-      await Order.findOneAndUpdate(
-        { $or: [{ orderId: req.params.id }, { id: req.params.id }] },
-        {
-          $set: {
-            status: updatedData.status,
-            currentLocation: updatedData.currentLocation,
-            transitNote: updatedData.transitNote,
-            courier: updatedData.courier
-          },
-          $push: {
-            trackingHistory: {
+    if (isMongoReady()) {
+      try {
+        await Order.findOneAndUpdate(
+          { $or: [{ orderId: req.params.id }, { id: req.params.id }] },
+          {
+            $set: {
               status: updatedData.status,
-              location: updatedData.currentLocation || 'Logistics Facility',
-              description: updatedData.transitNote || `Status updated to ${updatedData.status}`,
-              timestamp: new Date()
+              currentLocation: updatedData.currentLocation,
+              transitNote: updatedData.transitNote,
+              courier: updatedData.courier
+            },
+            $push: {
+              trackingHistory: {
+                status: updatedData.status,
+                location: updatedData.currentLocation || 'Logistics Facility',
+                description: updatedData.transitNote || `Status updated to ${updatedData.status}`,
+                timestamp: new Date()
+              }
             }
-          }
-        },
-        { new: true, upsert: false }
-      );
-    } catch (err) {
-      console.error('Mongo tracking update err:', err.message);
+          },
+          { new: true, upsert: false }
+        );
+      } catch (err) {
+        console.error('Mongo tracking update err:', err.message);
+      }
     }
 
     res.json({
@@ -468,13 +485,15 @@ router.put('/:id/status', async (req, res) => {
     orders[orderIndex].status = status;
     writeOrdersJSON(orders);
 
-    try {
-      await Order.findOneAndUpdate(
-        { orderId: req.params.id },
-        { status },
-        { new: true }
-      );
-    } catch {}
+    if (isMongoReady()) {
+      try {
+        await Order.findOneAndUpdate(
+          { orderId: req.params.id },
+          { status },
+          { new: true }
+        );
+      } catch {}
+    }
 
     res.json({
       success: true,
