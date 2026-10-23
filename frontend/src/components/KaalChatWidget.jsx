@@ -9,6 +9,7 @@ import {
   FaHeadset,
   FaUserShield
 } from './Fa5Icons';
+import { API_BASE } from '../config';
 
 export default function KaalChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,7 +69,7 @@ export default function KaalChatWidget() {
 
   const syncChat = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/chats/${sessionId}`);
+      const res = await fetch(`${API_BASE}/api/chats/${sessionId}`);
       if (res.ok) {
         const data = await res.json();
         if (data.success && data.session?.messages?.length > 0) {
@@ -132,7 +133,7 @@ export default function KaalChatWidget() {
     if (!textToSend) setInputText('');
 
     try {
-      await fetch('http://localhost:5000/api/chats/message', {
+      await fetch(`${API_BASE}/api/chats/message`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

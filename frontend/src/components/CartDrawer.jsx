@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { PhonePeIcon, GooglePayIcon, PaytmIcon } from './UpiIcons';
+import { API_BASE } from '../config';
 
 export default function CartDrawer({ onSelectProduct, onTrackOrder }) {
   const {
@@ -95,7 +96,7 @@ export default function CartDrawer({ onSelectProduct, onTrackOrder }) {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/api/orders', {
+      const response = await fetch(`${API_BASE}/api/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(orderPayload)

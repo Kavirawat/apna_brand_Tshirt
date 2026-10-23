@@ -15,6 +15,7 @@ import {
   ChevronRight,
   AlertCircle
 } from 'lucide-react';
+import { API_BASE } from '../config';
 
 export default function TrackOrderView({ initialOrderId = '' }) {
   const [query, setQuery] = useState(initialOrderId || '');
@@ -48,7 +49,7 @@ export default function TrackOrderView({ initialOrderId = '' }) {
     setMyOrdersLoading(true);
     try {
       const id = currentUser.email || currentUser.phone || currentUser.username || currentUser.name;
-      const res = await fetch(`http://localhost:5000/api/orders/user/${encodeURIComponent(id)}`);
+      const res = await fetch(`${API_BASE}/api/orders/user/${encodeURIComponent(id)}`);
       const data = await res.json();
       if (data.success && data.orders && data.orders.length > 0) {
         setMyOrders(data.orders);
@@ -88,7 +89,7 @@ export default function TrackOrderView({ initialOrderId = '' }) {
     setError('');
 
     try {
-      const res = await fetch(`http://localhost:5000/api/orders/track/${encodeURIComponent(q)}`);
+      const res = await fetch(`${API_BASE}/api/orders/track/${encodeURIComponent(q)}`);
       const data = await res.json();
 
       if (!res.ok || !data.success || !data.order) {

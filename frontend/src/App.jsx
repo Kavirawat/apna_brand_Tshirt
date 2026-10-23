@@ -16,6 +16,7 @@ import CartDrawer from './components/CartDrawer';
 import SearchModal from './components/SearchModal';
 import SizeGuideModal from './components/SizeGuideModal';
 import TrackOrderView from './components/TrackOrderView';
+import { API_BASE } from './config';
 
 import initialProducts from './data/products.json';
 
@@ -56,7 +57,7 @@ function Storefront() {
   useEffect(() => {
     async function loadBackendData() {
       try {
-        const res = await fetch('http://localhost:5000/api/products');
+        const res = await fetch(`${API_BASE}/api/products`);
         const data = await res.json();
         if (data.success && data.products && data.products.length > 0) {
           setProducts(data.products);

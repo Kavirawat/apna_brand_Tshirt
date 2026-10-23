@@ -19,6 +19,7 @@ import {
   FaUserShield,
   FaHeadset
 } from './components/Fa5Icons';
+import { API_BASE, STOREFRONT_URL } from './config';
 
 export default function AdminApp() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -192,7 +193,7 @@ export default function AdminApp() {
 
   const fetchChats = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/chats');
+      const res = await fetch(`${API_BASE}/api/chats`);
       const data = await res.json();
       if (data.success && data.chats) {
         setChats(data.chats);
@@ -212,7 +213,7 @@ export default function AdminApp() {
   const handleSelectChat = async (id) => {
     setSelectedChatId(id);
     try {
-      await fetch(`http://localhost:5000/api/chats/${id}/read`, { method: 'PUT' });
+      await fetch(`${API_BASE}/api/chats/${id}/read`, { method: 'PUT' });
       fetchChats();
     } catch {}
   };
@@ -226,7 +227,7 @@ export default function AdminApp() {
     setIsSendingReply(true);
 
     try {
-      const res = await fetch('http://localhost:5000/api/chats/message', {
+      const res = await fetch(`${API_BASE}/api/chats/message`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -251,7 +252,7 @@ export default function AdminApp() {
   const handleDeleteChat = async (id) => {
     if (!window.confirm('Are you sure you want to end this customer chat session?')) return;
     try {
-      await fetch(`http://localhost:5000/api/chats/${id}`, { method: 'DELETE' });
+      await fetch(`${API_BASE}/api/chats/${id}`, { method: 'DELETE' });
       showToast('Chat closed.');
       fetchChats();
       setSelectedChatId(null);
@@ -268,10 +269,10 @@ export default function AdminApp() {
     setLoading(true);
     try {
       const [prodRes, ordRes, statRes, chatRes] = await Promise.all([
-        fetch('http://localhost:5000/api/products').catch(() => null),
-        fetch('http://localhost:5000/api/orders').catch(() => null),
-        fetch('http://localhost:5000/api/stats').catch(() => null),
-        fetch('http://localhost:5000/api/chats').catch(() => null)
+        fetch(`${API_BASE}/api/products`).catch(() => null),
+        fetch(`${API_BASE}/api/orders`).catch(() => null),
+        fetch(`${API_BASE}/api/stats`).catch(() => null),
+        fetch(`${API_BASE}/api/chats`).catch(() => null)
       ]);
 
       if (prodRes && prodRes.ok) {
@@ -346,7 +347,7 @@ export default function AdminApp() {
         expectedDelivery: trackingDeliveryDate ? new Date(trackingDeliveryDate).toISOString() : undefined
       };
 
-      const res = await fetch(`http://localhost:5000/api/orders/${trackingModalOrder.id}/tracking`, {
+      const res = await fetch(`${API_BASE}/api/orders/${trackingModalOrder.id}/tracking`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -385,7 +386,7 @@ export default function AdminApp() {
 
   const handleQuickConfirm = async (orderId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/orders/${orderId}/confirm`, {
+      const res = await fetch(`${API_BASE}/api/orders/${orderId}/confirm`, {
         method: 'PUT'
       });
       const data = await res.json();
@@ -437,7 +438,7 @@ export default function AdminApp() {
     };
 
     try {
-      const res = await fetch('http://localhost:5000/api/products', {
+      const res = await fetch(`${API_BASE}/api/products`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(productPayload)
@@ -460,7 +461,7 @@ export default function AdminApp() {
 
   const handleExtendDropDays = async (productId, daysToAdd) => {
     try {
-      await fetch(`http://localhost:5000/api/products/${productId}/drop`, {
+      await fetch(`${API_BASE}/api/products/${productId}/drop`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ extendDays: daysToAdd })
@@ -490,7 +491,7 @@ export default function AdminApp() {
     const newTotal = (p?.totalUnits || 50) + unitsToAdd;
 
     try {
-      await fetch(`http://localhost:5000/api/products/${productId}/drop`, {
+      await fetch(`${API_BASE}/api/products/${productId}/drop`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ remainingUnits: newRemaining, totalUnits: newTotal, dropStatus: 'active' })
@@ -515,7 +516,7 @@ export default function AdminApp() {
 
   const handleVaultDrop = async (productId) => {
     try {
-      await fetch(`http://localhost:5000/api/products/${productId}/drop`, {
+      await fetch(`${API_BASE}/api/products/${productId}/drop`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ dropExpiresAt: new Date(Date.now() - 1000).toISOString(), dropStatus: 'expired' })
@@ -540,7 +541,7 @@ export default function AdminApp() {
   const handleDeleteProduct = async (id) => {
     if (!window.confirm('Are you sure you want to remove this piece from the catalog?')) return;
     try {
-      await fetch(`http://localhost:5000/api/products/${id}`, { method: 'DELETE' });
+      await fetch(`${API_BASE}/api/products/${id}`, { method: 'DELETE' });
     } catch (e) {
       console.error(e);
     }
@@ -798,7 +799,7 @@ export default function AdminApp() {
               </button>
             </div>
             <a
-              href="http://localhost:5173"
+              href={STOREFRONT_URL}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-white mt-4 transition-colors"
@@ -922,7 +923,7 @@ export default function AdminApp() {
 
             <div className="pt-4 border-t border-white/[0.08] space-y-2 mt-6">
               <a
-                href="http://localhost:5173"
+                href={STOREFRONT_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-[#d4af37] font-bold border border-white/[0.06] transition-colors"
@@ -1044,7 +1045,7 @@ export default function AdminApp() {
           </div>
 
           <a
-            href="http://localhost:5173"
+            href={STOREFRONT_URL}
             target="_blank"
             rel="noreferrer"
             className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-[#d4af37] font-bold transition-colors border border-white/[0.06]"

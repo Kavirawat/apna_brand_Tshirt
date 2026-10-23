@@ -18,6 +18,7 @@ import {
   Plus,
   Phone
 } from 'lucide-react';
+import { API_BASE } from '../config';
 
 export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
   const [mode, setMode] = useState('login');
@@ -64,7 +65,7 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
 
           const id = user.username || user.email;
           if (id) {
-            fetch(`http://localhost:5000/api/auth/user/${encodeURIComponent(id)}`)
+            fetch(`${API_BASE}/api/auth/user/${encodeURIComponent(id)}`)
               .then(res => res.json())
               .then(data => {
                 if (data.success && data.user) {
@@ -120,7 +121,7 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -173,7 +174,7 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/auth/signup', {
+      const res = await fetch(`${API_BASE}/api/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -215,7 +216,7 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
     setErrorMessage('');
 
     try {
-      const res = await fetch('http://localhost:5000/api/auth/address', {
+      const res = await fetch(`${API_BASE}/api/auth/address`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
