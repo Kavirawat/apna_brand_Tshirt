@@ -143,13 +143,13 @@ function Storefront() {
           <TrackOrderView initialOrderId={trackingOrderId} />
         ) : (
 
-          <div className="max-w-3xl mx-auto py-16 px-4 space-y-6">
-            <h2 className="text-2xl font-bold uppercase mb-4">Apna Brand Policy</h2>
-            <div className="space-y-4 text-sm text-gray-700 leading-relaxed border-t pt-4">
-              <p><strong>1. Shipping:</strong> We provide express domestic delivery across India. Orders are processed within 24–48 hours.</p>
-              <p><strong>2. 7-Day Exchange:</strong> Size exchanges are accepted within 7 days of delivery, provided tags remain intact.</p>
-              <p><strong>3. Cash on Delivery:</strong> Available across 26,000+ PIN codes with zero advance payment requirement.</p>
-              <p><strong>4. Craft Integrity:</strong> 100% super-combed bio-washed cotton, engineered for longevity.</p>
+          <div className="max-w-3xl mx-auto py-16 px-4 space-y-6 text-white">
+            <h2 className="text-2xl font-bold uppercase mb-4 text-white">Apna Brand Policy</h2>
+            <div className="space-y-4 text-sm text-gray-300 leading-relaxed border-t border-white/10 pt-4">
+              <p><strong className="text-white">1. Shipping:</strong> We provide express domestic delivery across India. Orders are processed within 24–48 hours.</p>
+              <p><strong className="text-white">2. 7-Day Exchange:</strong> Size exchanges are accepted within 7 days of delivery, provided tags remain intact.</p>
+              <p><strong className="text-white">3. Cash on Delivery:</strong> Available across 26,000+ PIN codes with zero advance payment requirement.</p>
+              <p><strong className="text-white">4. Craft Integrity:</strong> 100% super-combed bio-washed cotton, engineered for longevity.</p>
             </div>
           </div>
         )}
