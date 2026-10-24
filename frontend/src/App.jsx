@@ -14,6 +14,7 @@ import KaalChatWidget from './components/KaalChatWidget';
 import CartDrawer from './components/CartDrawer';
 import SearchModal from './components/SearchModal';
 import SizeGuideModal from './components/SizeGuideModal';
+import AccountPopover from './components/AccountPopover';
 import TrackOrderView from './components/TrackOrderView';
 import { API_BASE } from './config';
 
@@ -54,6 +55,7 @@ function Storefront() {
 
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [sizeGuideModalOpen, setSizeGuideModalOpen] = useState(false);
+  const [accountModalOpen, setAccountModalOpen] = useState(false);
 
   useEffect(() => {
     async function loadBackendData() {
@@ -98,6 +100,7 @@ function Storefront() {
         onSelectNav={handleSelectNav}
         onOpenSearch={() => setSearchModalOpen(true)}
         onOpenOrders={() => handleSelectNav('track-order')}
+        onOpenAccount={() => setAccountModalOpen(true)}
       />
 
       <main className="flex-1">
@@ -182,6 +185,12 @@ function Storefront() {
       <SizeGuideModal
         isOpen={sizeGuideModalOpen}
         onClose={() => setSizeGuideModalOpen(false)}
+      />
+
+      <AccountPopover
+        isOpen={accountModalOpen}
+        onClose={() => setAccountModalOpen(false)}
+        onOpenOrders={() => handleSelectNav('track-order')}
       />
 
     </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   X,
   ArrowRight,
@@ -115,6 +116,15 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const resetFormState = () => {
@@ -150,6 +160,7 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
 
       setCurrentUser(data.user);
       localStorage.setItem('brahmman_user', JSON.stringify(data.user));
+      try { window.dispatchEvent(new Event('brahmman_user_updated')); } catch {}
       setSuccessMessage(`Welcome back, ${data.user.name || data.user.username}!`);
       setLoginPassword('');
 
@@ -205,6 +216,7 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
 
       setCurrentUser(data.user);
       localStorage.setItem('brahmman_user', JSON.stringify(data.user));
+      try { window.dispatchEvent(new Event('brahmman_user_updated')); } catch {}
       setSuccessMessage('Account created and connected to MongoDB!');
       setSignupPassword('');
 
@@ -250,6 +262,7 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
 
       setCurrentUser(data.user);
       localStorage.setItem('brahmman_user', JSON.stringify(data.user));
+      try { window.dispatchEvent(new Event('brahmman_user_updated')); } catch {}
       setIsEditingAddress(false);
       setSuccessMessage('Delivery location saved to MongoDB!');
       setTimeout(() => setSuccessMessage(''), 2500);
@@ -263,6 +276,7 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
   const handleLogout = () => {
     setCurrentUser(null);
     localStorage.removeItem('brahmman_user');
+    try { window.dispatchEvent(new Event('brahmman_user_updated')); } catch {}
     setSuccessMessage('Logged out successfully.');
     setLoginIdentifier('');
     setLoginPassword('');
@@ -272,13 +286,13 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
 
   const hasDeliveryAddress = currentUser?.deliveryAddress && (currentUser.deliveryAddress.street || currentUser.deliveryAddress.city);
 
-  return (
+  const modalContent = (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-fadeIn"
+      className="fixed inset-0 z-[99999] overflow-y-auto bg-black/75 backdrop-blur-sm p-4 flex min-h-screen items-center justify-center animate-fadeIn"
       onClick={onClose}
     >
       <div
-        className={`w-full max-w-[390px] rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] border p-5 sm:p-6 relative mx-auto max-h-[85vh] overflow-y-auto scrollbar-thin select-none transition-colors duration-300 ${
+        className={`w-full max-w-[420px] rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] border p-5 sm:p-6 relative my-auto max-h-[90vh] overflow-y-auto scrollbar-thin select-none transition-colors duration-300 ${
           isLight
             ? 'bg-white border-gray-200 text-gray-900 shadow-xl'
             : 'bg-[#163643] border-[#224b5c] text-white shadow-2xl'
@@ -964,4 +978,7 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
       </div>
     </div>
   );
+
+  if (typeof document === 'undefined') return null;
+  return createPortal(modalContent, document.body);
 }

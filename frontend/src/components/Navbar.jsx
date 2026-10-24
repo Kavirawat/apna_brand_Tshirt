@@ -8,7 +8,8 @@ export default function Navbar({
   activeNav,
   onSelectNav,
   onOpenSearch,
-  onOpenOrders
+  onOpenOrders,
+  onOpenAccount
 }) {
   const { themeMode = 'dark' } = useThemeColor();
   const isLight = themeMode === 'light';
@@ -35,7 +36,11 @@ export default function Navbar({
     };
     handleSync();
     window.addEventListener('storage', handleSync);
-    return () => window.removeEventListener('storage', handleSync);
+    window.addEventListener('brahmman_user_updated', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('brahmman_user_updated', handleSync);
+    };
   }, [accountPopoverOpen]);
 
   const navItems = [
@@ -100,7 +105,7 @@ export default function Navbar({
 
           <div className="relative">
             <button
-              onClick={() => setAccountPopoverOpen(!accountPopoverOpen)}
+              onClick={onOpenAccount || (() => setAccountPopoverOpen(true))}
               className="p-1.5 hover:text-[#f0aa93] transition-colors flex items-center gap-1.5 cursor-pointer"
               title={currentUser ? `Profile: ${currentUser.name || currentUser.username}` : "My Account"}
               aria-label="Account"
@@ -117,11 +122,13 @@ export default function Navbar({
               )}
             </button>
 
-            <AccountPopover
-              isOpen={accountPopoverOpen}
-              onClose={() => setAccountPopoverOpen(false)}
-              onOpenOrders={onOpenOrders}
-            />
+            {!onOpenAccount && (
+              <AccountPopover
+                isOpen={accountPopoverOpen}
+                onClose={() => setAccountPopoverOpen(false)}
+                onOpenOrders={onOpenOrders}
+              />
+            )}
           </div>
 
           <button
