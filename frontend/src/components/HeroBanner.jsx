@@ -1,211 +1,377 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, Volume2, VolumeX } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Copy,
+  Check,
+  Flame,
+  Zap,
+  Crown,
+  Sparkles,
+  Percent,
+  Truck,
+  ShieldCheck,
+  RotateCcw,
+  Tag
+} from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
-const BRAND_FILMS = [
+const OFFER_SLIDES = [
   {
-    id: 'philosophy',
-    category: 'THE PHILOSOPHY',
-    src: 'https://cdn.shopify.com/videos/c/o/v/2c22afc5b244465da8d5d90e73415798.mp4',
-    desc: 'Ancient Indian thought expressed through contemporary luxury streetwear.'
+    id: 'slide-30-off',
+    badge: '🔥 LIMITED FESTIVE DROP • 30% SAVINGS',
+    badgeColor: 'border-red-500/40 bg-red-600/20 text-red-300',
+    discountBig: '30% OFF',
+    discountPill: 'FLAT 30% DISCOUNT',
+    headline: 'FLAT 30% OFF SITEWIDE',
+    subheadline: 'SACRED VEDIC STREETWEAR • OVERSIZED DROPS',
+    description:
+      'Engineered with 280-320 GSM super-combed compact cotton, custom oversized drop-shoulder drape, and high-density sacred iconography.',
+    couponCode: 'DHARM30',
+    ctaText: 'SHOP 30% OFF NOW',
+    accentColor: '#d4af37',
+    glyph: 'धर्मो रक्षति रक्षितः',
+    secondaryGlyph: 'TAT TVAM ASI • BHARAT STREETWEAR',
+    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #3e1017 0%, #1e070b 55%, #0a0304 100%)',
+    glowColor: 'rgba(230, 57, 70, 0.18)'
   },
   {
-    id: 'silhouette',
-    category: 'THE SILHOUETTE',
-    src: 'https://cdn.shopify.com/videos/c/o/v/461373431152412b8cceadbe914c70fa.mp4',
-    desc: 'A statement in silhouette. Contemporary boxy form, uncompromising expression.'
+    id: 'slide-25-off',
+    badge: '⚡ FLASH VAULT PRIVILEGE • 25% SAVINGS',
+    badgeColor: 'border-cyan-500/40 bg-cyan-600/20 text-cyan-300',
+    discountBig: '25% OFF',
+    discountPill: 'EXCLUSIVE DROP SAVINGS',
+    headline: 'EXCLUSIVE 25% OFF ALL ORDERS',
+    subheadline: 'LIMITED RUN OF 50 PIECES PER DROP • BIO-WASHED',
+    description:
+      'Ribbed lycra collar retaining architectural form for 50+ washes. Pure non-dual Upanishadic art you can wear on the street.',
+    couponCode: 'VEDA25',
+    ctaText: 'EXPLORE VAULT DROPS',
+    accentColor: '#38bdf8',
+    glyph: 'अहं ब्रह्मास्मि',
+    secondaryGlyph: 'INDRA & PARSHURAM • 280 GSM',
+    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #102d42 0%, #071520 55%, #030a0f 100%)',
+    glowColor: 'rgba(56, 189, 248, 0.18)'
   },
   {
-    id: 'craft',
-    category: 'THE CRAFT',
-    src: 'https://cdn.shopify.com/videos/c/o/v/18aee6f54d344f8ba3f668dd064e71f4.mp4',
-    desc: 'Substantial French terry cotton. Structured drop-shoulder fit built for eternity.'
+    id: 'slide-buy2-30',
+    badge: '👑 APNA BRAND PRIVILEGE • BUNDLE SPECIAL',
+    badgeColor: 'border-emerald-500/40 bg-emerald-600/20 text-emerald-300',
+    discountBig: 'BUY 2 GET 30%',
+    discountPill: 'DOUBLE LUXURY PRIVILEGE',
+    headline: 'BUY ANY 2 — GET 30% OFF',
+    subheadline: 'MIX & MATCH TEES, DROP HOODIES & SWEATSHIRTS',
+    description:
+      'Curate your sacred rotation. Automatic discount applied at checkout with zero delivery charges across all 26,000+ PIN codes.',
+    couponCode: 'APNA30',
+    ctaText: 'BUILD YOUR BUNDLE',
+    accentColor: '#34d399',
+    glyph: 'सत्यमेव जयते',
+    secondaryGlyph: 'SOVEREIGN DRAPE • BIO-PRESHRUNK',
+    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #0d3326 0%, #061711 55%, #020b08 100%)',
+    glowColor: 'rgba(52, 211, 153, 0.18)'
   },
   {
-    id: 'origin',
-    category: 'THE ORIGIN',
-    src: 'https://cdn.shopify.com/videos/c/o/v/2b0af9e9eca141938913edb5e5ff0c44.mp4',
-    desc: 'Rooted in Vedic heritage. Created with an architectural vision that reaches beyond borders.'
+    id: 'slide-winter-35',
+    badge: '❄️ SACRED WINTER DROP • 35% OFF',
+    badgeColor: 'border-amber-500/40 bg-amber-600/20 text-amber-300',
+    discountBig: '35% OFF',
+    discountPill: 'WINTER FLEECE SPECIAL',
+    headline: 'UP TO 35% OFF FLEECE & HOODIES',
+    subheadline: '340—400 GSM BRUSHED FRENCH TERRY FLEECE',
+    description:
+      'Architectural boxy form built for cold resilience and meditative stillness. High-density puff typography and double-layered hoods.',
+    couponCode: 'OFF30',
+    ctaText: 'SHOP WINTER LUXURY',
+    accentColor: '#fbbf24',
+    glyph: 'महाकाल • KAAL',
+    secondaryGlyph: 'FRENCH TERRY • ZERO SHRINKAGE',
+    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #3a2510 0%, #1c1208 55%, #090603 100%)',
+    glowColor: 'rgba(251, 191, 36, 0.18)'
   }
 ];
 
 export default function HeroBanner({ onShopNowClick }) {
-  const [activeFilmIndex, setActiveFilmIndex] = useState(0);
-  const [isAudioActive, setIsAudioActive] = useState(false);
-  const videoRef = useRef(null);
-  const ytPlayerRef = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [copiedCode, setCopiedCode] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const { applyCoupon } = useCart?.() || {};
 
-  const activeFilm = BRAND_FILMS[activeFilmIndex];
+  const active = OFFER_SLIDES[currentSlide];
 
   useEffect(() => {
-    let player;
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % OFFER_SLIDES.length);
+    }, 4800);
+    return () => clearInterval(timer);
+  }, [isPaused]);
 
-    const initYT = () => {
-      if (window.YT && window.YT.Player) {
-        player = new window.YT.Player('yt-brand-audio-player', {
-          videoId: '_IwIMU2hbvU',
-          playerVars: {
-            autoplay: 0,
-            controls: 0,
-            disablekb: 1,
-            fs: 0,
-            loop: 1,
-            playlist: '_IwIMU2hbvU',
-            modestbranding: 1,
-            rel: 0
-          },
-          events: {
-            onReady: (e) => {
-              ytPlayerRef.current = e.target;
-              e.target.setVolume(85);
-            }
-          }
-        });
-      }
-    };
-
-    if (!window.YT) {
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      window.onYouTubeIframeAPIReady = initYT;
-      document.body.appendChild(tag);
-    } else {
-      initYT();
+  const handleCopy = (code) => {
+    try {
+      navigator.clipboard?.writeText(code);
+    } catch {
+      // fallback
     }
-
-    return () => {
-      if (player && player.destroy) player.destroy();
-    };
-  }, []);
-
-  const handleVideoEnded = () => {
-    setActiveFilmIndex((prevIndex) => (prevIndex + 1) % BRAND_FILMS.length);
+    if (typeof applyCoupon === 'function') {
+      applyCoupon(code);
+    }
+    setCopiedCode(true);
+    setTimeout(() => setCopiedCode(false), 2200);
   };
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    setCurrentSlide((prev) => (prev === 0 ? OFFER_SLIDES.length - 1 : prev - 1));
+  };
 
-    video.currentTime = 0;
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        video.muted = true;
-        video.play().catch(() => {});
-      });
-    }
-  }, [activeFilmIndex]);
-
-  const toggleSound = (e) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    const player = ytPlayerRef.current;
-
-    if (isAudioActive) {
-      if (player && typeof player.pauseVideo === 'function') {
-        player.pauseVideo();
-        player.mute();
-      }
-      setIsAudioActive(false);
-    } else {
-      if (player && typeof player.playVideo === 'function') {
-        player.unMute();
-        player.setVolume(85);
-        player.playVideo();
-      }
-      setIsAudioActive(true);
-    }
+  const handleNext = (e) => {
+    e.stopPropagation();
+    setCurrentSlide((prev) => (prev + 1) % OFFER_SLIDES.length);
   };
 
   return (
-    <div className="relative w-full overflow-hidden bg-black text-white select-none">
+    <div
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      className="relative w-full overflow-hidden select-none border-b border-white/10"
+      style={{
+        background: active.backgroundStyle,
+        transition: 'background 0.8s ease-in-out'
+      }}
+    >
+      {/* Ambient background glow accents */}
+      <div
+        className="absolute -top-32 -left-32 w-96 h-96 rounded-full blur-3xl pointer-events-none transition-all duration-700"
+        style={{ background: active.glowColor }}
+      />
+      <div
+        className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full blur-3xl pointer-events-none transition-all duration-700"
+        style={{ background: active.glowColor }}
+      />
 
-      <div className="absolute -top-96 -left-96 w-1 h-1 opacity-0 pointer-events-none overflow-hidden">
-        <div id="yt-brand-audio-player" />
-      </div>
+      {/* Decorative Subtle Cyber Grid lines */}
+      <div
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        style={{
+          backgroundImage: 'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
+          backgroundSize: '40px 40px'
+        }}
+      />
 
-      <div className="relative min-h-[78vh] sm:min-h-[88vh] flex items-end justify-start p-6 sm:p-12 lg:p-16">
+      <div className="relative max-w-[1380px] mx-auto px-5 sm:px-10 lg:px-16 py-14 sm:py-20 lg:py-24 z-10">
 
-        <video
-          key={activeFilm.src}
-          ref={videoRef}
-          autoPlay
-          muted
-          playsInline
-          onEnded={handleVideoEnded}
-          className="absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-1000"
-        >
-          <source src={activeFilm.src} type="video/mp4" />
-        </video>
+        {/* Top Ticker Row */}
+        <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono tracking-widest text-gray-400 uppercase pb-6 mb-8 border-b border-white/10">
+          <div className="flex items-center gap-2.5">
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+            <span className="text-white font-bold">APNA BRAND • SACRED FESTIVE CAMPAIGN</span>
+          </div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/30 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent pointer-events-none" />
-
-        <div className="absolute top-6 right-6 sm:top-10 sm:right-12 z-20">
-          <button
-            onClick={toggleSound}
-            type="button"
-            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full backdrop-blur-md border flex items-center justify-center transition-all duration-300 shadow-2xl active:scale-90 ${
-              isAudioActive
-                ? 'bg-black/85 border-[#d4af37] text-[#d4af37] ring-2 ring-[#d4af37]/30 shadow-[#d4af37]/25'
-                : 'bg-black/60 border-white/30 text-gray-300 hover:text-white hover:border-white/60 hover:bg-black/80'
-            }`}
-            title={isAudioActive ? 'Mute' : 'Unmute'}
-            aria-label={isAudioActive ? 'Mute audio' : 'Unmute audio'}
-          >
-            {isAudioActive ? (
-              <Volume2 size={18} className="animate-pulse" />
-            ) : (
-              <VolumeX size={18} />
-            )}
-          </button>
+          <div className="flex items-center gap-3 text-[11px]">
+            <span className="text-[#d4af37] font-semibold">{active.glyph}</span>
+            <span className="text-gray-600 hidden sm:inline">•</span>
+            <span className="hidden sm:inline text-gray-400">{active.secondaryGlyph}</span>
+          </div>
         </div>
 
-        <div className="relative z-10 max-w-2xl space-y-4 pt-16">
+        {/* Main Banner Body (NO PHOTOS, PURE LUXURY TYPOGRAPHY) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
-          <div className="flex flex-wrap items-center gap-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[11px] font-mono tracking-widest text-[#d4af37] uppercase pointer-events-none">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-pulse" />
-              <span>BHARAT CAMPAIGN • {activeFilm.category}</span>
+          {/* Left Column: Offer Details & Actions */}
+          <div className="lg:col-span-8 space-y-6">
+
+            <div className="flex flex-wrap items-center gap-2.5">
+              <div className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border text-[11px] font-mono font-bold tracking-widest uppercase backdrop-blur-md ${active.badgeColor}`}>
+                <Flame size={14} className="fill-current" />
+                <span>{active.badge}</span>
+              </div>
+
+              <div className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-mono tracking-widest text-white uppercase font-bold">
+                <Tag size={12} className="text-[#d4af37]" />
+                <span>{active.discountPill}</span>
+              </div>
             </div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600/90 text-white font-mono text-[10px] font-black tracking-widest uppercase shadow-lg border border-red-400/40">
-              <span>🔥 30% OFF • USE CODE DHARM30</span>
+
+            <div className="space-y-2">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white leading-[1.05] drop-shadow-2xl">
+                {active.headline}
+              </h1>
+              <p
+                className="text-lg sm:text-2xl font-bold uppercase tracking-wide font-serif"
+                style={{ color: active.accentColor }}
+              >
+                {active.subheadline}
+              </p>
+            </div>
+
+            <p className="text-xs sm:text-sm text-gray-300 max-w-2xl leading-relaxed font-normal">
+              {active.description}
+            </p>
+
+            {/* Interactive Coupon Box & CTA */}
+            <div className="pt-2 flex flex-wrap items-center gap-4">
+
+              {/* Coupon Box */}
+              <div className="flex items-center bg-black/70 backdrop-blur-md border border-white/20 rounded-2xl p-1.5 pl-4 shadow-2xl">
+                <div className="flex flex-col pr-3">
+                  <span className="text-[9px] font-mono tracking-widest text-gray-400 uppercase">
+                    PROMO CODE
+                  </span>
+                  <span
+                    className="font-mono text-base font-black tracking-widest"
+                    style={{ color: active.accentColor }}
+                  >
+                    {active.couponCode}
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => handleCopy(active.couponCode)}
+                  className="px-4 py-2.5 rounded-xl text-black font-black text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-md"
+                  style={{
+                    backgroundColor: active.accentColor
+                  }}
+                  title="Copy coupon & apply to cart"
+                >
+                  {copiedCode ? (
+                    <>
+                      <Check size={14} className="stroke-[3]" />
+                      <span>APPLIED!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={14} />
+                      <span>COPY & APPLY</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Shop CTA */}
+              <button
+                type="button"
+                onClick={onShopNowClick}
+                className="px-8 py-3.5 rounded-2xl bg-white hover:bg-gray-200 text-black font-black text-xs uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-2xl hover:scale-[1.02] active:scale-95"
+              >
+                <span>{active.ctaText}</span>
+                <ArrowUpRight size={16} />
+              </button>
+
+            </div>
+
+            {/* Trust Badges */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5 pt-6 border-t border-white/10 text-gray-300 text-[11px] sm:text-xs">
+              <div className="flex items-center gap-2">
+                <Truck size={15} style={{ color: active.accentColor }} />
+                <span>Free Express Delivery Across India</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <ShieldCheck size={15} style={{ color: active.accentColor }} />
+                <span>Cash on Delivery Available</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <RotateCcw size={15} style={{ color: active.accentColor }} />
+                <span>7-Day Easy Doorstep Exchange</span>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Right Column: Graphic Discount Emblem (NO PHOTO) */}
+          <div className="lg:col-span-4 flex flex-col items-center justify-center">
+            <div className="relative w-full max-w-xs sm:max-w-sm rounded-3xl p-8 border border-white/15 bg-black/40 backdrop-blur-xl shadow-2xl flex flex-col items-center text-center space-y-4">
+
+              <div
+                className="w-20 h-20 rounded-2xl border flex items-center justify-center shadow-lg"
+                style={{
+                  borderColor: `${active.accentColor}55`,
+                  backgroundColor: `${active.accentColor}15`
+                }}
+              >
+                <Percent size={36} style={{ color: active.accentColor }} />
+              </div>
+
+              <div className="space-y-1">
+                <span className="text-[10px] font-mono tracking-widest text-gray-400 uppercase block">
+                  LIMITED RUN PROMO
+                </span>
+                <span
+                  className="text-4xl sm:text-5xl font-black font-mono tracking-tight block"
+                  style={{ color: active.accentColor }}
+                >
+                  {active.discountBig}
+                </span>
+                <span className="text-xs font-serif text-gray-300 italic block">
+                  Applicable at Checkout
+                </span>
+              </div>
+
+              <div className="w-full pt-4 border-t border-white/10 text-left space-y-2 text-[11px] font-mono text-gray-400">
+                <div className="flex justify-between">
+                  <span>DISCOUNT:</span>
+                  <span className="text-white font-bold">{active.discountBig}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>COUPON CODE:</span>
+                  <span className="text-[#d4af37] font-bold">{active.couponCode}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>SHIPPING:</span>
+                  <span className="text-emerald-400 font-bold">FREE EXPRESS</span>
+                </div>
+              </div>
+
             </div>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-tight text-white drop-shadow-2xl font-serif pointer-events-none">
-            THE LIVING RELIC <br />
-            <span className="text-gray-200 font-sans text-2xl sm:text-4xl lg:text-5xl font-light tracking-wide block mt-1">
-              WEARABLE PHILOSOPHY
-            </span>
-          </h1>
+        </div>
 
-          <p className="text-xs sm:text-sm text-gray-300 max-w-lg leading-relaxed font-normal pointer-events-none">
-            {activeFilm.desc} Heavyweight drop-shoulder silhouettes engineered for eternity with high-density sacred iconography.
-          </p>
+        {/* Carousel Bottom Controls & Indicators */}
+        <div className="flex items-center justify-between mt-10 pt-6 border-t border-white/10">
 
-          <div className="pt-2">
+          {/* Slide Indicator Progress Bars */}
+          <div className="flex items-center gap-2">
+            {OFFER_SLIDES.map((slide, idx) => (
+              <button
+                key={slide.id}
+                type="button"
+                onClick={() => setCurrentSlide(idx)}
+                className={`h-2 rounded-full transition-all cursor-pointer ${
+                  idx === currentSlide
+                    ? 'w-10 bg-white'
+                    : 'w-2.5 bg-white/30 hover:bg-white/50'
+                }`}
+                aria-label={`Jump to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Next / Previous Arrow Buttons */}
+          <div className="flex items-center gap-2">
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onShopNowClick();
-              }}
               type="button"
-              className="px-8 py-3.5 bg-white text-black hover:bg-black hover:text-white border border-white rounded-md text-xs font-bold tracking-widest uppercase transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-2xl active:scale-95"
+              onClick={handlePrev}
+              className="w-9 h-9 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all cursor-pointer active:scale-90"
+              aria-label="Previous Slide"
+              title="Previous Offer"
             >
-              <span>SHOP NOW</span>
-              <ArrowUpRight size={16} />
+              <ArrowRight size={16} className="rotate-180" />
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              className="w-9 h-9 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all cursor-pointer active:scale-90"
+              aria-label="Next Slide"
+              title="Next Offer"
+            >
+              <ArrowRight size={16} />
             </button>
           </div>
 
         </div>
 
-        <div className="absolute bottom-4 right-6 sm:right-12 hidden md:flex items-center gap-3 text-[10px] font-mono tracking-widest text-gray-400 uppercase pointer-events-none">
-          <span>APNA BRAND</span>
-          <span>•</span>
-          <span>AUTUMN/WINTER 2026</span>
-        </div>
       </div>
     </div>
   );

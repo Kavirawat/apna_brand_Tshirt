@@ -4,7 +4,6 @@ import { ThemeColorProvider } from './context/ThemeColorContext';
 import Navbar from './components/Navbar';
 import HeroBanner from './components/HeroBanner';
 import Bestsellers from './components/Bestsellers';
-import PhilosophyInMotion from './components/PhilosophyInMotion';
 import ShopNowSection from './components/ShopNowSection';
 import MoreThanClothingSection from './components/MoreThanClothingSection';
 import BrandManifestoSection from './components/BrandManifestoSection';
@@ -115,11 +114,6 @@ function Storefront() {
               products={products}
               onSelectProduct={handleSelectProduct}
               onShopNowClick={() => handleSelectNav('all-product')}
-            />
-
-            <PhilosophyInMotion
-              onExploreClick={() => handleSelectNav('all-product')}
-              onSelectProduct={handleSelectProduct}
             />
 
             <ShopNowSection

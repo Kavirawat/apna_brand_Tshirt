@@ -26,7 +26,7 @@ export default function ProductCard({ product, onSelectProduct }) {
 
       <div
         onClick={() => onSelectProduct(product)}
-        className="relative aspect-[3/4] w-full overflow-hidden flex items-center justify-center p-3.5 sm:p-4 cursor-pointer"
+        className="relative aspect-[4/5] w-full overflow-hidden flex items-center justify-center cursor-pointer"
         style={{
           backgroundColor: product.cardBg || (product.primaryColor?.name === 'Off White' ? '#ffffff' : (product.primaryColor?.cardBg || '#121318'))
         }}
@@ -34,11 +34,9 @@ export default function ProductCard({ product, onSelectProduct }) {
         <img
           src={displayImage}
           alt={product.title}
-          className="w-full h-full object-contain drop-shadow-xl transition-transform duration-700 ease-out group-hover:scale-105 z-10"
+          className="w-full h-full object-cover drop-shadow-xl transition-transform duration-700 ease-out group-hover:scale-105"
           loading="lazy"
         />
-
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-[72%] h-3 bg-black/45 blur-md rounded-full pointer-events-none z-0" />
 
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
           {product.badge && (

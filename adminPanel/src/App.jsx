@@ -35,7 +35,6 @@ export default function AdminApp() {
 
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => {
     try {
@@ -866,14 +865,9 @@ export default function AdminApp() {
               alt="Logo"
               className="w-8 h-8 rounded-lg object-cover border border-[#d4af37]/40 shadow-sm"
             />
-            <div className="hidden sm:block">
-              <span className="font-serif text-sm font-black text-white tracking-widest uppercase block leading-none">
-                {settings.storeName || 'APNA BRAND'}
-              </span>
-              <span className="text-[10px] font-mono text-gray-400 block tracking-wider mt-0.5">
-                Phoenix Pro Studio
-              </span>
-            </div>
+            <span className="hidden sm:block font-serif text-sm font-black text-white tracking-widest uppercase leading-none">
+              {settings.storeName || 'APNA BRAND'}
+            </span>
           </div>
 
           <div className="hidden md:flex items-center ml-4 pl-4 border-l border-white/10">
@@ -934,15 +928,6 @@ export default function AdminApp() {
             <span>Storefront</span>
           </a>
 
-          <button
-            type="button"
-            onClick={() => setIsAddModalOpen(true)}
-            className="px-3.5 py-1.5 rounded-xl bg-[#d4af37] hover:bg-yellow-400 text-black text-xs font-black tracking-wider uppercase transition-all flex items-center gap-1.5 shadow-md shadow-[#d4af37]/20 cursor-pointer active:scale-95"
-          >
-            <Plus size={14} />
-            <span className="hidden sm:inline">New Product</span>
-          </button>
-
           <div className="relative">
             <button
               type="button"
@@ -992,44 +977,6 @@ export default function AdminApp() {
                     <span className="block text-[10px] text-gray-500 mt-0.5">Dual engine: Local JSON active</span>
                   </div>
                 </div>
-              </div>
-            )}
-          </div>
-
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setIsProfileMenuOpen(prev => !prev)}
-              className="flex items-center gap-2 p-1.5 pl-2 rounded-xl hover:bg-white/[0.06] transition-colors cursor-pointer"
-            >
-              <div className="w-7 h-7 rounded-lg bg-[#d4af37]/20 border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37] font-bold text-xs">
-                A
-              </div>
-              <ChevronDown size={14} className="text-gray-400 hidden sm:block" />
-            </button>
-
-            {isProfileMenuOpen && (
-              <div className="absolute right-0 mt-2 w-52 bg-[#0e1320] border border-white/15 rounded-2xl p-2.5 shadow-2xl z-50 animate-fadeIn">
-                <div className="px-3 py-2 border-b border-white/10 mb-1.5">
-                  <span className="text-xs font-bold text-white block">Superuser Admin</span>
-                  <span className="text-[10px] font-mono text-emerald-400 block">● Session Active</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => { setActiveTab('settings'); setIsProfileMenuOpen(false); }}
-                  className="w-full text-left px-3 py-2 rounded-xl text-xs text-gray-300 hover:text-white hover:bg-white/5 flex items-center gap-2 cursor-pointer"
-                >
-                  <Settings size={14} />
-                  <span>Store Settings</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => { setIsProfileMenuOpen(false); handleAdminLogout(); }}
-                  className="w-full text-left px-3 py-2 rounded-xl text-xs text-red-400 hover:bg-red-500/10 flex items-center gap-2 mt-1 cursor-pointer"
-                >
-                  <LogOut size={14} />
-                  <span>Log Out</span>
-                </button>
               </div>
             )}
           </div>
@@ -1095,16 +1042,6 @@ export default function AdminApp() {
           </div>
 
           <div className="pt-4 border-t border-[#1c2638] w-full space-y-2">
-            {!isSidebarCollapsed ? (
-              <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between text-xs">
-                <div>
-                  <span className="text-white font-bold block truncate">{settings.storeName || 'APNA BRAND'}</span>
-                  <span className="text-[10px] font-mono text-gray-500">Node.js + Express Active</span>
-                </div>
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50" />
-              </div>
-            ) : null}
-
             <button
               type="button"
               onClick={handleAdminLogout}
@@ -1694,13 +1631,6 @@ export default function AdminApp() {
                   </p>
                 </div>
 
-                <button
-                  onClick={() => setIsAddModalOpen(true)}
-                  className="px-4 py-2.5 rounded-xl bg-[#d4af37] hover:bg-yellow-400 text-black text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#d4af37]/20"
-                >
-                  <Plus size={15} />
-                  <span>Add New Product</span>
-                </button>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">

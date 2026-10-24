@@ -225,7 +225,7 @@ export default function CollectionsAll({ products, onSelectProduct }) {
               >
 
                 <div
-                  className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden shadow-xl transition-all duration-500 flex items-center justify-center p-4 sm:p-5 group-hover:-translate-y-1 group-hover:shadow-2xl"
+                  className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden shadow-xl transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl"
                   style={{
                     backgroundColor: product.cardBg || (product.primaryColor?.name === 'Off White' ? '#ffffff' : '#18191f')
                   }}
@@ -233,11 +233,9 @@ export default function CollectionsAll({ products, onSelectProduct }) {
                   <img
                     src={isHovered && product.images.length > 1 ? secondaryImg : primaryImg}
                     alt={product.title}
-                    className="w-full h-full object-contain drop-shadow-2xl transition-transform duration-500 ease-out transform group-hover:scale-[1.04] z-10"
+                    className="w-full h-full object-cover transition-transform duration-500 ease-out transform group-hover:scale-105"
                     loading="lazy"
                   />
-
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[72%] h-3.5 bg-black/45 blur-md rounded-full pointer-events-none z-0" />
 
                   {product.remainingUnits !== undefined && (
                     <div className="absolute top-2.5 left-2.5 bg-black/75 backdrop-blur-md px-2 py-0.5 rounded text-[9px] font-mono font-bold tracking-wider text-white border border-white/10">

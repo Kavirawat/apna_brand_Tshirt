@@ -41,10 +41,10 @@ export default function Bestsellers({ products, onSelectProduct, onShopNowClick 
             >
 
               <div
-                className={`relative aspect-[3/4] w-full rounded-2xl overflow-hidden transition-all duration-500 flex items-center justify-center p-4 sm:p-5 group-hover:-translate-y-1.5 ${
+                className={`relative aspect-[4/5] w-full rounded-2xl overflow-hidden transition-all duration-500 group-hover:-translate-y-1.5 ${
                   isWhiteCard
-                    ? 'border border-gray-200/90 shadow-xl shadow-black/[0.06] group-hover:shadow-2xl group-hover:shadow-black/10'
-                    : 'border border-white/10 shadow-xl shadow-black/30 group-hover:shadow-2xl group-hover:shadow-black/50'
+                    ? 'border border-gray-200 shadow-xl shadow-black/[0.06] group-hover:shadow-2xl group-hover:shadow-black/15'
+                    : 'border border-white/10 shadow-xl shadow-black/40 group-hover:shadow-2xl group-hover:shadow-black/60'
                 }`}
                 style={{
                   backgroundColor: product.cardBg || '#18191f'
@@ -53,11 +53,9 @@ export default function Bestsellers({ products, onSelectProduct, onShopNowClick 
                 <img
                   src={product.images[0]}
                   alt={product.title}
-                  className="w-full h-full object-contain drop-shadow-2xl transition-transform duration-500 ease-out transform group-hover:scale-[1.04] z-10"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   loading="lazy"
                 />
-
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[72%] h-3.5 bg-black/45 blur-md rounded-full pointer-events-none z-0" />
 
                 {product.remainingUnits && (
                   <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-full text-[9px] font-mono font-bold tracking-wider text-white border border-white/10 z-20">
