@@ -76,13 +76,13 @@ export default function ShopNowSection({ products, onSelectProduct, onViewAllCli
                 onClick={() => onSelectProduct && onSelectProduct(prod)}
                 onMouseEnter={() => setHoveredProductId(prod.id)}
                 onMouseLeave={() => setHoveredProductId(null)}
-                className="cursor-pointer group flex flex-col rounded-3xl bg-white border border-gray-200 shadow-2xl hover:-translate-y-3 hover:shadow-[0_25px_50px_rgba(0,0,0,0.6)] transition-all duration-500 overflow-hidden justify-between"
+                className="cursor-pointer group flex flex-col rounded-3xl bg-[#163643] border border-[#224b5c] shadow-2xl hover:-translate-y-3 hover:shadow-[0_25px_50px_rgba(10,25,33,0.85)] hover:border-[#f0aa93]/60 transition-all duration-500 overflow-hidden justify-between"
               >
 
                 {/* Upper Image */}
                 <div
-                  className="relative aspect-[4/5] w-full overflow-hidden transition-all duration-500 bg-gray-50"
-                  style={{ backgroundColor: prod.cardBg || '#f8f8f8' }}
+                  className="relative aspect-[4/5] w-full overflow-hidden transition-all duration-500 bg-[#122731]"
+                  style={{ backgroundColor: prod.cardBg || '#183c4b' }}
                 >
                   <img
                     src={prod.image || prod.images?.[0]}
@@ -92,39 +92,39 @@ export default function ShopNowSection({ products, onSelectProduct, onViewAllCli
                   />
                 </div>
 
-                {/* Lower Details: White Card + Black Font & Price */}
-                <div className="p-4 sm:p-5 flex flex-col justify-between flex-grow space-y-3 bg-white text-black">
+                {/* Lower Details: Dark Teal Card + White Font & Peach Price */}
+                <div className="p-4 sm:p-5 flex flex-col justify-between flex-grow space-y-3 bg-[#163643]">
                   <div className="space-y-1">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-gray-500 block font-semibold">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-gray-400 block font-semibold">
                       {prod.category || 'Oversized Tee'}
                     </span>
                     <h3
-                      className={`text-sm sm:text-base font-bold text-black uppercase tracking-tight line-clamp-1 transition-colors ${
-                        isHovered ? 'text-gray-600' : ''
+                      className={`text-sm sm:text-base font-bold text-white uppercase tracking-tight line-clamp-1 transition-colors ${
+                        isHovered ? 'text-[#f0aa93]' : ''
                       }`}
                     >
                       {prod.title}
                     </h3>
-                    <p className="text-base sm:text-lg font-black text-black font-mono pt-1">
+                    <p className="text-base sm:text-lg font-black text-[#f0aa93] font-mono pt-1">
                       Rs. {prod.price?.toLocaleString('en-IN') || '5,450'}
                     </p>
                   </div>
 
                   {/* Rating in Stars */}
-                  <div className="pt-2 border-t border-gray-100 flex items-center justify-between">
+                  <div className="pt-2 border-t border-[#224b5c] flex items-center justify-between">
                     <div className="flex items-center gap-1.5">
-                      <div className="flex text-amber-500 text-xs tracking-wider">
+                      <div className="flex text-amber-400 text-xs tracking-wider">
                         <span>★</span>
                         <span>★</span>
                         <span>★</span>
                         <span>★</span>
                         <span>★</span>
                       </div>
-                      <span className="text-xs font-bold text-black font-mono">4.9</span>
-                      <span className="text-[11px] text-gray-500">(72)</span>
+                      <span className="text-xs font-bold text-white font-mono">4.9</span>
+                      <span className="text-[11px] text-gray-400">(72)</span>
                     </div>
 
-                    <span className="text-[11px] font-bold text-black uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                    <span className="text-[11px] font-bold text-[#f0aa93] uppercase tracking-wider group-hover:translate-x-1 transition-transform">
                       View ➔
                     </span>
                   </div>
