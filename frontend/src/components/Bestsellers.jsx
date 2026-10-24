@@ -28,7 +28,7 @@ export default function Bestsellers({ products, onSelectProduct, onShopNowClick 
         </button>
       </div>
 
-      {/* 3D Card Grid: White Background + Black Font */}
+      {/* 3D Card Grid: Contrasting Dark Teal Cards on White Background */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
         {bestsellerItems.map((product) => {
           const isHovered = hoveredId === product.id;
@@ -39,14 +39,14 @@ export default function Bestsellers({ products, onSelectProduct, onShopNowClick 
               onClick={() => onSelectProduct(product)}
               onMouseEnter={() => setHoveredId(product.id)}
               onMouseLeave={() => setHoveredId(null)}
-              className="cursor-pointer group flex flex-col rounded-3xl bg-white border border-gray-200 shadow-xl hover:-translate-y-3 hover:shadow-2xl transition-all duration-500 overflow-hidden justify-between"
+              className="cursor-pointer group flex flex-col rounded-3xl bg-[#163643] border border-[#224b5c] shadow-2xl hover:-translate-y-3 hover:shadow-[0_20px_45px_rgba(18,39,49,0.35)] hover:border-[#f0aa93] transition-all duration-500 overflow-hidden justify-between"
             >
 
               {/* Upper Image (Fitted seamlessly as 4:5 with zero padding) */}
               <div
-                className="relative aspect-[4/5] w-full overflow-hidden transition-all duration-500 bg-gray-50"
+                className="relative aspect-[4/5] w-full overflow-hidden transition-all duration-500 bg-[#122731]"
                 style={{
-                  backgroundColor: product.cardBg || '#f8f8f8'
+                  backgroundColor: product.cardBg || '#183c4b'
                 }}
               >
                 <img
@@ -69,22 +69,22 @@ export default function Bestsellers({ products, onSelectProduct, onShopNowClick 
                 )}
               </div>
 
-              {/* Lower Details: Name & Price in Black Font, and Rating Stars */}
-              <div className="p-4 sm:p-5 flex flex-col justify-between flex-grow space-y-3">
+              {/* Lower Details: White Font & Peach Accents */}
+              <div className="p-4 sm:p-5 flex flex-col justify-between flex-grow space-y-3 bg-[#163643]">
 
                 <div className="space-y-1">
-                  <span className="font-sanskrit text-xs text-gray-500 block font-semibold tracking-wide">
+                  <span className="font-sanskrit text-xs text-[#f0aa93] block font-semibold tracking-wide">
                     {product.sanskritTitle || product.title}
                   </span>
                   <h3
-                    className={`text-sm sm:text-base font-bold text-black uppercase tracking-tight line-clamp-1 transition-colors ${
-                      isHovered ? 'text-gray-600' : ''
+                    className={`text-sm sm:text-base font-bold text-white uppercase tracking-tight line-clamp-1 transition-colors ${
+                      isHovered ? 'text-[#f0aa93]' : ''
                     }`}
                   >
                     {product.title}
                   </h3>
                   <div className="flex items-baseline gap-2 pt-1">
-                    <span className="text-base sm:text-lg font-black text-black font-mono">
+                    <span className="text-base sm:text-lg font-black text-white font-mono">
                       Rs. {product.price?.toLocaleString('en-IN') || '5,450'}
                     </span>
                     {product.compareAtPrice && product.compareAtPrice > product.price && (
@@ -95,25 +95,25 @@ export default function Bestsellers({ products, onSelectProduct, onShopNowClick 
                   </div>
                 </div>
 
-                {/* Rating in Stars (Black Score Text) */}
-                <div className="pt-2 border-t border-gray-100 flex items-center justify-between">
+                {/* Rating in Stars */}
+                <div className="pt-2 border-t border-[#224b5c] flex items-center justify-between">
                   <div className="flex items-center gap-1.5">
-                    <div className="flex text-amber-500 text-xs tracking-wider">
+                    <div className="flex text-amber-400 text-xs tracking-wider">
                       <span>★</span>
                       <span>★</span>
                       <span>★</span>
                       <span>★</span>
                       <span>★</span>
                     </div>
-                    <span className="text-xs font-bold text-black font-mono">
+                    <span className="text-xs font-bold text-white font-mono">
                       {product.rating || '4.9'}
                     </span>
-                    <span className="text-[11px] text-gray-500 font-medium">
+                    <span className="text-[11px] text-gray-400 font-medium">
                       ({product.reviewsCount || 85})
                     </span>
                   </div>
 
-                  <span className="text-[11px] font-bold text-black uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                  <span className="text-[11px] font-bold text-[#f0aa93] uppercase tracking-wider group-hover:translate-x-1 transition-transform">
                     View ➔
                   </span>
                 </div>

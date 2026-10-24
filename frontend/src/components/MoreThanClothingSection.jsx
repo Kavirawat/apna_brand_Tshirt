@@ -77,17 +77,17 @@ export default function MoreThanClothingSection({ onExploreClick }) {
           THE FOUR PILLARS
         </div>
 
-        {/* 4 Pillars Grid: White Card Background + Black Font */}
+        {/* 4 Pillars Grid: Contrasting Dark Teal Cards on White Background */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
           {FOUR_PILLARS.map((pillar) => (
             <div
               key={pillar.pillarNum}
               onClick={onExploreClick}
-              className="flex flex-col group cursor-pointer rounded-3xl bg-white border border-gray-200 shadow-xl hover:-translate-y-3 hover:shadow-2xl transition-all duration-500 overflow-hidden justify-between"
+              className="flex flex-col group cursor-pointer rounded-3xl bg-[#163643] border border-[#224b5c] shadow-2xl hover:-translate-y-3 hover:shadow-[0_20px_45px_rgba(18,39,49,0.35)] hover:border-[#f0aa93] transition-all duration-500 overflow-hidden justify-between"
             >
 
               {/* Upper Image Container */}
-              <div className="relative aspect-[4/5] w-full overflow-hidden bg-gray-50">
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#122731]">
 
                 <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[9px] font-mono tracking-widest text-white uppercase font-bold">
                   {pillar.categoryTag}
@@ -112,21 +112,21 @@ export default function MoreThanClothingSection({ onExploreClick }) {
                 </div>
               </div>
 
-              {/* Lower Details: Black Font */}
-              <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
+              {/* Lower Details: White Font & Peach Accents */}
+              <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3 bg-[#163643]">
                 <div>
-                  <span className="text-[10px] font-mono tracking-wider text-gray-500 uppercase block font-bold">
+                  <span className="text-[10px] font-mono tracking-wider text-[#f0aa93] uppercase block font-bold">
                     {pillar.numberTitle}
                   </span>
-                  <h4 className="text-sm sm:text-base font-bold uppercase text-black tracking-tight mt-1 leading-snug group-hover:text-gray-600 transition-colors">
+                  <h4 className="text-sm sm:text-base font-bold uppercase text-white tracking-tight mt-1 leading-snug group-hover:text-[#f0aa93] transition-colors">
                     {pillar.heading}
                   </h4>
-                  <p className="text-xs text-gray-600 font-normal leading-relaxed mt-1.5">
+                  <p className="text-xs text-gray-300 font-normal leading-relaxed mt-1.5">
                     {pillar.desc}
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-gray-100 text-[11px] font-bold uppercase tracking-wider text-black group-hover:translate-x-1 transition-transform flex items-center justify-between">
+                <div className="pt-2 border-t border-[#224b5c] text-[11px] font-bold uppercase tracking-wider text-[#f0aa93] group-hover:translate-x-1 transition-transform flex items-center justify-between">
                   <span>{pillar.footerTag}</span>
                   <ArrowUpRight size={14} />
                 </div>

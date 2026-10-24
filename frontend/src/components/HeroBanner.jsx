@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  ArrowLeft,
-  ArrowRight,
   ArrowUpRight,
   Copy,
   Check,
@@ -14,7 +12,7 @@ import {
 import { useCart } from '../context/CartContext';
 
 const HERO_SLIDES = [
-  // 1. 3D PRICE TAG DISCOUNT COMPOSITION (60% OFF)
+  // 1. 3D PRICE TAG DISCOUNT COMPOSITION 1 (60% OFF)
   {
     type: 'tag_composition',
     id: 'tag-comp-60',
@@ -38,7 +36,7 @@ const HERO_SLIDES = [
     floatingPill: 'SAVE 60%'
   },
 
-  // 2. BRAND FILM VIDEO (THE PHILOSOPHY)
+  // 2. BRAND FILM VIDEO 1 (THE PHILOSOPHY)
   {
     type: 'video',
     id: 'video-1',
@@ -51,6 +49,84 @@ const HERO_SLIDES = [
     badge: '🎬 APNA BRAND FILM • 01',
     ctaText: 'EXPLORE PHILOSOPHY',
     accentColor: '#f0aa93'
+  },
+
+  // 3. 3D PRICE TAG DISCOUNT COMPOSITION 2 (30% OFF)
+  {
+    type: 'tag_composition',
+    id: 'tag-comp-30',
+    discountNum: '30%',
+    discountUnit: 'OFF',
+    tagSubtitle: 'SPECIAL 30% DROP',
+    tagCategory: 'PRICE TAG COMPOSITION',
+    headline: 'FLAT 30% OFF NEW DROPS',
+    subheadline: 'LIMITED RUN OF 50 PIECES • BIO-WASHED',
+    description:
+      'Ribbed lycra collar retaining architectural form for 50+ washes. Pure non-dual Upanishadic art you can wear on the street with supreme comfort.',
+    couponCode: 'VEDA30',
+    ctaText: 'CLAIM 30% OFF NOW',
+    accentColor: '#38bdf8',
+    glyph: 'अहं ब्रह्मास्मि',
+    secondaryGlyph: 'INDRA & PARSHURAM • 280 GSM',
+    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #204e60 0%, #143542 55%, #0b1f28 100%)',
+    tagBgGradient: 'linear-gradient(145deg, #38bdf8 0%, #0284c7 50%, #034870 100%)',
+    ringColor: '#a5f3fc',
+    glowColor: 'rgba(56, 189, 248, 0.25)',
+    floatingPill: 'SAVE 30%'
+  },
+
+  // 4. BRAND FILM VIDEO 2 (THE SILHOUETTE)
+  {
+    type: 'video',
+    id: 'video-2',
+    category: 'THE SILHOUETTE',
+    videoSrc: 'https://cdn.shopify.com/videos/c/o/v/461373431152412b8cceadbe914c70fa.mp4',
+    title: 'ARCHITECTURAL FORM',
+    subtitle: 'OVERSIZED EXPRESSION',
+    description:
+      'A statement in silhouette. Drop-shoulder cut engineered with precision for a timeless, powerful modern street drape.',
+    badge: '🎬 APNA BRAND FILM • 02',
+    ctaText: 'SHOP SILHOUETTES',
+    accentColor: '#38bdf8'
+  },
+
+  // 5. 3D PRICE TAG DISCOUNT COMPOSITION 3 (40% OFF)
+  {
+    type: 'tag_composition',
+    id: 'tag-comp-40',
+    discountNum: '40%',
+    discountUnit: 'OFF',
+    tagSubtitle: 'FESTIVAL SPECIAL',
+    tagCategory: 'PRICE TAG COMPOSITION',
+    headline: 'FLAT 40% OFF CELEBRATION',
+    subheadline: 'SACRED LUXURY ROTATION • ZERO DELIVERY',
+    description:
+      'Curate your sacred rotation with signature heavyweight hoodies and tees. Automatic privilege applied with zero delivery charges across India.',
+    couponCode: 'APNA40',
+    ctaText: 'CLAIM 40% OFF NOW',
+    accentColor: '#34d399',
+    glyph: 'सत्यमेव जयते',
+    secondaryGlyph: 'SOVEREIGN DRAPE • BIO-PRESHRUNK',
+    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #1e4f3d 0%, #123327 55%, #0a1e17 100%)',
+    tagBgGradient: 'linear-gradient(145deg, #34d399 0%, #059669 50%, #064e3b 100%)',
+    ringColor: '#6ee7b7',
+    glowColor: 'rgba(52, 211, 153, 0.25)',
+    floatingPill: 'SAVE 40%'
+  },
+
+  // 6. BRAND FILM VIDEO 3 (THE CRAFT & ORIGIN)
+  {
+    type: 'video',
+    id: 'video-3',
+    category: 'THE CRAFT & ORIGIN',
+    videoSrc: 'https://cdn.shopify.com/videos/c/o/v/18aee6f54d344f8ba3f668dd064e71f4.mp4',
+    title: 'SUBSTANTIAL FLEECE',
+    subtitle: 'ROOTED IN BHARAT',
+    description:
+      'Heavyweight 340-400 GSM brushed loopback French Terry. Built for cold resilience and non-dual meditative stillness.',
+    badge: '🎬 APNA BRAND FILM • 03',
+    ctaText: 'EXPLORE FLEECE',
+    accentColor: '#34d399'
   }
 ];
 
@@ -64,11 +140,11 @@ export default function HeroBanner({ onShopNowClick }) {
 
   const active = HERO_SLIDES[currentSlide];
 
-  // Auto slide interval alternating offer banner & brand film video
+  // Auto slide interval alternating offer banners & brand film videos automatically
   useEffect(() => {
     if (isPaused) return;
 
-    const slideDuration = active.type === 'video' ? 7500 : 6000;
+    const slideDuration = active.type === 'video' ? 7500 : 5500;
 
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
@@ -110,16 +186,6 @@ export default function HeroBanner({ onShopNowClick }) {
     setTimeout(() => setCopiedCode(false), 2200);
   };
 
-  const handlePrev = (e) => {
-    e.stopPropagation();
-    setCurrentSlide((prev) => (prev === 0 ? HERO_SLIDES.length - 1 : prev - 1));
-  };
-
-  const handleNext = (e) => {
-    e.stopPropagation();
-    setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-  };
-
   const toggleSound = (e) => {
     e.stopPropagation();
     if (videoRef.current) {
@@ -132,10 +198,10 @@ export default function HeroBanner({ onShopNowClick }) {
     <div
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className="relative w-full overflow-hidden select-none border-b border-[#224b5c] group"
+      className="relative w-full overflow-hidden select-none border-b border-[#224b5c]"
     >
       {/* ─────────────────────────────────────────────────────────────
-          1. BRAND FILM VIDEO SLIDE
+          1. BRAND FILM VIDEO SLIDES
          ───────────────────────────────────────────────────────────── */}
       {active.type === 'video' ? (
         <div className="relative min-h-[70vh] sm:min-h-[82vh] flex items-end justify-start p-6 sm:p-12 lg:p-16 bg-black">
@@ -181,7 +247,7 @@ export default function HeroBanner({ onShopNowClick }) {
                 <span>BHARAT CAMPAIGN • {active.category}</span>
               </div>
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600/90 text-white font-mono text-[10px] font-black tracking-widest uppercase shadow-lg border border-red-400/40">
-                <span>🔥 60% OFF • USE CODE DHARM60</span>
+                <span>🔥 SPECIAL DROP • DHARM60</span>
               </div>
             </div>
 
@@ -213,7 +279,7 @@ export default function HeroBanner({ onShopNowClick }) {
         </div>
       ) : (
         /* ─────────────────────────────────────────────────────────────
-            2. 3D SALES DISCOUNT PRICE TAG COMPOSITION SLIDE
+            2. 3D SALES DISCOUNT PRICE TAG COMPOSITION SLIDES
            ───────────────────────────────────────────────────────────── */
         <div
           className="relative px-5 sm:px-10 lg:px-16 py-14 sm:py-20 lg:py-24 transition-all duration-700"
@@ -272,11 +338,14 @@ export default function HeroBanner({ onShopNowClick }) {
                   {/* Clean Coupon Pill Box */}
                   <div className="inline-flex items-center gap-3 bg-[#0d1e26]/90 hover:bg-[#0d1e26] border border-[#f0aa93]/40 rounded-full pl-5 pr-2 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.6)] transition-all group backdrop-blur-xl">
                     <div className="flex items-center gap-2.5">
-                      <Tag size={15} className="text-[#f0aa93]" />
+                      <Tag size={15} style={{ color: active.accentColor }} />
                       <span className="text-[10px] font-mono tracking-widest text-gray-300 font-bold uppercase">
                         COUPON
                       </span>
-                      <span className="font-mono text-sm sm:text-base font-black tracking-wider text-[#f0aa93] px-3 py-1 rounded-full bg-[#163643] border border-[#224b5c] shadow-inner">
+                      <span
+                        className="font-mono text-sm sm:text-base font-black tracking-wider px-3 py-1 rounded-full bg-[#163643] border border-[#224b5c] shadow-inner"
+                        style={{ color: active.accentColor }}
+                      >
                         {active.couponCode}
                       </span>
                     </div>
@@ -284,7 +353,8 @@ export default function HeroBanner({ onShopNowClick }) {
                     <button
                       type="button"
                       onClick={() => handleCopy(active.couponCode)}
-                      className="px-5 py-2.5 rounded-full bg-[#f0aa93] hover:bg-white text-[#122731] font-black text-xs uppercase tracking-wider transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-md active:scale-95"
+                      className="px-5 py-2.5 rounded-full text-[#122731] font-black text-xs uppercase tracking-wider transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-md active:scale-95"
+                      style={{ backgroundColor: active.accentColor }}
                       title="Copy coupon code and apply to cart"
                     >
                       {copiedCode ? (
@@ -333,8 +403,11 @@ export default function HeroBanner({ onShopNowClick }) {
                 />
 
                 {/* Floating Discount Capsule Pill */}
-                <div className="absolute -top-4 right-2 z-30 px-3.5 py-1.5 rounded-full bg-white text-[#122731] font-black font-mono text-xs uppercase tracking-wider shadow-2xl border-2 border-[#f0aa93] flex items-center gap-1.5 transform rotate-6 hover:rotate-0 transition-transform">
-                  <Sparkles size={13} className="text-[#e07a5f] fill-[#e07a5f]" />
+                <div
+                  className="absolute -top-4 right-2 z-30 px-3.5 py-1.5 rounded-full bg-white text-[#122731] font-black font-mono text-xs uppercase tracking-wider shadow-2xl border-2 flex items-center gap-1.5 transform rotate-6 hover:rotate-0 transition-transform"
+                  style={{ borderColor: active.accentColor }}
+                >
+                  <Sparkles size={13} style={{ color: active.accentColor }} />
                   <span>{active.floatingPill}</span>
                 </div>
 
@@ -418,27 +491,6 @@ export default function HeroBanner({ onShopNowClick }) {
           </div>
         </div>
       )}
-
-      {/* Floating subtle side navigation arrows (visible on hover) */}
-      <button
-        type="button"
-        onClick={handlePrev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-90 hover:opacity-100 hover:bg-[#f0aa93] hover:text-[#122731] transition-all duration-300 z-30 cursor-pointer shadow-2xl active:scale-90"
-        aria-label="Previous Slide"
-        title="Previous"
-      >
-        <ArrowLeft size={16} />
-      </button>
-
-      <button
-        type="button"
-        onClick={handleNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-90 hover:opacity-100 hover:bg-[#f0aa93] hover:text-[#122731] transition-all duration-300 z-30 cursor-pointer shadow-2xl active:scale-90"
-        aria-label="Next Slide"
-        title="Next"
-      >
-        <ArrowRight size={16} />
-      </button>
     </div>
   );
 }
