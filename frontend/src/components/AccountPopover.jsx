@@ -104,6 +104,19 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
     }
   }, [currentUser]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
   const resetFormState = () => {
     setErrorMessage('');
     setSuccessMessage('');
@@ -261,11 +274,11 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm sm:bg-transparent sm:backdrop-blur-none sm:p-0 sm:absolute sm:inset-auto sm:right-0 sm:top-12 sm:block animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-fadeIn"
       onClick={onClose}
     >
       <div
-        className={`w-full max-w-[390px] sm:w-[390px] rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] border p-5 sm:p-6 relative mx-auto max-h-[85vh] overflow-y-auto scrollbar-thin select-none transition-colors duration-300 ${
+        className={`w-full max-w-[390px] rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] border p-5 sm:p-6 relative mx-auto max-h-[85vh] overflow-y-auto scrollbar-thin select-none transition-colors duration-300 ${
           isLight
             ? 'bg-white border-gray-200 text-gray-900 shadow-xl'
             : 'bg-[#163643] border-[#224b5c] text-white shadow-2xl'
@@ -274,20 +287,29 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
       >
 
         {/* Modal Header */}
-        <div className={`relative flex items-center justify-center pb-3.5 mb-3 border-b ${
+        <div className={`relative flex items-center justify-between pb-3.5 mb-3 border-b ${
           isLight ? 'border-gray-200' : 'border-[#224b5c]'
         }`}>
+          <div className="w-8" />
           <h3 className={`font-bold text-[15px] tracking-tight text-center uppercase font-sans ${
             isLight ? 'text-gray-900' : 'text-white'
           }`}>
             {currentUser ? 'My Profile' : mode === 'login' ? 'Sign In' : 'Create Account'}
           </h3>
           <button
-            onClick={onClose}
-            className="absolute right-0 top-0 p-1.5 rounded-full text-gray-400 hover:text-[#f0aa93] hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors cursor-pointer ${
+              isLight
+                ? 'text-gray-400 hover:text-black hover:bg-gray-100'
+                : 'text-gray-400 hover:text-[#f0aa93] hover:bg-white/10'
+            }`}
             aria-label="Close"
           >
-            <X size={16} />
+            <X size={18} />
           </button>
         </div>
 
