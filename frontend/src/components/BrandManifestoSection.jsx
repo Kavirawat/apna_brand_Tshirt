@@ -3,7 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 
 export default function BrandManifestoSection({ onDiscoverClick }) {
   return (
-    <section className="bg-[#122832] text-white py-16 sm:py-24 px-4 sm:px-8 lg:px-14 border-t border-[#224b5c] select-none">
+    <section className="w-full bg-[#122731] text-white py-16 sm:py-24 px-4 sm:px-8 lg:px-14 border-t border-[#224b5c] select-none">
       <div className="max-w-[1360px] mx-auto">
 
         <div className="flex items-center justify-between text-[11px] font-mono tracking-widest text-gray-400 uppercase pb-4 mb-8 border-b border-white/10">

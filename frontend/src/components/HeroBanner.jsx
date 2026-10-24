@@ -1,26 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
+  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   Copy,
   Check,
-  Flame,
   Volume2,
   VolumeX,
   Sparkles,
-  Truck,
-  ShieldCheck,
-  RotateCcw,
   Tag,
-  Film,
-  Zap,
-  Percent,
-  Star
+  Film
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const HERO_SLIDES = [
-  // 1. 3D PRICE TAG DISCOUNT COMPOSITION 1 (60% OFF)
+  // 1. 3D PRICE TAG DISCOUNT COMPOSITION (60% OFF)
   {
     type: 'tag_composition',
     id: 'tag-comp-60',
@@ -28,8 +22,6 @@ const HERO_SLIDES = [
     discountUnit: 'OFF',
     tagSubtitle: 'SPECIAL DISCOUNT',
     tagCategory: 'PRICE TAG COMPOSITION',
-    badge: '🔥 3D SALES DISCOUNT • 60% MEGA SAVINGS',
-    badgeColor: 'border-[#f0aa93]/50 bg-[#f0aa93]/20 text-[#f0aa93]',
     headline: 'FLAT 60% OFF SITEWIDE',
     subheadline: 'SACRED VEDIC STREETWEAR • 3D PRICE DROP',
     description:
@@ -46,7 +38,7 @@ const HERO_SLIDES = [
     floatingPill: 'SAVE 60%'
   },
 
-  // 2. BRAND FILM VIDEO 1 (THE PHILOSOPHY)
+  // 2. BRAND FILM VIDEO (THE PHILOSOPHY)
   {
     type: 'video',
     id: 'video-1',
@@ -58,88 +50,6 @@ const HERO_SLIDES = [
       'Ancient Indian thought expressed through contemporary luxury streetwear. Architectural boxy form built with reverence in Bharat.',
     badge: '🎬 APNA BRAND FILM • 01',
     ctaText: 'EXPLORE PHILOSOPHY',
-    accentColor: '#f0aa93'
-  },
-
-  // 3. 3D PRICE TAG DISCOUNT COMPOSITION 2 (50% OFF)
-  {
-    type: 'tag_composition',
-    id: 'tag-comp-50',
-    discountNum: '50%',
-    discountUnit: 'OFF',
-    tagSubtitle: 'VAULT PRIVILEGE',
-    tagCategory: 'FLASH SALE COMPOSITION',
-    badge: '⚡ FLASH PRICE TAG • 50% OFF ALL ORDERS',
-    badgeColor: 'border-cyan-400/50 bg-cyan-500/20 text-cyan-300',
-    headline: 'EXCLUSIVE 50% OFF DROP',
-    subheadline: 'LIMITED RUN OF 50 PIECES PER DROP • BIO-WASHED',
-    description:
-      'Ribbed lycra collar retaining architectural form for 50+ washes. Pure non-dual Upanishadic art you can wear on the street.',
-    couponCode: 'VEDA50',
-    ctaText: 'EXPLORE VAULT DROPS',
-    accentColor: '#38bdf8',
-    glyph: 'अहं ब्रह्मास्मि',
-    secondaryGlyph: 'INDRA & PARSHURAM • 280 GSM',
-    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #25586b 0%, #163a48 55%, #0d222b 100%)',
-    tagBgGradient: 'linear-gradient(145deg, #38bdf8 0%, #0284c7 50%, #034870 100%)',
-    ringColor: '#a5f3fc',
-    glowColor: 'rgba(56, 189, 248, 0.25)',
-    floatingPill: 'FLASH 50%'
-  },
-
-  // 4. BRAND FILM VIDEO 2 (THE SILHOUETTE)
-  {
-    type: 'video',
-    id: 'video-2',
-    category: 'THE SILHOUETTE',
-    videoSrc: 'https://cdn.shopify.com/videos/c/o/v/461373431152412b8cceadbe914c70fa.mp4',
-    title: 'ARCHITECTURAL FORM',
-    subtitle: 'OVERSIZED EXPRESSION',
-    description:
-      'A statement in silhouette. Drop-shoulder cut engineered with precision for a timeless, powerful modern street drape.',
-    badge: '🎬 APNA BRAND FILM • 02',
-    ctaText: 'SHOP SILHOUETTES',
-    accentColor: '#f0aa93'
-  },
-
-  // 5. 3D PRICE TAG DISCOUNT COMPOSITION 3 (BUY 2 GET 40% OFF)
-  {
-    type: 'tag_composition',
-    id: 'tag-comp-40',
-    discountNum: '40%',
-    discountUnit: 'OFF',
-    tagSubtitle: 'BUNDLE SPECIAL',
-    tagCategory: 'DOUBLE PRIVILEGE',
-    badge: '👑 APNA BRAND BUNDLE • 40% DISCOUNT',
-    badgeColor: 'border-emerald-400/50 bg-emerald-500/20 text-emerald-300',
-    headline: 'BUY ANY 2 — GET 40% OFF',
-    subheadline: 'MIX & MATCH TEES, DROP HOODIES & SWEATSHIRTS',
-    description:
-      'Curate your sacred rotation. Automatic discount applied at checkout with zero delivery charges across all 26,000+ PIN codes.',
-    couponCode: 'APNA40',
-    ctaText: 'BUILD YOUR BUNDLE',
-    accentColor: '#34d399',
-    glyph: 'सत्यमेव जयते',
-    secondaryGlyph: 'SOVEREIGN DRAPE • BIO-PRESHRUNK',
-    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #1e4f3d 0%, #123327 55%, #0a1e17 100%)',
-    tagBgGradient: 'linear-gradient(145deg, #34d399 0%, #059669 50%, #064e3b 100%)',
-    ringColor: '#6ee7b7',
-    glowColor: 'rgba(52, 211, 153, 0.25)',
-    floatingPill: 'BUY 2 SAVE 40%'
-  },
-
-  // 6. BRAND FILM VIDEO 3 (THE CRAFT & ORIGIN)
-  {
-    type: 'video',
-    id: 'video-3',
-    category: 'THE CRAFT & ORIGIN',
-    videoSrc: 'https://cdn.shopify.com/videos/c/o/v/18aee6f54d344f8ba3f668dd064e71f4.mp4',
-    title: 'SUBSTANTIAL FLEECE',
-    subtitle: 'ROOTED IN BHARAT',
-    description:
-      'Heavyweight 340-400 GSM brushed loopback French Terry. Built for cold resilience and non-dual meditative stillness.',
-    badge: '🎬 APNA BRAND FILM • 03',
-    ctaText: 'EXPLORE FLEECE',
     accentColor: '#f0aa93'
   }
 ];
@@ -154,11 +64,11 @@ export default function HeroBanner({ onShopNowClick }) {
 
   const active = HERO_SLIDES[currentSlide];
 
-  // Auto slide interval
+  // Auto slide interval alternating offer banner & brand film video
   useEffect(() => {
     if (isPaused) return;
 
-    const slideDuration = active.type === 'video' ? 7000 : 5500;
+    const slideDuration = active.type === 'video' ? 7500 : 6000;
 
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
@@ -222,10 +132,10 @@ export default function HeroBanner({ onShopNowClick }) {
     <div
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className="relative w-full overflow-hidden select-none border-b border-[#224b5c]"
+      className="relative w-full overflow-hidden select-none border-b border-[#224b5c] group"
     >
       {/* ─────────────────────────────────────────────────────────────
-          1. BRAND FILM VIDEO SLIDES
+          1. BRAND FILM VIDEO SLIDE
          ───────────────────────────────────────────────────────────── */}
       {active.type === 'video' ? (
         <div className="relative min-h-[70vh] sm:min-h-[82vh] flex items-end justify-start p-6 sm:p-12 lg:p-16 bg-black">
@@ -243,8 +153,8 @@ export default function HeroBanner({ onShopNowClick }) {
           </video>
 
           {/* Gradients */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#122832] via-black/50 to-black/30 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#122832]/85 via-black/40 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#122731] via-black/50 to-black/30 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#122731]/90 via-black/40 to-transparent pointer-events-none" />
 
           {/* Sound Toggle Button */}
           <div className="absolute top-6 right-6 sm:top-10 sm:right-12 z-20">
@@ -253,7 +163,7 @@ export default function HeroBanner({ onShopNowClick }) {
               type="button"
               className={`w-11 h-11 rounded-full backdrop-blur-md border flex items-center justify-center transition-all duration-300 shadow-2xl active:scale-90 cursor-pointer ${
                 !isMuted
-                  ? 'bg-[#f0aa93] text-[#122832] border-[#f0aa93] ring-2 ring-[#f0aa93]/40'
+                  ? 'bg-[#f0aa93] text-[#122731] border-[#f0aa93] ring-2 ring-[#f0aa93]/40'
                   : 'bg-black/60 border-white/30 text-gray-300 hover:text-white hover:border-white/60 hover:bg-black/80'
               }`}
               title={isMuted ? 'Unmute video audio' : 'Mute video audio'}
@@ -293,7 +203,7 @@ export default function HeroBanner({ onShopNowClick }) {
                   onShopNowClick();
                 }}
                 type="button"
-                className="px-8 py-3.5 bg-[#f0aa93] hover:bg-white text-[#122832] rounded-full text-xs font-black tracking-widest uppercase transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-2xl active:scale-95 cursor-pointer"
+                className="px-8 py-3.5 bg-[#f0aa93] hover:bg-white text-[#122731] rounded-full text-xs font-black tracking-widest uppercase transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-2xl active:scale-95 cursor-pointer"
               >
                 <span>{active.ctaText}</span>
                 <ArrowUpRight size={16} />
@@ -303,7 +213,7 @@ export default function HeroBanner({ onShopNowClick }) {
         </div>
       ) : (
         /* ─────────────────────────────────────────────────────────────
-            2. 3D SALES DISCOUNT PRICE TAG COMPOSITION SLIDES
+            2. 3D SALES DISCOUNT PRICE TAG COMPOSITION SLIDE
            ───────────────────────────────────────────────────────────── */
         <div
           className="relative px-5 sm:px-10 lg:px-16 py-14 sm:py-20 lg:py-24 transition-all duration-700"
@@ -335,24 +245,13 @@ export default function HeroBanner({ onShopNowClick }) {
               </div>
             </div>
 
-            {/* Main Content: Left Details, Right 3D Price Tag Composition */}
+            {/* Main Content: Left Details & Refined Coupon, Right 3D Price Tag */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
-              {/* Left Column: Headlines, Coupon & CTA */}
+              {/* Left Column: Headlines, Sleek Refined Coupon & CTA */}
               <div className="lg:col-span-7 space-y-6">
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <div className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border text-[11px] font-mono font-bold tracking-widest uppercase backdrop-blur-md ${active.badgeColor}`}>
-                    <Flame size={14} className="fill-current" />
-                    <span>{active.badge}</span>
-                  </div>
 
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-mono tracking-widest text-white uppercase font-bold">
-                    <Tag size={12} className="text-[#f0aa93]" />
-                    <span>3D COMPOSITION SPECIAL</span>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white leading-[1.05] drop-shadow-2xl">
                     {active.headline}
                   </h1>
@@ -368,17 +267,16 @@ export default function HeroBanner({ onShopNowClick }) {
                   {active.description}
                 </p>
 
-                {/* Interactive Coupon Box & CTA */}
-                <div className="pt-2 flex flex-wrap items-center gap-4">
-                  <div className="flex items-center bg-black/70 backdrop-blur-md border border-white/20 rounded-2xl p-1.5 pl-4 shadow-2xl">
-                    <div className="flex flex-col pr-3">
-                      <span className="text-[9px] font-mono tracking-widest text-gray-400 uppercase">
-                        PROMO CODE
+                {/* Sleek, Luxury Refined Coupon Pill & CTA */}
+                <div className="pt-3 flex flex-wrap items-center gap-4">
+                  {/* Clean Coupon Pill Box */}
+                  <div className="inline-flex items-center gap-3 bg-[#0d1e26]/90 hover:bg-[#0d1e26] border border-[#f0aa93]/40 rounded-full pl-5 pr-2 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.6)] transition-all group backdrop-blur-xl">
+                    <div className="flex items-center gap-2.5">
+                      <Tag size={15} className="text-[#f0aa93]" />
+                      <span className="text-[10px] font-mono tracking-widest text-gray-300 font-bold uppercase">
+                        COUPON
                       </span>
-                      <span
-                        className="font-mono text-base font-black tracking-widest"
-                        style={{ color: active.accentColor }}
-                      >
+                      <span className="font-mono text-sm sm:text-base font-black tracking-wider text-[#f0aa93] px-3 py-1 rounded-full bg-[#163643] border border-[#224b5c] shadow-inner">
                         {active.couponCode}
                       </span>
                     </div>
@@ -386,14 +284,13 @@ export default function HeroBanner({ onShopNowClick }) {
                     <button
                       type="button"
                       onClick={() => handleCopy(active.couponCode)}
-                      className="px-4 py-2.5 rounded-xl text-[#122832] font-black text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-md"
-                      style={{ backgroundColor: active.accentColor }}
-                      title="Copy coupon & apply to cart"
+                      className="px-5 py-2.5 rounded-full bg-[#f0aa93] hover:bg-white text-[#122731] font-black text-xs uppercase tracking-wider transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-md active:scale-95"
+                      title="Copy coupon code and apply to cart"
                     >
                       {copiedCode ? (
                         <>
-                          <Check size={14} className="stroke-[3]" />
-                          <span>APPLIED!</span>
+                          <Check size={14} className="stroke-[3] text-emerald-800" />
+                          <span className="text-emerald-950 font-black">APPLIED!</span>
                         </>
                       ) : (
                         <>
@@ -404,37 +301,21 @@ export default function HeroBanner({ onShopNowClick }) {
                     </button>
                   </div>
 
+                  {/* Shop CTA Button */}
                   <button
                     type="button"
                     onClick={onShopNowClick}
-                    className="px-8 py-3.5 rounded-2xl bg-[#f0aa93] hover:bg-white text-[#122832] font-black text-xs uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-2xl hover:scale-[1.02] active:scale-95"
+                    className="px-8 py-3.5 rounded-full bg-white hover:bg-[#f0aa93] text-[#122731] font-black text-xs uppercase tracking-wider transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-xl hover:scale-105 active:scale-95"
                   >
                     <span>{active.ctaText}</span>
                     <ArrowUpRight size={16} />
                   </button>
-                </div>
-
-                {/* Trust Badges */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5 pt-6 border-t border-white/10 text-gray-300 text-[11px] sm:text-xs">
-                  <div className="flex items-center gap-2">
-                    <Truck size={15} style={{ color: active.accentColor }} />
-                    <span>Free Express Delivery Across India</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck size={15} style={{ color: active.accentColor }} />
-                    <span>Cash on Delivery Available</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <RotateCcw size={15} style={{ color: active.accentColor }} />
-                    <span>7-Day Easy Doorstep Exchange</span>
-                  </div>
                 </div>
               </div>
 
               {/* Right Column: HYPER-REALISTIC 3D SALES DISCOUNT PRICE TAG COMPOSITION */}
               <div className="lg:col-span-5 flex items-center justify-center relative">
 
-                {/* Surrounding 3D Floating Geometric Elements */}
                 {/* Floating Shiny Spheres */}
                 <div
                   className="absolute -top-6 -left-4 w-10 h-10 rounded-full shadow-2xl pointer-events-none animate-bounce"
@@ -452,7 +333,7 @@ export default function HeroBanner({ onShopNowClick }) {
                 />
 
                 {/* Floating Discount Capsule Pill */}
-                <div className="absolute -top-4 right-2 z-30 px-3.5 py-1.5 rounded-full bg-white text-[#122832] font-black font-mono text-xs uppercase tracking-wider shadow-2xl border-2 border-[#f0aa93] flex items-center gap-1.5 transform rotate-6 hover:rotate-0 transition-transform">
+                <div className="absolute -top-4 right-2 z-30 px-3.5 py-1.5 rounded-full bg-white text-[#122731] font-black font-mono text-xs uppercase tracking-wider shadow-2xl border-2 border-[#f0aa93] flex items-center gap-1.5 transform rotate-6 hover:rotate-0 transition-transform">
                   <Sparkles size={13} className="text-[#e07a5f] fill-[#e07a5f]" />
                   <span>{active.floatingPill}</span>
                 </div>
@@ -473,7 +354,7 @@ export default function HeroBanner({ onShopNowClick }) {
                     <div
                       className="w-10 h-10 rounded-full flex items-center justify-center border-4 shadow-2xl"
                       style={{
-                        backgroundColor: '#122832',
+                        backgroundColor: '#122731',
                         borderColor: active.ringColor,
                         boxShadow: `0 0 15px ${active.ringColor}aa, inset 0 2px 4px rgba(0,0,0,0.8)`
                       }}
@@ -538,59 +419,26 @@ export default function HeroBanner({ onShopNowClick }) {
         </div>
       )}
 
-      {/* ─────────────────────────────────────────────────────────────
-          CAROUSEL BOTTOM CONTROLS & INDICATORS
-         ───────────────────────────────────────────────────────────── */}
-      <div className="relative px-5 sm:px-10 lg:px-16 py-3.5 bg-[#0e2129] border-t border-[#224b5c] flex items-center justify-between z-20">
-        {/* Slide Indicator Progress Bars */}
-        <div className="flex items-center gap-2">
-          {HERO_SLIDES.map((slide, idx) => {
-            const isSlideActive = idx === currentSlide;
-            return (
-              <button
-                key={slide.id}
-                type="button"
-                onClick={() => setCurrentSlide(idx)}
-                className={`h-2.5 rounded-full transition-all cursor-pointer flex items-center justify-center gap-1 px-1.5 ${
-                  isSlideActive
-                    ? 'w-16 bg-[#f0aa93] text-[#122832]'
-                    : 'w-4 bg-white/30 hover:bg-white/50'
-                }`}
-                title={`Jump to ${slide.type === 'video' ? 'Video Film' : '3D Price Tag Banner'}`}
-                aria-label={`Jump to slide ${idx + 1}`}
-              >
-                {isSlideActive && (
-                  <span className="text-[9px] font-mono font-black uppercase">
-                    {slide.type === 'video' ? 'FILM' : '3D TAG'}
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
+      {/* Floating subtle side navigation arrows (visible on hover) */}
+      <button
+        type="button"
+        onClick={handlePrev}
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-90 hover:opacity-100 hover:bg-[#f0aa93] hover:text-[#122731] transition-all duration-300 z-30 cursor-pointer shadow-2xl active:scale-90"
+        aria-label="Previous Slide"
+        title="Previous"
+      >
+        <ArrowLeft size={16} />
+      </button>
 
-        {/* Navigation Arrow Controls */}
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={handlePrev}
-            className="w-8 h-8 rounded-full border border-white/20 bg-white/10 hover:bg-[#f0aa93] hover:text-[#122832] flex items-center justify-center text-white transition-all cursor-pointer active:scale-90"
-            aria-label="Previous Slide"
-            title="Previous"
-          >
-            <ArrowRight size={14} className="rotate-180" />
-          </button>
-          <button
-            type="button"
-            onClick={handleNext}
-            className="w-8 h-8 rounded-full border border-white/20 bg-white/10 hover:bg-[#f0aa93] hover:text-[#122832] flex items-center justify-center text-white transition-all cursor-pointer active:scale-90"
-            aria-label="Next Slide"
-            title="Next"
-          >
-            <ArrowRight size={14} />
-          </button>
-        </div>
-      </div>
+      <button
+        type="button"
+        onClick={handleNext}
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-90 hover:opacity-100 hover:bg-[#f0aa93] hover:text-[#122731] transition-all duration-300 z-30 cursor-pointer shadow-2xl active:scale-90"
+        aria-label="Next Slide"
+        title="Next"
+      >
+        <ArrowRight size={16} />
+      </button>
     </div>
   );
 }

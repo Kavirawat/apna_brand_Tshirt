@@ -7,7 +7,8 @@ export default function Bestsellers({ products, onSelectProduct, onShopNowClick 
   const bestsellerItems = products.slice(0, 4);
 
   return (
-    <section className="bg-white text-black py-14 sm:py-20 px-4 sm:px-8 max-w-[1440px] mx-auto select-none border-b border-gray-200">
+    <section className="w-full bg-white text-black py-14 sm:py-20 select-none border-b border-gray-200">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8">
 
       <div className="flex items-center justify-between mb-8 sm:mb-12">
         <div>
@@ -130,6 +131,7 @@ export default function Bestsellers({ products, onSelectProduct, onShopNowClick 
         >
           Shop Now
         </button>
+      </div>
       </div>
     </section>
   );
