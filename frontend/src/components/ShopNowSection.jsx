@@ -75,15 +75,16 @@ export default function ShopNowSection({ products, onSelectProduct, onViewAllCli
               >
 
                 <div
-                  className="relative aspect-[1/1.22] w-full rounded-2xl overflow-hidden shadow-xs border border-gray-100/60 transition-all duration-300 flex items-center justify-center group-hover:shadow-md"
+                  className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden shadow-xl border border-gray-100/60 transition-all duration-500 flex items-center justify-center p-4 sm:p-5 group-hover:-translate-y-1 group-hover:shadow-2xl"
                   style={{ backgroundColor: prod.cardBg || '#f2f3f7' }}
                 >
                   <img
                     src={prod.image || prod.images?.[0]}
                     alt={prod.title}
-                    className="w-full h-full object-contain p-4 sm:p-5 transition-transform duration-500 ease-out group-hover:scale-105"
+                    className="w-full h-full object-contain drop-shadow-xl transition-transform duration-500 ease-out group-hover:scale-105 z-10"
                     loading="lazy"
                   />
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[72%] h-3.5 bg-black/35 blur-md rounded-full pointer-events-none z-0" />
                 </div>
 
                 <div className="mt-3.5 space-y-1">

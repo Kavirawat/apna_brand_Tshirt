@@ -164,9 +164,14 @@ export default function HeroBanner({ onShopNowClick }) {
 
         <div className="relative z-10 max-w-2xl space-y-4 pt-16">
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[11px] font-mono tracking-widest text-[#d4af37] uppercase pointer-events-none">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-pulse" />
-            <span>BHARAT CAMPAIGN • {activeFilm.category}</span>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[11px] font-mono tracking-widest text-[#d4af37] uppercase pointer-events-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-pulse" />
+              <span>BHARAT CAMPAIGN • {activeFilm.category}</span>
+            </div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600/90 text-white font-mono text-[10px] font-black tracking-widest uppercase shadow-lg border border-red-400/40">
+              <span>🔥 30% OFF • USE CODE DHARM30</span>
+            </div>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-tight text-white drop-shadow-2xl font-serif pointer-events-none">

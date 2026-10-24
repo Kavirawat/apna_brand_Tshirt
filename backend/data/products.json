@@ -1,56 +1,5 @@
 [
   {
-    "id": 1792649523216,
-    "handle": "indra-oversized-t-shirt",
-    "title": "INDRA/इंद्र — OVERSIZED T-SHIRT",
-    "sanskritTitle": "INDRA/इंद्र — OVERSIZED T-SHIRT",
-    "subtitle": "Oversized T-Shirts",
-    "category": "Oversized T-Shirts",
-    "price": 2000,
-    "compareAtPrice": 2600,
-    "discountPercent": 25,
-    "primaryColor": {
-      "name": "Off White",
-      "hex": "#e8e4dc",
-      "cardBg": "#e8e4dc"
-    },
-    "colors": [
-      {
-        "name": "Off White",
-        "hex": "#e8e4dc"
-      }
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL",
-      "XXL"
-    ],
-    "inStock": true,
-    "rating": 4.9,
-    "reviewsCount": 1,
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0665/6638/9834/files/Aghori_ubg.png?v=1791202359"
-    ],
-    "badge": "NEW DROP",
-    "gsm": "280 GSM Super Combed Cotton",
-    "fit": "Oversized Boxy Silhouette with Drop Shoulders",
-    "philosophyQuote": "\"Wear your dharma.\"",
-    "philosophyConcept": "Deep philosophical roots woven into high-tier Indian streetwear.",
-    "description": "<p>High-tier oversized streetwear piece inspired by ancient Vedic philosophy.</p>",
-    "details": [
-      "100% Super Combed Compact Cotton",
-      "Bio-washed & Silicon-softened",
-      "High-Density Screen + Puff Print",
-      "Pre-shrunk fabric"
-    ],
-    "dropExpiresAt": "2026-10-27T06:12:30.146Z",
-    "dropStatus": "active",
-    "remainingUnits": 25,
-    "totalUnits": 75
-  },
-  {
     "id": 15406667038794,
     "handle": "kundalini",
     "title": "KUNDALINI/कुण्डलिनी — OVERSIZED T-SHIRT",
@@ -115,7 +64,7 @@
       "Ribbed lycra collar that retains shape after 50+ washes",
       "Proudly Designed & Crafted in Bharat (India)"
     ],
-    "cardBg": "#ece7dd",
+    "cardBg": "#ffffff",
     "pageBg": "#f2eee6",
     "textDark": true,
     "isLimitedDrop": true,
@@ -192,7 +141,7 @@
       "Ribbed lycra collar that retains shape after 50+ washes",
       "Proudly Designed & Crafted in Bharat (India)"
     ],
-    "cardBg": "#3e151b",
+    "cardBg": "#38181d",
     "pageBg": "#2a0a0f",
     "textDark": false,
     "isLimitedDrop": true,
@@ -269,7 +218,7 @@
       "Ribbed lycra collar that retains shape after 50+ washes",
       "Proudly Designed & Crafted in Bharat (India)"
     ],
-    "cardBg": "#1b3145",
+    "cardBg": "#0e343d",
     "pageBg": "#0e1f2e",
     "textDark": false,
     "isLimitedDrop": true,
@@ -346,7 +295,7 @@
       "Ribbed lycra collar that retains shape after 50+ washes",
       "Proudly Designed & Crafted in Bharat (India)"
     ],
-    "cardBg": "#1e1f24",
+    "cardBg": "#25262a",
     "pageBg": "#111215",
     "textDark": false,
     "isLimitedDrop": true,
@@ -1596,5 +1545,56 @@
     "remainingUnits": 17,
     "dropStatus": "active",
     "urgencyText": "LIMITED RUN OF 75 PIECES ONLY"
+  },
+  {
+    "id": 1792649523216,
+    "handle": "indra-oversized-t-shirt",
+    "title": "INDRA/इंद्र — OVERSIZED T-SHIRT",
+    "sanskritTitle": "INDRA/इंद्र — OVERSIZED T-SHIRT",
+    "subtitle": "Oversized T-Shirts",
+    "category": "Oversized T-Shirts",
+    "price": 2000,
+    "compareAtPrice": 2600,
+    "discountPercent": 25,
+    "primaryColor": {
+      "name": "Off White",
+      "hex": "#e8e4dc",
+      "cardBg": "#e8e4dc"
+    },
+    "colors": [
+      {
+        "name": "Off White",
+        "hex": "#e8e4dc"
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "inStock": true,
+    "rating": 4.9,
+    "reviewsCount": 1,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0665/6638/9834/files/Aghori_ubg.png?v=1791202359"
+    ],
+    "badge": "NEW DROP",
+    "gsm": "280 GSM Super Combed Cotton",
+    "fit": "Oversized Boxy Silhouette with Drop Shoulders",
+    "philosophyQuote": "\"Wear your dharma.\"",
+    "philosophyConcept": "Deep philosophical roots woven into high-tier Indian streetwear.",
+    "description": "<p>High-tier oversized streetwear piece inspired by ancient Vedic philosophy.</p>",
+    "details": [
+      "100% Super Combed Compact Cotton",
+      "Bio-washed & Silicon-softened",
+      "High-Density Screen + Puff Print",
+      "Pre-shrunk fabric"
+    ],
+    "dropExpiresAt": "2026-10-27T06:12:30.146Z",
+    "dropStatus": "active",
+    "remainingUnits": 25,
+    "totalUnits": 75
   }
 ]

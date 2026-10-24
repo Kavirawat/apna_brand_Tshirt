@@ -114,7 +114,12 @@ export const CartProvider = ({ children }) => {
 
   const applyCoupon = (code) => {
     const clean = code.trim().toUpperCase();
-    if (clean === 'DHARM10' || clean === 'BRAHMMAN10') {
+    if (clean === 'DHARM30' || clean === 'APNA30' || clean === 'OFF30' || clean === '30OFF') {
+      setCouponCode(clean);
+      setDiscountPercent(30);
+      showToast('🎉 30% Sacred Sale Discount Applied!');
+      return { success: true, message: '30% discount applied successfully!' };
+    } else if (clean === 'DHARM10' || clean === 'BRAHMMAN10') {
       setCouponCode(clean);
       setDiscountPercent(10);
       showToast('10% Dharma Blessing applied!');
