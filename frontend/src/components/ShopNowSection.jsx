@@ -140,7 +140,7 @@ export default function ShopNowSection({ products, onSelectProduct, onViewAllCli
             onClick={onViewAllClick}
             className="px-10 py-3.5 rounded-full bg-[#f0aa93] hover:bg-white text-[#122832] transition-all text-xs font-black tracking-widest uppercase cursor-pointer shadow-xl hover:scale-105 active:scale-95"
           >
-            View Entire Vault
+            View More
           </button>
         </div>
 

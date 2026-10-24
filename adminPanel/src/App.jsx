@@ -779,7 +779,7 @@ export default function AdminApp() {
 
             <button
               type="submit"
-              className="w-full py-3.5 px-4 bg-[#f0aa93] hover:bg-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-[#f0aa93]/25 flex items-center justify-center gap-2 mt-2 active:scale-[0.98] cursor-pointer"
+              className="w-full py-3.5 px-4 bg-[#f0aa93] hover:bg-white hover:text-black text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-[#f0aa93]/25 flex items-center justify-center gap-2 mt-2 active:scale-[0.98] cursor-pointer"
             >
               <ShieldCheck size={16} />
               <span>Unlock Admin Console</span>
@@ -1145,7 +1145,7 @@ export default function AdminApp() {
                 <div className="flex items-center gap-2.5">
                   <button
                     onClick={() => setIsAddModalOpen(true)}
-                    className="px-4 py-2.5 rounded-xl bg-[#f0aa93] hover:bg-yellow-400 text-black text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#f0aa93]/20"
+                    className="px-4 py-2.5 rounded-xl bg-[#f0aa93] hover:bg-white hover:text-black text-black text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#f0aa93]/20"
                   >
                     <Plus size={15} />
                     <span>Create Drop</span>
@@ -1720,7 +1720,7 @@ export default function AdminApp() {
 
                 <button
                   onClick={() => setIsAddModalOpen(true)}
-                  className="px-4 py-2.5 rounded-xl bg-[#f0aa93] hover:bg-yellow-400 text-black text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#f0aa93]/20"
+                  className="px-4 py-2.5 rounded-xl bg-[#f0aa93] hover:bg-white hover:text-black text-black text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#f0aa93]/20"
                 >
                   <Plus size={15} />
                   <span>Launch New Drop</span>
@@ -1934,7 +1934,7 @@ export default function AdminApp() {
 
                 <button
                   onClick={() => setIsAddCouponModalOpen(true)}
-                  className="px-4 py-2.5 rounded-xl bg-[#f0aa93] hover:bg-yellow-400 text-black text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#f0aa93]/20"
+                  className="px-4 py-2.5 rounded-xl bg-[#f0aa93] hover:bg-white hover:text-black text-black text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#f0aa93]/20"
                 >
                   <Plus size={15} />
                   <span>Create Promo Code</span>
@@ -2115,7 +2115,7 @@ export default function AdminApp() {
                           <button
                             type="submit"
                             disabled={isSendingReply || !replyText.trim()}
-                            className="px-5 py-2.5 bg-[#f0aa93] hover:bg-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-1.5 disabled:opacity-50 cursor-pointer"
+                            className="px-5 py-2.5 bg-[#f0aa93] hover:bg-white hover:text-black text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-1.5 disabled:opacity-50 cursor-pointer"
                           >
                             <Send size={14} />
                             <span>Send</span>
@@ -2228,7 +2228,7 @@ export default function AdminApp() {
                   </button>
                   <button
                     onClick={handleSaveSettings}
-                    className="px-5 py-2 rounded-xl bg-[#f0aa93] hover:bg-yellow-400 text-black text-xs font-extrabold uppercase tracking-wider cursor-pointer shadow-lg shadow-[#f0aa93]/20"
+                    className="px-5 py-2 rounded-xl bg-[#f0aa93] hover:bg-white hover:text-black text-black text-xs font-extrabold uppercase tracking-wider cursor-pointer shadow-lg shadow-[#f0aa93]/20"
                   >
                     Save Settings
                   </button>
@@ -2401,7 +2401,7 @@ export default function AdminApp() {
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-[#f0aa93] text-black font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-lg hover:bg-yellow-400 mt-2"
+                className="w-full py-3 rounded-xl bg-[#f0aa93] text-black font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-lg hover:bg-white hover:text-black mt-2"
               >
                 Create Product Drop
               </button>
@@ -2528,7 +2528,7 @@ export default function AdminApp() {
                 <button
                   type="submit"
                   disabled={isSavingTracking}
-                  className="px-6 py-2.5 rounded-xl bg-[#f0aa93] text-black font-extrabold uppercase tracking-wider cursor-pointer shadow-lg hover:bg-yellow-400"
+                  className="px-6 py-2.5 rounded-xl bg-[#f0aa93] text-black font-extrabold uppercase tracking-wider cursor-pointer shadow-lg hover:bg-white hover:text-black"
                 >
                   {isSavingTracking ? 'Saving...' : 'Save & Publish Tracking'}
                 </button>
@@ -2672,7 +2672,7 @@ export default function AdminApp() {
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-[#f0aa93] text-black font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-lg hover:bg-yellow-400 mt-2"
+                className="w-full py-3 rounded-xl bg-[#f0aa93] text-black font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-lg hover:bg-white hover:text-black mt-2"
               >
                 Create Promo Code
               </button>
@@ -2788,7 +2788,7 @@ export default function AdminApp() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#f0aa93] text-black font-extrabold uppercase tracking-wider cursor-pointer shadow-lg hover:bg-yellow-400"
+                  className="px-5 py-2 rounded-xl bg-[#f0aa93] text-black font-extrabold uppercase tracking-wider cursor-pointer shadow-lg hover:bg-white hover:text-black"
                 >
                   Save Drop
                 </button>

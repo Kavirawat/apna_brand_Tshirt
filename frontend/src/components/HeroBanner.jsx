@@ -7,39 +7,46 @@ import {
   Flame,
   Volume2,
   VolumeX,
-  Play,
-  Percent,
+  Sparkles,
   Truck,
   ShieldCheck,
   RotateCcw,
   Tag,
-  Film
+  Film,
+  Zap,
+  Percent,
+  Star
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const HERO_SLIDES = [
-  // 1. OFFER BANNER 1
+  // 1. 3D PRICE TAG DISCOUNT COMPOSITION 1 (60% OFF)
   {
-    type: 'offer',
-    id: 'offer-1',
-    badge: '🔥 LIMITED FESTIVE DROP • 30% SAVINGS',
-    badgeColor: 'border-[#f0aa93]/40 bg-[#f0aa93]/20 text-[#f0aa93]',
-    discountBig: '30% OFF',
-    discountPill: 'FLAT 30% DISCOUNT',
-    headline: 'FLAT 30% OFF SITEWIDE',
-    subheadline: 'SACRED VEDIC STREETWEAR • OVERSIZED DROPS',
+    type: 'tag_composition',
+    id: 'tag-comp-60',
+    discountNum: '60%',
+    discountUnit: 'OFF',
+    tagSubtitle: 'SPECIAL DISCOUNT',
+    tagCategory: 'PRICE TAG COMPOSITION',
+    badge: '🔥 3D SALES DISCOUNT • 60% MEGA SAVINGS',
+    badgeColor: 'border-[#f0aa93]/50 bg-[#f0aa93]/20 text-[#f0aa93]',
+    headline: 'FLAT 60% OFF SITEWIDE',
+    subheadline: 'SACRED VEDIC STREETWEAR • 3D PRICE DROP',
     description:
-      'Engineered with 280-320 GSM super-combed compact cotton, custom oversized drop-shoulder drape, and high-density sacred iconography.',
-    couponCode: 'DHARM30',
-    ctaText: 'SHOP 30% OFF NOW',
+      'Limited festival composition drop. Heavyweight 280-340 GSM super combed cotton & French Terry engineered with high-density sacred puff iconography.',
+    couponCode: 'DHARM60',
+    ctaText: 'CLAIM 60% OFF NOW',
     accentColor: '#f0aa93',
     glyph: 'धर्मो रक्षति रक्षितः',
     secondaryGlyph: 'TAT TVAM ASI • BHARAT STREETWEAR',
-    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #204c5d 0%, #153440 55%, #0d222b 100%)',
-    glowColor: 'rgba(240, 170, 147, 0.22)'
+    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #1e4b5d 0%, #13323e 55%, #0b1e25 100%)',
+    tagBgGradient: 'linear-gradient(145deg, #f0aa93 0%, #d8836a 50%, #9e4630 100%)',
+    ringColor: '#ffd700',
+    glowColor: 'rgba(240, 170, 147, 0.25)',
+    floatingPill: 'SAVE 60%'
   },
 
-  // 2. BRAND FILM VIDEO 1
+  // 2. BRAND FILM VIDEO 1 (THE PHILOSOPHY)
   {
     type: 'video',
     id: 'video-1',
@@ -54,28 +61,33 @@ const HERO_SLIDES = [
     accentColor: '#f0aa93'
   },
 
-  // 3. OFFER BANNER 2
+  // 3. 3D PRICE TAG DISCOUNT COMPOSITION 2 (50% OFF)
   {
-    type: 'offer',
-    id: 'offer-2',
-    badge: '⚡ FLASH VAULT PRIVILEGE • 25% SAVINGS',
-    badgeColor: 'border-cyan-500/40 bg-cyan-600/20 text-cyan-300',
-    discountBig: '25% OFF',
-    discountPill: 'EXCLUSIVE DROP SAVINGS',
-    headline: 'EXCLUSIVE 25% OFF ALL ORDERS',
+    type: 'tag_composition',
+    id: 'tag-comp-50',
+    discountNum: '50%',
+    discountUnit: 'OFF',
+    tagSubtitle: 'VAULT PRIVILEGE',
+    tagCategory: 'FLASH SALE COMPOSITION',
+    badge: '⚡ FLASH PRICE TAG • 50% OFF ALL ORDERS',
+    badgeColor: 'border-cyan-400/50 bg-cyan-500/20 text-cyan-300',
+    headline: 'EXCLUSIVE 50% OFF DROP',
     subheadline: 'LIMITED RUN OF 50 PIECES PER DROP • BIO-WASHED',
     description:
       'Ribbed lycra collar retaining architectural form for 50+ washes. Pure non-dual Upanishadic art you can wear on the street.',
-    couponCode: 'VEDA25',
+    couponCode: 'VEDA50',
     ctaText: 'EXPLORE VAULT DROPS',
-    accentColor: '#f0aa93',
+    accentColor: '#38bdf8',
     glyph: 'अहं ब्रह्मास्मि',
     secondaryGlyph: 'INDRA & PARSHURAM • 280 GSM',
-    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #25586b 0%, #173845 55%, #0e242d 100%)',
-    glowColor: 'rgba(240, 170, 147, 0.22)'
+    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #25586b 0%, #163a48 55%, #0d222b 100%)',
+    tagBgGradient: 'linear-gradient(145deg, #38bdf8 0%, #0284c7 50%, #034870 100%)',
+    ringColor: '#a5f3fc',
+    glowColor: 'rgba(56, 189, 248, 0.25)',
+    floatingPill: 'FLASH 50%'
   },
 
-  // 4. BRAND FILM VIDEO 2
+  // 4. BRAND FILM VIDEO 2 (THE SILHOUETTE)
   {
     type: 'video',
     id: 'video-2',
@@ -90,28 +102,33 @@ const HERO_SLIDES = [
     accentColor: '#f0aa93'
   },
 
-  // 5. OFFER BANNER 3
+  // 5. 3D PRICE TAG DISCOUNT COMPOSITION 3 (BUY 2 GET 40% OFF)
   {
-    type: 'offer',
-    id: 'offer-3',
-    badge: '👑 APNA BRAND PRIVILEGE • BUNDLE SPECIAL',
-    badgeColor: 'border-emerald-500/40 bg-emerald-600/20 text-emerald-300',
-    discountBig: 'BUY 2 GET 30%',
-    discountPill: 'DOUBLE LUXURY PRIVILEGE',
-    headline: 'BUY ANY 2 — GET 30% OFF',
+    type: 'tag_composition',
+    id: 'tag-comp-40',
+    discountNum: '40%',
+    discountUnit: 'OFF',
+    tagSubtitle: 'BUNDLE SPECIAL',
+    tagCategory: 'DOUBLE PRIVILEGE',
+    badge: '👑 APNA BRAND BUNDLE • 40% DISCOUNT',
+    badgeColor: 'border-emerald-400/50 bg-emerald-500/20 text-emerald-300',
+    headline: 'BUY ANY 2 — GET 40% OFF',
     subheadline: 'MIX & MATCH TEES, DROP HOODIES & SWEATSHIRTS',
     description:
       'Curate your sacred rotation. Automatic discount applied at checkout with zero delivery charges across all 26,000+ PIN codes.',
-    couponCode: 'APNA30',
+    couponCode: 'APNA40',
     ctaText: 'BUILD YOUR BUNDLE',
-    accentColor: '#f0aa93',
+    accentColor: '#34d399',
     glyph: 'सत्यमेव जयते',
     secondaryGlyph: 'SOVEREIGN DRAPE • BIO-PRESHRUNK',
-    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #1d4655 0%, #13313d 55%, #0a1c23 100%)',
-    glowColor: 'rgba(240, 170, 147, 0.22)'
+    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #1e4f3d 0%, #123327 55%, #0a1e17 100%)',
+    tagBgGradient: 'linear-gradient(145deg, #34d399 0%, #059669 50%, #064e3b 100%)',
+    ringColor: '#6ee7b7',
+    glowColor: 'rgba(52, 211, 153, 0.25)',
+    floatingPill: 'BUY 2 SAVE 40%'
   },
 
-  // 6. BRAND FILM VIDEO 3
+  // 6. BRAND FILM VIDEO 3 (THE CRAFT & ORIGIN)
   {
     type: 'video',
     id: 'video-3',
@@ -137,11 +154,10 @@ export default function HeroBanner({ onShopNowClick }) {
 
   const active = HERO_SLIDES[currentSlide];
 
-  // Auto-slide effect
+  // Auto slide interval
   useEffect(() => {
     if (isPaused) return;
 
-    // Video slides stay longer or until ended, offers advance in 5.5s
     const slideDuration = active.type === 'video' ? 7000 : 5500;
 
     const timer = setInterval(() => {
@@ -151,7 +167,7 @@ export default function HeroBanner({ onShopNowClick }) {
     return () => clearInterval(timer);
   }, [currentSlide, isPaused, active.type]);
 
-  // Video autoplay management when switching slides
+  // Video autoplay management
   useEffect(() => {
     if (active.type === 'video' && videoRef.current) {
       videoRef.current.currentTime = 0;
@@ -209,7 +225,7 @@ export default function HeroBanner({ onShopNowClick }) {
       className="relative w-full overflow-hidden select-none border-b border-[#224b5c]"
     >
       {/* ─────────────────────────────────────────────────────────────
-          MODE A: BRAND FILM VIDEO SLIDE
+          1. BRAND FILM VIDEO SLIDES
          ───────────────────────────────────────────────────────────── */}
       {active.type === 'video' ? (
         <div className="relative min-h-[70vh] sm:min-h-[82vh] flex items-end justify-start p-6 sm:p-12 lg:p-16 bg-black">
@@ -226,7 +242,7 @@ export default function HeroBanner({ onShopNowClick }) {
             <source src={active.videoSrc} type="video/mp4" />
           </video>
 
-          {/* Gradients for readability */}
+          {/* Gradients */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#122832] via-black/50 to-black/30 pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#122832]/85 via-black/40 to-transparent pointer-events-none" />
 
@@ -255,7 +271,7 @@ export default function HeroBanner({ onShopNowClick }) {
                 <span>BHARAT CAMPAIGN • {active.category}</span>
               </div>
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600/90 text-white font-mono text-[10px] font-black tracking-widest uppercase shadow-lg border border-red-400/40">
-                <span>🔥 30% OFF • USE CODE DHARM30</span>
+                <span>🔥 60% OFF • USE CODE DHARM60</span>
               </div>
             </div>
 
@@ -287,13 +303,13 @@ export default function HeroBanner({ onShopNowClick }) {
         </div>
       ) : (
         /* ─────────────────────────────────────────────────────────────
-            MODE B: PURE LUXURY OFFER BANNER SLIDE (NO PHOTO)
+            2. 3D SALES DISCOUNT PRICE TAG COMPOSITION SLIDES
            ───────────────────────────────────────────────────────────── */
         <div
           className="relative px-5 sm:px-10 lg:px-16 py-14 sm:py-20 lg:py-24 transition-all duration-700"
           style={{ background: active.backgroundStyle }}
         >
-          {/* Ambient background glow accents */}
+          {/* Ambient Glows */}
           <div
             className="absolute -top-32 -left-32 w-96 h-96 rounded-full blur-3xl pointer-events-none transition-all duration-700"
             style={{ background: active.glowColor }}
@@ -304,6 +320,7 @@ export default function HeroBanner({ onShopNowClick }) {
           />
 
           <div className="relative max-w-[1380px] mx-auto z-10">
+
             {/* Top Ticker Row */}
             <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono tracking-widest text-gray-400 uppercase pb-6 mb-8 border-b border-white/10">
               <div className="flex items-center gap-2.5">
@@ -318,18 +335,20 @@ export default function HeroBanner({ onShopNowClick }) {
               </div>
             </div>
 
-            {/* Main Offer Body */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              <div className="lg:col-span-8 space-y-6">
+            {/* Main Content: Left Details, Right 3D Price Tag Composition */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+
+              {/* Left Column: Headlines, Coupon & CTA */}
+              <div className="lg:col-span-7 space-y-6">
                 <div className="flex flex-wrap items-center gap-2.5">
                   <div className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border text-[11px] font-mono font-bold tracking-widest uppercase backdrop-blur-md ${active.badgeColor}`}>
                     <Flame size={14} className="fill-current" />
                     <span>{active.badge}</span>
                   </div>
 
-                  <div className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-mono tracking-widest text-white uppercase font-bold">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-mono tracking-widest text-white uppercase font-bold">
                     <Tag size={12} className="text-[#f0aa93]" />
-                    <span>{active.discountPill}</span>
+                    <span>3D COMPOSITION SPECIAL</span>
                   </div>
                 </div>
 
@@ -345,11 +364,11 @@ export default function HeroBanner({ onShopNowClick }) {
                   </p>
                 </div>
 
-                <p className="text-xs sm:text-sm text-gray-300 max-w-2xl leading-relaxed font-normal">
+                <p className="text-xs sm:text-sm text-gray-300 max-w-xl leading-relaxed font-normal">
                   {active.description}
                 </p>
 
-                {/* Coupon Box & CTA */}
+                {/* Interactive Coupon Box & CTA */}
                 <div className="pt-2 flex flex-wrap items-center gap-4">
                   <div className="flex items-center bg-black/70 backdrop-blur-md border border-white/20 rounded-2xl p-1.5 pl-4 shadow-2xl">
                     <div className="flex flex-col pr-3">
@@ -412,51 +431,109 @@ export default function HeroBanner({ onShopNowClick }) {
                 </div>
               </div>
 
-              {/* Graphic Discount Emblem */}
-              <div className="lg:col-span-4 flex flex-col items-center justify-center">
-                <div className="relative w-full max-w-xs sm:max-w-sm rounded-3xl p-8 border border-white/15 bg-black/40 backdrop-blur-xl shadow-2xl flex flex-col items-center text-center space-y-4">
-                  <div
-                    className="w-20 h-20 rounded-2xl border flex items-center justify-center shadow-lg"
-                    style={{
-                      borderColor: `${active.accentColor}55`,
-                      backgroundColor: `${active.accentColor}15`
-                    }}
-                  >
-                    <Percent size={36} style={{ color: active.accentColor }} />
+              {/* Right Column: HYPER-REALISTIC 3D SALES DISCOUNT PRICE TAG COMPOSITION */}
+              <div className="lg:col-span-5 flex items-center justify-center relative">
+
+                {/* Surrounding 3D Floating Geometric Elements */}
+                {/* Floating Shiny Spheres */}
+                <div
+                  className="absolute -top-6 -left-4 w-10 h-10 rounded-full shadow-2xl pointer-events-none animate-bounce"
+                  style={{
+                    background: 'radial-gradient(circle at 35% 35%, #ffffff 0%, #ffd7a8 40%, #e07a5f 80%, #7d2a17 100%)',
+                    boxShadow: '0 10px 25px rgba(224, 122, 95, 0.5)'
+                  }}
+                />
+                <div
+                  className="absolute bottom-6 -right-4 w-8 h-8 rounded-full shadow-2xl pointer-events-none animate-pulse"
+                  style={{
+                    background: 'radial-gradient(circle at 35% 35%, #ffffff 0%, #b8f2e6 40%, #34d399 80%, #064e3b 100%)',
+                    boxShadow: '0 8px 20px rgba(52, 211, 153, 0.4)'
+                  }}
+                />
+
+                {/* Floating Discount Capsule Pill */}
+                <div className="absolute -top-4 right-2 z-30 px-3.5 py-1.5 rounded-full bg-white text-[#122832] font-black font-mono text-xs uppercase tracking-wider shadow-2xl border-2 border-[#f0aa93] flex items-center gap-1.5 transform rotate-6 hover:rotate-0 transition-transform">
+                  <Sparkles size={13} className="text-[#e07a5f] fill-[#e07a5f]" />
+                  <span>{active.floatingPill}</span>
+                </div>
+
+                {/* 3D Main Price Tag Container */}
+                <div
+                  className="relative w-full max-w-sm rounded-[36px] p-8 shadow-[0_30px_70px_rgba(0,0,0,0.85)] border-2 border-white/30 backdrop-blur-xl flex flex-col items-center justify-between transition-transform duration-500 hover:rotate-0 hover:scale-105 group"
+                  style={{
+                    background: active.tagBgGradient,
+                    transform: 'perspective(1000px) rotateY(-8deg) rotateX(4deg)'
+                  }}
+                >
+                  {/* Realistic Metallic Hanging Eyelet Ring & Cord String */}
+                  <div className="relative -mt-12 mb-4 flex flex-col items-center z-20">
+                    {/* Hanging String */}
+                    <div className="w-1 h-12 bg-gradient-to-b from-white/90 via-amber-200 to-amber-600 shadow-md rounded-full" />
+                    {/* Metallic Golden Grommet / Eyelet Hole */}
+                    <div
+                      className="w-10 h-10 rounded-full flex items-center justify-center border-4 shadow-2xl"
+                      style={{
+                        backgroundColor: '#122832',
+                        borderColor: active.ringColor,
+                        boxShadow: `0 0 15px ${active.ringColor}aa, inset 0 2px 4px rgba(0,0,0,0.8)`
+                      }}
+                    >
+                      <div className="w-3.5 h-3.5 rounded-full bg-[#0a1820] shadow-inner" />
+                    </div>
                   </div>
 
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-mono tracking-widest text-gray-400 uppercase block">
-                      LIMITED RUN PROMO
+                  {/* Stamped Badge on Tag */}
+                  <div className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-[10px] font-mono tracking-widest text-white uppercase font-bold mb-2">
+                    {active.tagSubtitle}
+                  </div>
+
+                  {/* 3D EXTRUDED DISCOUNT PERCENTAGE NUMERALS */}
+                  <div className="text-center my-3 relative select-none">
+                    <span
+                      className="text-7xl sm:text-8xl font-black font-mono tracking-tighter block leading-none text-white drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)]"
+                      style={{
+                        textShadow:
+                          '0 2px 0 #ffffff, 0 4px 0 #e2e8f0, 0 6px 0 #cbd5e1, 0 8px 0 #94a3b8, 0 10px 10px rgba(0,0,0,0.7), 0 20px 25px rgba(0,0,0,0.5)'
+                      }}
+                    >
+                      {active.discountNum}
                     </span>
                     <span
-                      className="text-4xl sm:text-5xl font-black font-mono tracking-tight block"
-                      style={{ color: active.accentColor }}
+                      className="text-3xl sm:text-4xl font-black uppercase tracking-widest block mt-2 text-white/95"
+                      style={{
+                        textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+                      }}
                     >
-                      {active.discountBig}
-                    </span>
-                    <span className="text-xs font-serif text-gray-300 italic block">
-                      Applicable at Checkout
+                      {active.discountUnit}
                     </span>
                   </div>
 
-                  <div className="w-full pt-4 border-t border-white/10 text-left space-y-2 text-[11px] font-mono text-gray-400">
-                    <div className="flex justify-between">
-                      <span>DISCOUNT:</span>
-                      <span className="text-white font-bold">{active.discountBig}</span>
+                  {/* Tag Perforated Barcode & Coupon Strip */}
+                  <div className="w-full mt-4 pt-4 border-t-2 border-dashed border-white/30 flex items-center justify-between text-[11px] font-mono text-white/90">
+                    <div className="flex flex-col">
+                      <span className="text-[9px] uppercase tracking-wider text-white/70">PROMO CODE</span>
+                      <span className="font-bold tracking-widest text-white text-xs">{active.couponCode}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span>COUPON CODE:</span>
-                      <span className="text-[#f0aa93] font-bold">{active.couponCode}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>SHIPPING:</span>
-                      <span className="text-emerald-400 font-bold">FREE EXPRESS</span>
+
+                    {/* Faux 3D Barcode lines */}
+                    <div className="flex items-center gap-0.5 h-6 opacity-80">
+                      <div className="w-0.5 h-full bg-white" />
+                      <div className="w-1.5 h-full bg-white" />
+                      <div className="w-0.5 h-full bg-white" />
+                      <div className="w-1 h-full bg-white" />
+                      <div className="w-2 h-full bg-white" />
+                      <div className="w-0.5 h-full bg-white" />
+                      <div className="w-1 h-full bg-white" />
                     </div>
                   </div>
+
+                  {/* 3D Platform Ground Reflection Shadow */}
+                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[85%] h-5 bg-black/60 blur-xl rounded-full pointer-events-none" />
                 </div>
               </div>
+
             </div>
+
           </div>
         </div>
       )}
@@ -479,12 +556,12 @@ export default function HeroBanner({ onShopNowClick }) {
                     ? 'w-16 bg-[#f0aa93] text-[#122832]'
                     : 'w-4 bg-white/30 hover:bg-white/50'
                 }`}
-                title={`Jump to ${slide.type === 'video' ? 'Video Film' : 'Offer'}`}
+                title={`Jump to ${slide.type === 'video' ? 'Video Film' : '3D Price Tag Banner'}`}
                 aria-label={`Jump to slide ${idx + 1}`}
               >
                 {isSlideActive && (
                   <span className="text-[9px] font-mono font-black uppercase">
-                    {slide.type === 'video' ? 'FILM' : 'OFFER'}
+                    {slide.type === 'video' ? 'FILM' : '3D TAG'}
                   </span>
                 )}
               </button>
