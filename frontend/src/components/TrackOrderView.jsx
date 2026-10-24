@@ -179,15 +179,23 @@ export default function TrackOrderView({ initialOrderId = '' }) {
 
       {/* Main Order Details Card */}
       {order && (
-        <div className="max-w-xl mx-auto bg-[#163643] rounded-3xl border border-[#224b5c] shadow-2xl p-6 sm:p-8 space-y-7 animate-fadeIn">
+        <div className={`max-w-xl mx-auto rounded-3xl border shadow-2xl p-6 sm:p-8 space-y-7 animate-fadeIn transition-colors ${
+          isLight ? 'bg-white border-gray-200' : 'bg-[#163643] border-[#224b5c]'
+        }`}>
 
-          <div className="flex items-center justify-between gap-3 pb-2 border-b border-[#224b5c]">
+          <div className={`flex items-center justify-between gap-3 pb-2 border-b ${
+            isLight ? 'border-gray-200' : 'border-[#224b5c]'
+          }`}>
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-11 h-11 rounded-2xl bg-[#122731] border border-[#224b5c] flex items-center justify-center text-[#f0aa93] flex-shrink-0 shadow-inner">
+              <div className={`w-11 h-11 rounded-2xl border flex items-center justify-center flex-shrink-0 shadow-inner ${
+                isLight ? 'bg-gray-100 border-gray-200 text-[#122731]' : 'bg-[#122731] border-[#224b5c] text-[#f0aa93]'
+              }`}>
                 <Package size={20} className="stroke-[1.75]" />
               </div>
               <div className="flex items-center gap-2 flex-wrap min-w-0">
-                <h3 className="font-sans text-base sm:text-lg font-bold text-white tracking-tight whitespace-nowrap">
+                <h3 className={`font-sans text-base sm:text-lg font-bold tracking-tight whitespace-nowrap ${
+                  isLight ? 'text-gray-900' : 'text-white'
+                }`}>
                   Order {order.orderId || order.id}
                 </h3>
               </div>
@@ -198,12 +206,16 @@ export default function TrackOrderView({ initialOrderId = '' }) {
                 type="button"
                 onClick={() => handleCopyOrderId(order.orderId || order.id)}
                 title="Copy Order ID"
-                className="px-3 py-1.5 rounded-xl bg-[#122731] hover:bg-[#1a404f] text-gray-300 hover:text-white border border-[#224b5c] transition-colors flex items-center gap-1.5 text-xs font-semibold cursor-pointer shadow-sm"
+                className={`px-3 py-1.5 rounded-xl border transition-colors flex items-center gap-1.5 text-xs font-semibold cursor-pointer shadow-sm ${
+                  isLight
+                    ? 'bg-gray-100 hover:bg-gray-200 text-gray-700 border-gray-200'
+                    : 'bg-[#122731] hover:bg-[#1a404f] text-gray-300 hover:text-white border-[#224b5c]'
+                }`}
               >
                 {copied ? (
                   <>
-                    <Check size={14} className="text-emerald-400" />
-                    <span className="text-emerald-300 font-bold text-[11px]">Copied</span>
+                    <Check size={14} className="text-emerald-500" />
+                    <span className="text-emerald-600 font-bold text-[11px]">Copied</span>
                   </>
                 ) : (
                   <>
@@ -232,17 +244,19 @@ export default function TrackOrderView({ initialOrderId = '' }) {
 
               {/* Progress Tracking Timeline */}
               <div className="space-y-4">
-                <h4 className="text-sm font-bold text-white tracking-tight text-left">
+                <h4 className={`text-sm font-bold tracking-tight text-left ${
+                  isLight ? 'text-gray-900' : 'text-white'
+                }`}>
                   Order Tracking
                 </h4>
 
                 <div className="flex justify-between items-center text-xs">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-semibold text-gray-200">
+                    <span className={`font-semibold ${isLight ? 'text-gray-800' : 'text-gray-200'}`}>
                       {order.status === 'Delivered' ? 'Product Delivered' : order.status === 'In Transit' ? 'Product in Transit' : `Product ${order.status}`}
                     </span>
                     {order.currentLocation && (
-                      <span className="text-[11px] text-[#f0aa93] font-normal">
+                      <span className={`text-[11px] font-normal ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>
                         • {order.currentLocation.split(',')[0]}
                       </span>
                     )}
@@ -276,7 +290,9 @@ export default function TrackOrderView({ initialOrderId = '' }) {
 
                       return (
                         <>
-                          <div className="absolute top-[18px] left-6 right-6 h-[3px] bg-[#122731] rounded-full overflow-hidden">
+                          <div className={`absolute top-[18px] left-6 right-6 h-[3px] rounded-full overflow-hidden ${
+                            isLight ? 'bg-gray-200' : 'bg-[#122731]'
+                          }`}>
                             <div
                               className="h-full bg-[#f0aa93] transition-all duration-700 ease-out"
                               style={{ width: `${progressPercent}%` }}
@@ -295,13 +311,19 @@ export default function TrackOrderView({ initialOrderId = '' }) {
                                       ? (isCurrent
                                           ? 'bg-[#f0aa93] text-[#122731] shadow-lg ring-4 ring-[#f0aa93]/30 scale-110'
                                           : 'bg-[#f0aa93] text-[#122731] shadow-sm ring-2 ring-[#f0aa93]/20')
+                                      : isLight
+                                      ? 'border-2 border-gray-300 bg-gray-100'
                                       : 'border-2 border-[#224b5c] bg-[#122731]'
                                   }`}>
                                     {isReached && <Check size={11} className="stroke-[3]" />}
                                   </div>
 
                                   <span className={`text-[10px] sm:text-xs font-bold mt-2 block leading-tight ${
-                                    isCurrent ? 'text-[#f0aa93] font-extrabold' : isReached ? 'text-white' : 'text-gray-500'
+                                    isCurrent
+                                      ? isLight ? 'text-[#122731] font-extrabold' : 'text-[#f0aa93] font-extrabold'
+                                      : isReached
+                                      ? isLight ? 'text-gray-900' : 'text-white'
+                                      : 'text-gray-400'
                                   }`}>
                                     {stage.label}
                                   </span>
@@ -324,17 +346,23 @@ export default function TrackOrderView({ initialOrderId = '' }) {
                 </div>
 
                 {/* Quick Info Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-5 border-t border-[#224b5c] text-left">
+                <div className={`grid grid-cols-2 sm:grid-cols-4 gap-4 pt-5 border-t text-left ${
+                  isLight ? 'border-gray-200' : 'border-[#224b5c]'
+                }`}>
                   <div>
                     <span className="text-xs text-gray-400 block font-normal">Order Date</span>
-                    <span className="text-xs sm:text-sm font-bold text-white mt-1 block font-mono">
+                    <span className={`text-xs sm:text-sm font-bold mt-1 block font-mono ${
+                      isLight ? 'text-gray-900' : 'text-white'
+                    }`}>
                       {new Date(order.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </span>
                   </div>
 
                   <div>
                     <span className="text-xs text-gray-400 block font-normal">Delivery Date</span>
-                    <span className="text-xs sm:text-sm font-bold text-white mt-1 block font-mono">
+                    <span className={`text-xs sm:text-sm font-bold mt-1 block font-mono ${
+                      isLight ? 'text-gray-900' : 'text-white'
+                    }`}>
                       {order.courier?.expectedDelivery
                         ? new Date(order.courier.expectedDelivery).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
                         : new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
@@ -347,7 +375,9 @@ export default function TrackOrderView({ initialOrderId = '' }) {
                       <span className="w-5 h-3.5 rounded bg-[#f0aa93] text-[8px] font-black text-[#122731] flex items-center justify-center font-mono">
                         {order.courier?.name ? order.courier.name.slice(0, 2).toUpperCase() : 'BD'}
                       </span>
-                      <span className="text-xs sm:text-sm font-bold text-white truncate">
+                      <span className={`text-xs sm:text-sm font-bold truncate ${
+                        isLight ? 'text-gray-900' : 'text-white'
+                      }`}>
                         {order.courier?.name || 'Bluedart Express'}
                       </span>
                     </div>
@@ -355,7 +385,9 @@ export default function TrackOrderView({ initialOrderId = '' }) {
 
                   <div>
                     <span className="text-xs text-gray-400 block font-normal">Address</span>
-                    <span className="text-xs sm:text-sm font-bold text-white mt-1 block truncate" title={order.customer?.address}>
+                    <span className={`text-xs sm:text-sm font-bold mt-1 block truncate ${
+                      isLight ? 'text-gray-900' : 'text-white'
+                    }`} title={order.customer?.address}>
                       {order.customer?.address ? order.customer.address.slice(0, 16) + '...' : 'Destination Address'}
                     </span>
                   </div>
@@ -364,27 +396,33 @@ export default function TrackOrderView({ initialOrderId = '' }) {
 
               {/* Order Summary Box */}
               <div>
-                <h4 className="text-sm font-bold text-white mb-3 text-left">
+                <h4 className={`text-sm font-bold mb-3 text-left ${
+                  isLight ? 'text-gray-900' : 'text-white'
+                }`}>
                   Order Summary
                 </h4>
-                <div className="bg-[#122731] rounded-2xl p-4 sm:p-5 space-y-2.5 border border-[#224b5c]">
+                <div className={`rounded-2xl p-4 sm:p-5 space-y-2.5 border ${
+                  isLight ? 'bg-gray-50 border-gray-200' : 'bg-[#122731] border-[#224b5c]'
+                }`}>
                   <div className="flex justify-between items-center text-xs text-gray-400 font-medium">
                     <span>Sub total</span>
-                    <span className="text-white font-semibold font-mono">
+                    <span className={`font-semibold font-mono ${isLight ? 'text-gray-900' : 'text-white'}`}>
                       ₹{order.total?.toLocaleString('en-IN')}
                     </span>
                   </div>
                   <div className="flex justify-between items-center text-xs text-gray-400 font-medium">
                     <span>Discount</span>
-                    <span className="text-[#f0aa93] font-semibold font-mono">₹0</span>
+                    <span className={`font-semibold font-mono ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>₹0</span>
                   </div>
                   <div className="flex justify-between items-center text-xs text-gray-400 font-medium">
                     <span>Shipping</span>
-                    <span className="text-emerald-400 font-semibold font-mono">FREE</span>
+                    <span className="text-emerald-500 font-semibold font-mono">FREE</span>
                   </div>
-                  <div className="border-t border-[#224b5c] pt-2.5 flex justify-between items-center">
-                    <span className="text-xs sm:text-sm font-semibold text-gray-300">Total Amount</span>
-                    <span className="text-base sm:text-lg font-bold text-[#f0aa93] font-mono">
+                  <div className={`border-t pt-2.5 flex justify-between items-center ${
+                    isLight ? 'border-gray-200' : 'border-[#224b5c]'
+                  }`}>
+                    <span className={`text-xs sm:text-sm font-semibold ${isLight ? 'text-gray-800' : 'text-gray-300'}`}>Total Amount</span>
+                    <span className={`text-base sm:text-lg font-bold font-mono ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>
                       ₹{order.total?.toLocaleString('en-IN')}
                     </span>
                   </div>
@@ -393,21 +431,29 @@ export default function TrackOrderView({ initialOrderId = '' }) {
 
               {/* Order Items Info */}
               <div>
-                <h4 className="text-sm font-bold text-white mb-3 text-left">
+                <h4 className={`text-sm font-bold mb-3 text-left ${
+                  isLight ? 'text-gray-900' : 'text-white'
+                }`}>
                   Order Items
                 </h4>
 
                 <div className="space-y-3">
                   {order.items?.map((item, idx) => (
-                    <div key={idx} className="flex items-center justify-between gap-4 p-3 rounded-2xl bg-[#122731] border border-[#224b5c]">
+                    <div key={idx} className={`flex items-center justify-between gap-4 p-3 rounded-2xl border ${
+                      isLight ? 'bg-gray-50 border-gray-200' : 'bg-[#122731] border-[#224b5c]'
+                    }`}>
                       <div className="flex items-center gap-3 min-w-0">
                         <img
                           src={item.image || 'https://cdn.shopify.com/s/files/1/0665/6638/9834/files/Agni_ubg.png?v=1791201501'}
                           alt={item.title}
-                          className="w-14 h-14 rounded-2xl object-cover bg-[#163643] border border-[#224b5c] shadow-sm flex-shrink-0"
+                          className={`w-14 h-14 rounded-2xl object-cover border shadow-sm flex-shrink-0 ${
+                            isLight ? 'bg-white border-gray-200' : 'bg-[#163643] border-[#224b5c]'
+                          }`}
                         />
                         <div className="min-w-0 text-left">
-                          <h5 className="text-xs sm:text-sm font-bold text-white uppercase truncate">
+                          <h5 className={`text-xs sm:text-sm font-bold uppercase truncate ${
+                            isLight ? 'text-gray-900' : 'text-white'
+                          }`}>
                             {item.title}
                           </h5>
                           <span className="text-[11px] text-gray-400 block mt-0.5 font-mono">
@@ -417,7 +463,9 @@ export default function TrackOrderView({ initialOrderId = '' }) {
                       </div>
 
                       <div className="text-right flex-shrink-0">
-                        <span className="text-xs sm:text-sm font-bold text-[#f0aa93] block font-mono">
+                        <span className={`text-xs sm:text-sm font-bold block font-mono ${
+                          isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                        }`}>
                           ₹{((item.price || 0) * (item.quantity || 1)).toLocaleString('en-IN')}
                         </span>
                         <span className="text-[11px] text-gray-400 block mt-0.5">
@@ -431,18 +479,26 @@ export default function TrackOrderView({ initialOrderId = '' }) {
                 <button
                   type="button"
                   onClick={() => setIsFullDetailsOpen(prev => !prev)}
-                  className="w-full mt-4 py-3 rounded-2xl bg-[#122731] hover:bg-[#1a404f] text-gray-200 text-xs font-semibold tracking-tight transition-colors flex items-center justify-center gap-1.5 border border-[#224b5c] cursor-pointer"
+                  className={`w-full mt-4 py-3 rounded-2xl text-xs font-semibold tracking-tight transition-colors flex items-center justify-center gap-1.5 border cursor-pointer ${
+                    isLight
+                      ? 'bg-gray-100 hover:bg-gray-200 text-gray-800 border-gray-200'
+                      : 'bg-[#122731] hover:bg-[#1a404f] text-gray-200 border-[#224b5c]'
+                  }`}
                 >
                   <span>{isFullDetailsOpen ? 'Hide order details' : 'View full details'}</span>
                   <ChevronRight size={14} className={`transition-transform duration-300 ${isFullDetailsOpen ? '-rotate-90' : 'rotate-90'}`} />
                 </button>
 
                 {isFullDetailsOpen && (
-                  <div className="mt-5 p-5 rounded-2xl bg-[#122731] border border-[#224b5c] text-left space-y-4 animate-fadeIn">
+                  <div className={`mt-5 p-5 rounded-2xl border text-left space-y-4 animate-fadeIn ${
+                    isLight ? 'bg-gray-50 border-gray-200' : 'bg-[#122731] border-[#224b5c]'
+                  }`}>
 
-                    <div className="flex items-center justify-between pb-3 border-b border-[#224b5c]">
+                    <div className={`flex items-center justify-between pb-3 border-b ${
+                      isLight ? 'border-gray-200' : 'border-[#224b5c]'
+                    }`}>
                       <div>
-                        <h5 className="font-bold text-sm text-white">Complete Order Details</h5>
+                        <h5 className={`font-bold text-sm ${isLight ? 'text-gray-900' : 'text-white'}`}>Complete Order Details</h5>
                         <span className="text-[11px] text-gray-400 font-mono">ID: {order.orderId || order.id}</span>
                       </div>
                       <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-[#f0aa93] text-[#122731]">
@@ -451,11 +507,13 @@ export default function TrackOrderView({ initialOrderId = '' }) {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                      <div className="p-3 bg-[#163643] rounded-xl border border-[#224b5c] space-y-1">
+                      <div className={`p-3 rounded-xl border space-y-1 ${
+                        isLight ? 'bg-white border-gray-200' : 'bg-[#163643] border-[#224b5c]'
+                      }`}>
                         <span className="text-[10px] uppercase font-bold text-gray-400 block tracking-wider">Customer</span>
-                        <strong className="text-white block text-xs">{order.customer?.name}</strong>
-                        <div className="flex items-center gap-1.5 text-gray-300 text-[11px] pt-0.5">
-                          <Phone size={12} className="text-[#f0aa93]" />
+                        <strong className={`block text-xs ${isLight ? 'text-gray-900' : 'text-white'}`}>{order.customer?.name}</strong>
+                        <div className={`flex items-center gap-1.5 text-[11px] pt-0.5 ${isLight ? 'text-gray-600' : 'text-gray-300'}`}>
+                          <Phone size={12} className={isLight ? 'text-[#122731]' : 'text-[#f0aa93]'} />
                           <span>{order.customer?.phone}</span>
                         </div>
                         {order.customer?.email && (
@@ -463,26 +521,32 @@ export default function TrackOrderView({ initialOrderId = '' }) {
                         )}
                       </div>
 
-                      <div className="p-3 bg-[#163643] rounded-xl border border-[#224b5c] space-y-1">
+                      <div className={`p-3 rounded-xl border space-y-1 ${
+                        isLight ? 'bg-white border-gray-200' : 'bg-[#163643] border-[#224b5c]'
+                      }`}>
                         <span className="text-[10px] uppercase font-bold text-gray-400 block tracking-wider">Delivery Location</span>
-                        <p className="text-gray-300 text-xs leading-relaxed">{order.customer?.address || 'Standard Delivery Address'}</p>
+                        <p className={`text-xs leading-relaxed ${isLight ? 'text-gray-600' : 'text-gray-300'}`}>{order.customer?.address || 'Standard Delivery Address'}</p>
                       </div>
                     </div>
 
-                    <div className="p-3.5 bg-[#163643] rounded-xl border border-[#224b5c] space-y-2 text-xs">
+                    <div className={`p-3.5 rounded-xl border space-y-2 text-xs ${
+                      isLight ? 'bg-white border-gray-200' : 'bg-[#163643] border-[#224b5c]'
+                    }`}>
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] uppercase font-bold text-[#f0aa93] tracking-wider flex items-center gap-1.5">
+                        <span className={`text-[10px] uppercase font-bold tracking-wider flex items-center gap-1.5 ${
+                          isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                        }`}>
                           <Truck size={13} />
                           <span>Dispatch Logistics</span>
                         </span>
-                        <span className="font-mono text-[11px] text-gray-300 font-bold">
+                        <span className={`font-mono text-[11px] font-bold ${isLight ? 'text-gray-600' : 'text-gray-300'}`}>
                           AWB: {order.courier?.trackingNumber || 'BD-8472910'}
                         </span>
                       </div>
                       <div className="flex items-start gap-2 pt-1">
-                        <MapPin size={14} className="text-[#f0aa93] mt-0.5 flex-shrink-0" />
+                        <MapPin size={14} className={`mt-0.5 flex-shrink-0 ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`} />
                         <div>
-                          <span className="text-xs font-bold text-white block">
+                          <span className={`text-xs font-bold block ${isLight ? 'text-gray-900' : 'text-white'}`}>
                             {order.currentLocation || 'Central Fulfillment Facility, New Delhi'}
                           </span>
                           <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
@@ -504,9 +568,13 @@ export default function TrackOrderView({ initialOrderId = '' }) {
       {/* User Order History Section */}
       {currentUser && myOrders.length > 0 && (
         <div id="my-orders-overview" className="max-w-xl mx-auto mt-12 space-y-4 animate-fadeIn">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#224b5c]">
+          <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b ${
+            isLight ? 'border-gray-200' : 'border-[#224b5c]'
+          }`}>
             <div>
-              <h3 className="text-base font-bold uppercase text-white tracking-wide">
+              <h3 className={`text-base font-bold uppercase tracking-wide ${
+                isLight ? 'text-gray-900' : 'text-white'
+              }`}>
                 My Orders ({myOrders.length})
               </h3>
               <p className="text-xs text-gray-400 mt-0.5">
@@ -530,12 +598,18 @@ export default function TrackOrderView({ initialOrderId = '' }) {
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                       isActive
                         ? 'bg-[#f0aa93] text-[#122731] shadow-md'
+                        : isLight
+                        ? 'bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200'
                         : 'bg-[#163643] hover:bg-[#1f4a5c] text-gray-300 border border-[#224b5c]'
                     }`}
                   >
                     <span>{tab.label}</span>
                     <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                      isActive ? 'bg-[#122731]/20 text-[#122731] font-black' : 'bg-[#122731] text-gray-300'
+                      isActive
+                        ? 'bg-[#122731]/20 text-[#122731] font-black'
+                        : isLight
+                        ? 'bg-gray-200 text-gray-700'
+                        : 'bg-[#122731] text-gray-300'
                     }`}>
                       {tab.count}
                     </span>
@@ -547,7 +621,9 @@ export default function TrackOrderView({ initialOrderId = '' }) {
 
           <div className="space-y-3">
             {filteredMyOrders.length === 0 ? (
-              <div className="p-8 text-center bg-[#163643] rounded-3xl border border-[#224b5c] text-gray-400 text-xs shadow-xl">
+              <div className={`p-8 text-center rounded-3xl border text-gray-400 text-xs shadow-xl ${
+                isLight ? 'bg-white border-gray-200' : 'bg-[#163643] border-[#224b5c]'
+              }`}>
                 No orders found in this category.
               </div>
             ) : (
@@ -566,21 +642,29 @@ export default function TrackOrderView({ initialOrderId = '' }) {
                     }}
                     className={`p-4 rounded-3xl border transition-all cursor-pointer ${
                       isSelected
-                        ? 'border-[#f0aa93] ring-2 ring-[#f0aa93]/30 bg-[#19404f] shadow-xl'
+                        ? isLight
+                          ? 'border-[#122731] ring-2 ring-[#122731]/20 bg-gray-50 shadow-md'
+                          : 'border-[#f0aa93] ring-2 ring-[#f0aa93]/30 bg-[#19404f] shadow-xl'
+                        : isLight
+                        ? 'border-gray-200 bg-white hover:border-[#122731]/40 hover:shadow-md'
                         : 'border-[#224b5c] bg-[#163643] hover:border-[#f0aa93]/60 hover:shadow-xl'
                     }`}
                   >
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 border-b border-[#224b5c]">
+                    <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 border-b ${
+                      isLight ? 'border-gray-200' : 'border-[#224b5c]'
+                    }`}>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-xs font-black text-[#f0aa93]">
+                        <span className={`font-mono text-xs font-black ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>
                           {o.orderId || o.id}
                         </span>
-                        <span className="text-gray-500">•</span>
+                        <span className="text-gray-400">•</span>
                         <span className="text-xs text-gray-400 font-sans">
                           {o.createdAt ? new Date(o.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recent'}
                         </span>
-                        <span className="text-gray-500">•</span>
-                        <span className="text-xs text-gray-300 font-medium truncate max-w-[120px]">
+                        <span className="text-gray-400">•</span>
+                        <span className={`text-xs font-medium truncate max-w-[120px] ${
+                          isLight ? 'text-gray-700' : 'text-gray-300'
+                        }`}>
                           {o.customer?.name}
                         </span>
                       </div>
@@ -599,15 +683,17 @@ export default function TrackOrderView({ initialOrderId = '' }) {
 
                     <div className="my-2.5 flex items-start justify-between gap-2 text-xs">
                       <div className="flex items-start gap-1.5">
-                        <MapPin size={13} className={`mt-0.5 flex-shrink-0 ${isDelivered ? 'text-emerald-400' : 'text-[#f0aa93]'}`} />
+                        <MapPin size={13} className={`mt-0.5 flex-shrink-0 ${isDelivered ? 'text-emerald-500' : (isLight ? 'text-[#122731]' : 'text-[#f0aa93]')}`} />
                         <div>
-                          <strong className="text-white text-xs block">{o.currentLocation || 'Central Warehouse, New Delhi'}</strong>
+                          <strong className={`text-xs block ${isLight ? 'text-gray-900' : 'text-white'}`}>{o.currentLocation || 'Central Warehouse, New Delhi'}</strong>
                           {o.transitNote && (
                             <p className="text-[11px] text-gray-400 mt-0.5 line-clamp-1">{o.transitNote}</p>
                           )}
                         </div>
                       </div>
-                      <span className="font-mono font-bold text-[#f0aa93] text-xs sm:text-sm flex-shrink-0">
+                      <span className={`font-mono font-bold text-xs sm:text-sm flex-shrink-0 ${
+                        isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                      }`}>
                         ₹{o.total?.toLocaleString('en-IN')}
                       </span>
                     </div>
@@ -621,9 +707,11 @@ export default function TrackOrderView({ initialOrderId = '' }) {
 
       {/* Empty States */}
       {currentUser && myOrders.length === 0 && !order && (
-        <div className="max-w-xl mx-auto mt-8 p-8 text-center bg-[#163643] rounded-3xl border border-[#224b5c] shadow-xl text-xs space-y-2">
-          <Package size={32} className="mx-auto text-[#f0aa93] stroke-[1.5]" />
-          <h4 className="font-bold text-sm text-white">No Orders Placed Yet</h4>
+        <div className={`max-w-xl mx-auto mt-8 p-8 text-center rounded-3xl border shadow-xl text-xs space-y-2 ${
+          isLight ? 'bg-white border-gray-200' : 'bg-[#163643] border-[#224b5c]'
+        }`}>
+          <Package size={32} className={`mx-auto stroke-[1.5] ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`} />
+          <h4 className={`font-bold text-sm ${isLight ? 'text-gray-900' : 'text-white'}`}>No Orders Placed Yet</h4>
           <p className="text-gray-400 max-w-sm mx-auto">
             You don't have any orders linked to @{currentUser.username} yet. Once you order from the store, you can track it live here.
           </p>
@@ -631,9 +719,11 @@ export default function TrackOrderView({ initialOrderId = '' }) {
       )}
 
       {!currentUser && !order && (
-        <div className="max-w-xl mx-auto mt-8 p-8 text-center bg-[#163643] rounded-3xl border border-[#224b5c] shadow-xl text-xs space-y-2">
-          <Package size={32} className="mx-auto text-[#f0aa93] stroke-[1.5]" />
-          <h4 className="font-bold text-sm text-white">Live Order Tracking</h4>
+        <div className={`max-w-xl mx-auto mt-8 p-8 text-center rounded-3xl border shadow-xl text-xs space-y-2 ${
+          isLight ? 'bg-white border-gray-200' : 'bg-[#163643] border-[#224b5c]'
+        }`}>
+          <Package size={32} className={`mx-auto stroke-[1.5] ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`} />
+          <h4 className={`font-bold text-sm ${isLight ? 'text-gray-900' : 'text-white'}`}>Live Order Tracking</h4>
           <p className="text-gray-400 max-w-sm mx-auto">
             Enter your Order ID (e.g. ORD-18193) or registered phone number above to view live dispatch status.
           </p>

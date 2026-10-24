@@ -5,7 +5,8 @@ import { useThemeColor } from '../context/ThemeColorContext';
 
 export default function ProductCard({ product, onSelectProduct }) {
   const { addToCart, wishlist, toggleWishlist } = useCart();
-  const { setThemeByColorName } = useThemeColor();
+  const { themeMode = 'dark', setThemeByColorName = () => {} } = useThemeColor?.() || {};
+  const isLight = themeMode === 'light';
   const [selectedColor, setSelectedColor] = useState(
     product.colors && product.colors[0]?.name ? product.colors[0].name : (product.primaryColor?.name || 'Black')
   );
@@ -21,14 +22,18 @@ export default function ProductCard({ product, onSelectProduct }) {
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative rounded-3xl overflow-hidden border border-[#234f60] border-t-white/20 bg-[#163643] flex flex-col justify-between transition-all duration-500 hover:-translate-y-3 hover:border-[#f0aa93]/60 hover:shadow-2xl hover:shadow-[0_25px_50px_rgba(10,25,33,0.85)]"
+      className={`group relative rounded-3xl overflow-hidden border flex flex-col justify-between transition-all duration-500 hover:-translate-y-3 ${
+        isLight
+          ? 'bg-white border-gray-200 text-gray-900 hover:border-[#122731] hover:shadow-2xl'
+          : 'bg-[#163643] border-[#234f60] border-t-white/20 text-white hover:border-[#f0aa93]/60 hover:shadow-2xl hover:shadow-[0_25px_50px_rgba(10,25,33,0.85)]'
+      }`}
     >
 
       <div
         onClick={() => onSelectProduct(product)}
         className="relative aspect-[4/5] w-full overflow-hidden flex items-center justify-center cursor-pointer bg-black/20"
         style={{
-          backgroundColor: product.cardBg || (product.primaryColor?.name === 'Off White' ? '#ffffff' : '#183c4b')
+          backgroundColor: product.cardBg || (product.primaryColor?.name === 'Off White' ? '#ffffff' : (isLight ? '#f1f5f9' : '#183c4b'))
         }}
       >
         <img
@@ -45,7 +50,7 @@ export default function ProductCard({ product, onSelectProduct }) {
             </span>
           )}
           {product.discountPercent > 0 && (
-            <span className="px-2.5 py-0.5 text-[10px] font-bold tracking-wider rounded-full bg-[#f0aa93] text-[#122832] font-mono shadow-md backdrop-blur-md">
+            <span className="px-2.5 py-0.5 text-[10px] font-bold tracking-wider rounded-full bg-[#f0aa93] text-[#122731] font-mono shadow-md backdrop-blur-md">
               {product.discountPercent}% OFF
             </span>
           )}
@@ -73,28 +78,36 @@ export default function ProductCard({ product, onSelectProduct }) {
         </div>
       </div>
 
-      <div className="p-4 sm:p-5 flex flex-col flex-grow justify-between space-y-3">
+      <div className={`p-4 sm:p-5 flex flex-col flex-grow justify-between space-y-3 ${
+        isLight ? 'bg-white' : 'bg-[#163643]'
+      }`}>
         <div>
 
           <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
-            <span className="font-sanskrit text-sm text-[#f0aa93] tracking-wider font-semibold">
+            <span className={`font-sanskrit text-sm tracking-wider font-semibold ${
+              isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+            }`}>
               {product.sanskritTitle || product.title}
             </span>
-            <div className="flex items-center gap-1 text-[11px] text-gray-300">
-              <span className="text-[#f0aa93] tracking-wider">★ ★ ★ ★ ★</span>
-              <span className="font-bold text-white">{product.rating || '4.9'}</span>
+            <div className="flex items-center gap-1 text-[11px] text-gray-400">
+              <span className="text-amber-400 tracking-wider">★ ★ ★ ★ ★</span>
+              <span className={`font-bold ${isLight ? 'text-gray-900' : 'text-white'}`}>{product.rating || '4.9'}</span>
               <span className="text-gray-400">({product.reviewsCount || 85})</span>
             </div>
           </div>
 
           <h3
             onClick={() => onSelectProduct(product)}
-            className="text-sm font-bold text-white group-hover:text-[#f0aa93] transition-colors cursor-pointer line-clamp-1 uppercase tracking-wide"
+            className={`text-sm font-bold transition-colors cursor-pointer line-clamp-1 uppercase tracking-wide ${
+              isLight ? 'text-gray-900 group-hover:text-[#122731]' : 'text-white group-hover:text-[#f0aa93]'
+            }`}
           >
             {product.title}
           </h3>
 
-          <p className="text-[11px] text-gray-300 italic line-clamp-1 mt-1 font-serif">
+          <p className={`text-[11px] italic line-clamp-1 mt-1 font-serif ${
+            isLight ? 'text-gray-600' : 'text-gray-300'
+          }`}>
             {product.philosophyQuote}
           </p>
 
@@ -114,8 +127,8 @@ export default function ProductCard({ product, onSelectProduct }) {
                     title={`Preview in ${c.name}`}
                     className={`w-4 h-4 rounded-full border transition-all cursor-pointer ${
                       isSelected
-                        ? 'border-[#f0aa93] scale-125 ring-2 ring-[#f0aa93]/40'
-                        : 'border-white/30 hover:scale-110'
+                        ? isLight ? 'border-[#122731] scale-125 ring-2 ring-[#122731]/30' : 'border-[#f0aa93] scale-125 ring-2 ring-[#f0aa93]/40'
+                        : isLight ? 'border-gray-300 hover:scale-110' : 'border-white/30 hover:scale-110'
                     }`}
                     style={{ backgroundColor: c.hex }}
                   />
@@ -126,10 +139,14 @@ export default function ProductCard({ product, onSelectProduct }) {
           </div>
         </div>
 
-        <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+        <div className={`pt-3 border-t flex items-center justify-between gap-2 ${
+          isLight ? 'border-gray-100' : 'border-white/10'
+        }`}>
           <div>
             <div className="flex items-baseline gap-2">
-              <span className="text-base sm:text-lg font-black text-[#f0aa93] font-mono">
+              <span className={`text-base sm:text-lg font-black font-mono ${
+                isLight ? 'text-gray-900' : 'text-[#f0aa93]'
+              }`}>
                 ₹{product.price.toLocaleString('en-IN')}
               </span>
               {product.compareAtPrice && product.compareAtPrice > product.price && (
@@ -145,14 +162,17 @@ export default function ProductCard({ product, onSelectProduct }) {
               e.stopPropagation();
               addToCart(product, 'L', selectedColor, 1);
             }}
-            className="px-3.5 py-2 rounded-xl bg-[#f0aa93] hover:bg-white text-[#122832] font-black text-xs uppercase tracking-wider transition-all duration-300 flex items-center gap-1.5 cursor-pointer shadow-lg active:scale-95"
+            className={`px-3.5 py-2 rounded-xl font-black text-xs uppercase tracking-wider transition-all duration-300 flex items-center gap-1.5 cursor-pointer shadow-lg active:scale-95 ${
+              isLight
+                ? 'bg-[#122731] hover:bg-black text-white'
+                : 'bg-[#f0aa93] hover:bg-white text-[#122731]'
+            }`}
             title="Add to Bag"
           >
             <ShoppingBag size={14} />
             <span>ADD</span>
           </button>
         </div>
-      </div>
       </div>
     </div>
   );

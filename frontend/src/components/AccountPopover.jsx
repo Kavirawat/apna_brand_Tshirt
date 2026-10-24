@@ -648,7 +648,11 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
               </button>
               <button
                 onClick={handleLogout}
-                className="py-3 px-4 border border-red-500/40 bg-red-950/30 hover:bg-red-900/50 text-red-300 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                className={`py-3 px-4 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm ${
+                  isLight
+                    ? 'border border-[#122731] bg-[#122731] hover:bg-black text-white'
+                    : 'border border-white bg-white hover:bg-gray-100 text-black shadow-md'
+                }`}
                 title="Log out"
               >
                 <LogOut size={15} />

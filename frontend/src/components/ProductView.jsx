@@ -157,21 +157,27 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
             )}
           </div>
 
-          {/* Right Column: Dark Dashboard Theme Specs & Actions */}
+          {/* Right Column: Specs & Actions */}
           <div className="lg:col-span-5 flex flex-col space-y-5 lg:sticky lg:top-24">
 
             {/* Title & Price */}
             <div>
-              <span className="text-[11px] font-mono font-bold tracking-widest uppercase block mb-1 text-[#f0aa93]">
+              <span className={`text-[11px] font-mono font-bold tracking-widest uppercase block mb-1 ${
+                isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+              }`}>
                 APNA BRAND
               </span>
 
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-white leading-tight">
+              <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight leading-tight ${
+                isLight ? 'text-gray-900' : 'text-white'
+              }`}>
                 {product.title}
               </h1>
 
               <div className="mt-3 flex items-baseline gap-3 flex-wrap">
-                <span className="text-2xl sm:text-3xl font-black tracking-tight text-white font-mono">
+                <span className={`text-2xl sm:text-3xl font-black tracking-tight font-mono ${
+                  isLight ? 'text-gray-900' : 'text-white'
+                }`}>
                   Rs. {singlePrice.toLocaleString('en-IN')}.00
                 </span>
                 {product.compareAtPrice && product.compareAtPrice > singlePrice && (
@@ -193,7 +199,7 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
               </span>
-              <span className="text-xs font-semibold text-gray-200">
+              <span className={`text-xs font-semibold ${isLight ? 'text-gray-700' : 'text-gray-200'}`}>
                 Low stock - {product.remainingUnits || 20} items left
               </span>
             </div>
@@ -203,8 +209,8 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
               <div className="flex text-amber-400 text-sm tracking-wider">
                 <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
               </div>
-              <span className="font-bold text-xs text-white font-mono">4.41</span>
-              <span className="text-gray-500">·</span>
+              <span className={`font-bold text-xs font-mono ${isLight ? 'text-gray-900' : 'text-white'}`}>4.41</span>
+              <span className="text-gray-400">·</span>
               <span className="text-[11px] uppercase tracking-wider text-gray-400 font-medium">
                 {product.reviewsCount || 85} REVIEWS
               </span>
@@ -222,8 +228,8 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
 
             {/* Color Selector */}
             <div className="pt-1">
-              <div className="text-[11px] font-bold uppercase tracking-wider mb-2 text-gray-300">
-                COLOR: <span className="font-bold text-[#f0aa93]">{selectedColor}</span>
+              <div className={`text-[11px] font-bold uppercase tracking-wider mb-2 ${isLight ? 'text-gray-600' : 'text-gray-300'}`}>
+                COLOR: <span className={`font-bold ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>{selectedColor}</span>
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 {product.colors && product.colors.length > 0 ? (
@@ -234,6 +240,8 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
                       className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-bold transition-all cursor-pointer ${
                         selectedColor === c.name
                           ? 'border-[#f0aa93] bg-[#f0aa93] text-[#122731] shadow-lg'
+                          : isLight
+                          ? 'border-gray-200 bg-gray-50 text-gray-800 hover:border-gray-400'
                           : 'border-[#224b5c] bg-[#163643] text-gray-200 hover:border-white/50'
                       }`}
                     >
@@ -259,14 +267,18 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
             {/* Size Selector */}
             <div className="pt-1">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-gray-300">
-                  SIZE: <span className="font-bold text-[#f0aa93]">{selectedSize}</span>
+                <span className={`text-[11px] font-bold uppercase tracking-wider ${isLight ? 'text-gray-600' : 'text-gray-300'}`}>
+                  SIZE: <span className={`font-bold ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>{selectedSize}</span>
                 </span>
 
                 <button
                   type="button"
                   onClick={onOpenSizeGuide}
-                  className="px-2.5 py-1 text-[9px] font-mono font-bold tracking-wider uppercase border border-[#224b5c] bg-[#163643] rounded-lg hover:border-[#f0aa93] hover:text-[#f0aa93] transition-colors text-gray-300 cursor-pointer"
+                  className={`px-2.5 py-1 text-[9px] font-mono font-bold tracking-wider uppercase border rounded-lg transition-colors cursor-pointer ${
+                    isLight
+                      ? 'border-gray-300 bg-gray-100 text-gray-700 hover:border-[#122731] hover:text-[#122731]'
+                      : 'border-[#224b5c] bg-[#163643] text-gray-300 hover:border-[#f0aa93] hover:text-[#f0aa93]'
+                  }`}
                 >
                   SIZE GUIDE
                 </button>
@@ -281,6 +293,8 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
                     className={`py-2 rounded-xl text-xs font-bold tracking-wide transition-all border cursor-pointer ${
                       selectedSize === size
                         ? 'bg-[#f0aa93] text-[#122731] border-[#f0aa93] shadow-lg font-black'
+                        : isLight
+                        ? 'border-gray-200 bg-gray-50 text-gray-800 hover:border-gray-400'
                         : 'border-[#224b5c] bg-[#163643] text-gray-200 hover:border-white/50'
                     } ${isVaultClosed ? 'opacity-35 cursor-not-allowed' : ''}`}
                   >
@@ -298,19 +312,33 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
                 onClick={() => setSelectedBundle('single')}
                 className={`p-4 rounded-2xl border cursor-pointer transition-all flex items-center justify-between ${
                   selectedBundle === 'single'
-                    ? 'border-[#f0aa93] bg-[#163643] ring-1 ring-[#f0aa93]/60 shadow-xl'
+                    ? isLight
+                      ? 'border-[#122731] bg-gray-50 ring-1 ring-[#122731] shadow-md'
+                      : 'border-[#f0aa93] bg-[#163643] ring-1 ring-[#f0aa93]/60 shadow-xl'
+                    : isLight
+                    ? 'border-gray-200 bg-white hover:border-gray-300'
                     : 'border-[#224b5c] bg-[#163643]/60 hover:border-[#224b5c]/80'
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${selectedBundle === 'single' ? 'border-[#f0aa93]' : 'border-gray-500'}`}>
-                    {selectedBundle === 'single' && <div className="w-2 h-2 rounded-full bg-[#f0aa93]" />}
+                  <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                    selectedBundle === 'single'
+                      ? isLight ? 'border-[#122731]' : 'border-[#f0aa93]'
+                      : 'border-gray-400'
+                  }`}>
+                    {selectedBundle === 'single' && (
+                      <div className={`w-2 h-2 rounded-full ${isLight ? 'bg-[#122731]' : 'bg-[#f0aa93]'}`} />
+                    )}
                   </div>
                   <div>
-                    <span className="text-xs font-bold text-white uppercase block line-clamp-1">
+                    <span className={`text-xs font-bold uppercase block line-clamp-1 ${
+                      isLight ? 'text-gray-900' : 'text-white'
+                    }`}>
                       {product.sanskritTitle || product.title}
                     </span>
-                    <span className="text-xs text-[#f0aa93] font-mono font-bold">
+                    <span className={`text-xs font-mono font-bold ${
+                      isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                    }`}>
                       Rs. {singlePrice.toLocaleString('en-IN')}
                     </span>
                   </div>
@@ -319,21 +347,29 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
                 {!isVaultClosed && (
                   <div
                     onClick={(e) => e.stopPropagation()}
-                    className="inline-flex items-center border border-[#224b5c] rounded-xl bg-[#122731] px-2 py-0.5 shadow-inner"
+                    className={`inline-flex items-center border rounded-xl px-2 py-0.5 shadow-inner ${
+                      isLight ? 'border-gray-300 bg-gray-100' : 'border-[#224b5c] bg-[#122731]'
+                    }`}
                   >
                     <button
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="w-6 h-6 flex items-center justify-center text-xs font-bold text-gray-300 hover:text-white transition-colors cursor-pointer"
+                      className={`w-6 h-6 flex items-center justify-center text-xs font-bold transition-colors cursor-pointer ${
+                        isLight ? 'text-gray-700 hover:text-black' : 'text-gray-300 hover:text-white'
+                      }`}
                       aria-label="Decrease quantity"
                     >
                       -
                     </button>
-                    <span className="w-7 text-center text-xs font-bold font-mono text-white">
+                    <span className={`w-7 text-center text-xs font-bold font-mono ${
+                      isLight ? 'text-gray-900' : 'text-white'
+                    }`}>
                       {quantity}
                     </span>
                     <button
                       onClick={() => setQuantity(quantity + 1)}
-                      className="w-6 h-6 flex items-center justify-center text-xs font-bold text-gray-300 hover:text-white transition-colors cursor-pointer"
+                      className={`w-6 h-6 flex items-center justify-center text-xs font-bold transition-colors cursor-pointer ${
+                        isLight ? 'text-gray-700 hover:text-black' : 'text-gray-300 hover:text-white'
+                      }`}
                       aria-label="Increase quantity"
                     >
                       +
@@ -347,7 +383,11 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
                 onClick={() => setSelectedBundle('bundle3')}
                 className={`p-4 rounded-2xl border cursor-pointer transition-all relative ${
                   selectedBundle === 'bundle3'
-                    ? 'border-[#f0aa93] bg-[#163643] ring-1 ring-[#f0aa93]/60 shadow-xl'
+                    ? isLight
+                      ? 'border-[#122731] bg-gray-50 ring-1 ring-[#122731] shadow-md'
+                      : 'border-[#f0aa93] bg-[#163643] ring-1 ring-[#f0aa93]/60 shadow-xl'
+                    : isLight
+                    ? 'border-gray-200 bg-white hover:border-gray-300'
                     : 'border-[#224b5c] bg-[#163643]/60 hover:border-[#224b5c]/80'
                 }`}
               >
@@ -357,15 +397,21 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
 
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${selectedBundle === 'bundle3' ? 'border-[#f0aa93]' : 'border-gray-500'}`}>
-                      {selectedBundle === 'bundle3' && <div className="w-2 h-2 rounded-full bg-[#f0aa93]" />}
+                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                      selectedBundle === 'bundle3'
+                        ? isLight ? 'border-[#122731]' : 'border-[#f0aa93]'
+                        : 'border-gray-400'
+                    }`}>
+                      {selectedBundle === 'bundle3' && (
+                        <div className={`w-2 h-2 rounded-full ${isLight ? 'bg-[#122731]' : 'bg-[#f0aa93]'}`} />
+                      )}
                     </div>
-                    <span className="text-xs font-bold text-white">
+                    <span className={`text-xs font-bold ${isLight ? 'text-gray-900' : 'text-white'}`}>
                       Pick Any 3 of Your Favourite
                     </span>
                   </div>
                   <div className="text-right">
-                    <span className="text-xs font-bold text-white font-mono block">
+                    <span className={`text-xs font-bold font-mono block ${isLight ? 'text-gray-900' : 'text-white'}`}>
                       Rs. 3,650
                     </span>
                     <span className="text-[10px] text-gray-400 line-through font-mono">
@@ -374,22 +420,34 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2.5 pt-3 border-t border-[#224b5c]">
-                  <div className="p-2 rounded-xl bg-[#122731] border border-[#224b5c] flex flex-col items-center text-center">
-                    <div className="w-12 h-14 rounded-lg bg-[#163643] border border-[#224b5c] flex items-center justify-center overflow-hidden mb-1">
+                <div className={`grid grid-cols-3 gap-2.5 pt-3 border-t ${
+                  isLight ? 'border-gray-200' : 'border-[#224b5c]'
+                }`}>
+                  <div className={`p-2 rounded-xl border flex flex-col items-center text-center ${
+                    isLight ? 'bg-white border-gray-200' : 'bg-[#122731] border-[#224b5c]'
+                  }`}>
+                    <div className={`w-12 h-14 rounded-lg border flex items-center justify-center overflow-hidden mb-1 ${
+                      isLight ? 'bg-gray-100 border-gray-200' : 'bg-[#163643] border-[#224b5c]'
+                    }`}>
                       <img
                         src={images[0]}
                         alt={product.title}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <span className="text-[9px] font-bold text-gray-200 line-clamp-1 uppercase">
+                    <span className={`text-[9px] font-bold line-clamp-1 uppercase ${
+                      isLight ? 'text-gray-800' : 'text-gray-200'
+                    }`}>
                       {product.sanskritTitle || product.title.split('—')[0]}
                     </span>
                   </div>
 
-                  <div className="p-2 rounded-xl bg-[#122731] border border-dashed border-[#224b5c] flex flex-col items-center justify-center text-center">
-                    <div className="w-8 h-8 rounded-lg bg-[#163643] border border-[#224b5c] flex items-center justify-center mb-1 text-[#f0aa93] shadow-xs">
+                  <div className={`p-2 rounded-xl border border-dashed flex flex-col items-center justify-center text-center ${
+                    isLight ? 'bg-white border-gray-300' : 'bg-[#122731] border-[#224b5c]'
+                  }`}>
+                    <div className={`w-8 h-8 rounded-lg border flex items-center justify-center mb-1 shadow-xs ${
+                      isLight ? 'bg-gray-100 border-gray-200 text-[#122731]' : 'bg-[#163643] border-[#224b5c] text-[#f0aa93]'
+                    }`}>
                       <Sparkles size={14} />
                     </div>
                     <span className="text-[9px] font-medium text-gray-400 leading-tight">
@@ -397,8 +455,12 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
                     </span>
                   </div>
 
-                  <div className="p-2 rounded-xl bg-[#122731] border border-dashed border-[#224b5c] flex flex-col items-center justify-center text-center">
-                    <div className="w-8 h-8 rounded-lg bg-[#163643] border border-[#224b5c] flex items-center justify-center mb-1 text-[#f0aa93] shadow-xs">
+                  <div className={`p-2 rounded-xl border border-dashed flex flex-col items-center justify-center text-center ${
+                    isLight ? 'bg-white border-gray-300' : 'bg-[#122731] border-[#224b5c]'
+                  }`}>
+                    <div className={`w-8 h-8 rounded-lg border flex items-center justify-center mb-1 shadow-xs ${
+                      isLight ? 'bg-gray-100 border-gray-200 text-[#122731]' : 'bg-[#163643] border-[#224b5c] text-[#f0aa93]'
+                    }`}>
                       <Sparkles size={14} />
                     </div>
                     <span className="text-[9px] font-medium text-gray-400 leading-tight">
@@ -433,10 +495,14 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
 
         </div>
 
-        {/* Tabbed Info Section (Dashboard Dark Container) */}
-        <div id="shipping-tab" className="mt-14 rounded-3xl border border-[#224b5c] bg-[#163643] overflow-hidden shadow-2xl">
+        {/* Tabbed Info Section */}
+        <div id="shipping-tab" className={`mt-14 rounded-3xl border overflow-hidden shadow-2xl transition-colors ${
+          isLight ? 'border-gray-200 bg-white' : 'border-[#224b5c] bg-[#163643]'
+        }`}>
 
-          <div className="flex items-center border-b border-[#224b5c] bg-[#122731] overflow-x-auto scrollbar-none">
+          <div className={`flex items-center border-b overflow-x-auto scrollbar-none ${
+            isLight ? 'border-gray-200 bg-gray-50' : 'border-[#224b5c] bg-[#122731]'
+          }`}>
             {[
               { id: 'piece', label: 'THE PIECE' },
               { id: 'fabric', label: 'FABRIC / FIT' },
@@ -448,7 +514,11 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 min-w-[120px] py-4 px-4 text-center text-xs tracking-wider transition-all relative cursor-pointer ${
                   activeTab === tab.id
-                    ? 'font-bold text-[#f0aa93] border-b-2 border-[#f0aa93] bg-[#163643]/50'
+                    ? isLight
+                      ? 'font-bold text-[#122731] border-b-2 border-[#122731] bg-white'
+                      : 'font-bold text-[#f0aa93] border-b-2 border-[#f0aa93] bg-[#163643]/50'
+                    : isLight
+                    ? 'font-semibold text-gray-500 hover:text-black'
                     : 'font-semibold text-gray-400 hover:text-white'
                 }`}
               >
@@ -461,38 +531,62 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
 
             {activeTab === 'piece' && (
               <div className="animate-fadeIn">
-                <span className="text-[11px] font-mono font-bold tracking-widest text-[#f0aa93] uppercase block mb-1">
+                <span className={`text-[11px] font-mono font-bold tracking-widest uppercase block mb-1 ${
+                  isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                }`}>
                   FASHION × PHILOSOPHY
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mb-3">
-                  MORE THAN <span className="text-[#f0aa93]">CLOTHING.</span>
+                <h2 className={`text-2xl sm:text-3xl font-black uppercase tracking-tight mb-3 ${
+                  isLight ? 'text-gray-900' : 'text-white'
+                }`}>
+                  MORE THAN <span className={isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}>CLOTHING.</span>
                 </h2>
-                <p className="text-xs sm:text-sm text-gray-300 max-w-2xl leading-relaxed mb-8">
+                <p className={`text-xs sm:text-sm max-w-2xl leading-relaxed mb-8 ${
+                  isLight ? 'text-gray-600' : 'text-gray-300'
+                }`}>
                   Indian philosophy, expressed through distinctive artwork and heavyweight streetwear.
                 </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6 pt-6 border-t border-[#224b5c]">
-                  <div className="flex items-baseline gap-3 pb-4 border-b border-[#224b5c]">
-                    <span className="font-mono text-xs text-[#f0aa93]">01</span>
-                    <span className="text-xs sm:text-sm font-bold text-white tracking-wide uppercase">
+                <div className={`grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6 pt-6 border-t ${
+                  isLight ? 'border-gray-200' : 'border-[#224b5c]'
+                }`}>
+                  <div className={`flex items-baseline gap-3 pb-4 border-b ${
+                    isLight ? 'border-gray-200' : 'border-[#224b5c]'
+                  }`}>
+                    <span className={`font-mono text-xs ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>01</span>
+                    <span className={`text-xs sm:text-sm font-bold tracking-wide uppercase ${
+                      isLight ? 'text-gray-900' : 'text-white'
+                    }`}>
                       PHILOSOPHY YOU CAN WEAR
                     </span>
                   </div>
-                  <div className="flex items-baseline gap-3 pb-4 border-b border-[#224b5c]">
-                    <span className="font-mono text-xs text-[#f0aa93]">02</span>
-                    <span className="text-xs sm:text-sm font-bold text-white tracking-wide uppercase">
+                  <div className={`flex items-baseline gap-3 pb-4 border-b ${
+                    isLight ? 'border-gray-200' : 'border-[#224b5c]'
+                  }`}>
+                    <span className={`font-mono text-xs ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>02</span>
+                    <span className={`text-xs sm:text-sm font-bold tracking-wide uppercase ${
+                      isLight ? 'text-gray-900' : 'text-white'
+                    }`}>
                       RARE BY DESIGN
                     </span>
                   </div>
-                  <div className="flex items-baseline gap-3 pb-4 border-b border-[#224b5c]">
-                    <span className="font-mono text-xs text-[#f0aa93]">03</span>
-                    <span className="text-xs sm:text-sm font-bold text-white tracking-wide uppercase">
+                  <div className={`flex items-baseline gap-3 pb-4 border-b ${
+                    isLight ? 'border-gray-200' : 'border-[#224b5c]'
+                  }`}>
+                    <span className={`font-mono text-xs ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>03</span>
+                    <span className={`text-xs sm:text-sm font-bold tracking-wide uppercase ${
+                      isLight ? 'text-gray-900' : 'text-white'
+                    }`}>
                       HEAVYWEIGHT COTTON
                     </span>
                   </div>
-                  <div className="flex items-baseline gap-3 pb-4 border-b border-[#224b5c]">
-                    <span className="font-mono text-xs text-[#f0aa93]">04</span>
-                    <span className="text-xs sm:text-sm font-bold text-white tracking-wide uppercase">
+                  <div className={`flex items-baseline gap-3 pb-4 border-b ${
+                    isLight ? 'border-gray-200' : 'border-[#224b5c]'
+                  }`}>
+                    <span className={`font-mono text-xs ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>04</span>
+                    <span className={`text-xs sm:text-sm font-bold tracking-wide uppercase ${
+                      isLight ? 'text-gray-900' : 'text-white'
+                    }`}>
                       STRUCTURED OVERSIZED FIT
                     </span>
                   </div>
@@ -507,48 +601,52 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
 
             {activeTab === 'fabric' && (
               <div className="animate-fadeIn">
-                <span className="text-[11px] font-mono font-bold tracking-widest text-[#f0aa93] uppercase block mb-1">
+                <span className={`text-[11px] font-mono font-bold tracking-widest uppercase block mb-1 ${
+                  isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                }`}>
                   FABRIC / CONSTRUCTION
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mb-6">
-                  HEAVYWEIGHT. <span className="text-[#f0aa93]">BY DESIGN.</span>
+                <h2 className={`text-2xl sm:text-3xl font-black uppercase tracking-tight mb-6 ${
+                  isLight ? 'text-gray-900' : 'text-white'
+                }`}>
+                  HEAVYWEIGHT. <span className={isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}>BY DESIGN.</span>
                 </h2>
 
-                <div className="space-y-4 divide-y divide-[#224b5c]">
+                <div className={`space-y-4 divide-y ${isLight ? 'divide-gray-200' : 'divide-[#224b5c]'}`}>
                   <div className="pt-3 pb-1 flex items-center justify-between">
                     <div>
-                      <div className="text-xs font-bold text-white uppercase">OVERSIZED T-SHIRT / SHIRT</div>
+                      <div className={`text-xs font-bold uppercase ${isLight ? 'text-gray-900' : 'text-white'}`}>OVERSIZED T-SHIRT / SHIRT</div>
                       <div className="text-xs text-gray-400">Heavyweight cotton</div>
                     </div>
-                    <span className="text-xs font-black font-mono text-[#f0aa93]">260 GSM</span>
+                    <span className={`text-xs font-black font-mono ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>260 GSM</span>
                   </div>
 
                   <div className="pt-4 pb-1 flex items-center justify-between">
                     <div>
-                      <div className="text-xs font-bold text-white uppercase">HOODIE / SWEATSHIRT</div>
+                      <div className={`text-xs font-bold uppercase ${isLight ? 'text-gray-900' : 'text-white'}`}>HOODIE / SWEATSHIRT</div>
                       <div className="text-xs text-gray-400">Heavyweight loopback cotton</div>
                     </div>
-                    <span className="text-xs font-black font-mono text-[#f0aa93]">400 GSM</span>
+                    <span className={`text-xs font-black font-mono ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>400 GSM</span>
                   </div>
 
                   <div className="pt-4 pb-1 flex items-center justify-between">
                     <div>
-                      <div className="text-xs font-bold text-white uppercase">FIT</div>
+                      <div className={`text-xs font-bold uppercase ${isLight ? 'text-gray-900' : 'text-white'}`}>FIT</div>
                       <div className="text-xs text-gray-400">Unisex / relaxed silhouette</div>
                     </div>
-                    <span className="text-xs font-black text-white uppercase tracking-wider">OVERSIZED</span>
+                    <span className={`text-xs font-black uppercase tracking-wider ${isLight ? 'text-gray-900' : 'text-white'}`}>OVERSIZED</span>
                   </div>
 
                   <div className="pt-5">
-                    <span className="text-[11px] font-bold text-[#f0aa93] uppercase block mb-1">SIZE NOTE</span>
-                    <p className="text-xs text-gray-300 leading-relaxed">
+                    <span className={`text-[11px] font-bold uppercase block mb-1 ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>SIZE NOTE</span>
+                    <p className={`text-xs leading-relaxed ${isLight ? 'text-gray-600' : 'text-gray-300'}`}>
                       For a less oversized fit, we recommend choosing one size down. Compare measurements with the Size Guide before ordering.
                     </p>
                   </div>
 
                   <div className="pt-5">
-                    <span className="text-[11px] font-bold text-[#f0aa93] uppercase block mb-1">GARMENT CARE</span>
-                    <p className="text-xs text-gray-300 leading-relaxed">
+                    <span className={`text-[11px] font-bold uppercase block mb-1 ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>GARMENT CARE</span>
+                    <p className={`text-xs leading-relaxed ${isLight ? 'text-gray-600' : 'text-gray-300'}`}>
                       Reverse hand wash only. Iron inside out.
                     </p>
                   </div>
@@ -558,41 +656,47 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
 
             {activeTab === 'shipping' && (
               <div className="animate-fadeIn">
-                <span className="text-[11px] font-mono font-bold tracking-widest text-[#f0aa93] uppercase block mb-1">
+                <span className={`text-[11px] font-mono font-bold tracking-widest uppercase block mb-1 ${
+                  isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                }`}>
                   GLOBAL DELIVERY
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mb-3">
-                  MADE IN BHARAT. <span className="text-[#f0aa93]">WORN EVERYWHERE.</span>
+                <h2 className={`text-2xl sm:text-3xl font-black uppercase tracking-tight mb-3 ${
+                  isLight ? 'text-gray-900' : 'text-white'
+                }`}>
+                  MADE IN BHARAT. <span className={isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}>WORN EVERYWHERE.</span>
                 </h2>
 
-                <div className="flex items-center gap-2 text-xs font-bold text-[#f0aa93] uppercase tracking-wider mb-6">
-                  <span className="w-2 h-2 rounded-full bg-[#f0aa93]"></span>
+                <div className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider mb-6 ${
+                  isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                }`}>
+                  <span className={`w-2 h-2 rounded-full ${isLight ? 'bg-[#122731]' : 'bg-[#f0aa93]'}`}></span>
                   <span>FREE WORLDWIDE SHIPPING</span>
                 </div>
 
-                <div className="space-y-4 divide-y divide-[#224b5c]">
+                <div className={`space-y-4 divide-y ${isLight ? 'divide-gray-200' : 'divide-[#224b5c]'}`}>
                   <div className="pt-3 pb-1 flex items-center justify-between">
                     <div>
-                      <div className="text-xs font-bold text-white uppercase">DISPATCH</div>
+                      <div className={`text-xs font-bold uppercase ${isLight ? 'text-gray-900' : 'text-white'}`}>DISPATCH</div>
                       <div className="text-xs text-gray-400">Order preparation</div>
                     </div>
-                    <span className="text-xs font-black text-[#f0aa93] uppercase">WITHIN 3 DAYS</span>
+                    <span className={`text-xs font-black uppercase ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>WITHIN 3 DAYS</span>
                   </div>
 
                   <div className="pt-4 pb-1 flex items-center justify-between">
                     <div>
-                      <div className="text-xs font-bold text-white uppercase">INDIA</div>
+                      <div className={`text-xs font-bold uppercase ${isLight ? 'text-gray-900' : 'text-white'}`}>INDIA</div>
                       <div className="text-xs text-gray-400">Estimated delivery</div>
                     </div>
-                    <span className="text-xs font-black text-[#f0aa93] uppercase">6–8 DAYS</span>
+                    <span className={`text-xs font-black uppercase ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>6–8 DAYS</span>
                   </div>
 
                   <div className="pt-4 pb-1 flex items-center justify-between">
                     <div>
-                      <div className="text-xs font-bold text-white uppercase">INTERNATIONAL</div>
+                      <div className={`text-xs font-bold uppercase ${isLight ? 'text-gray-900' : 'text-white'}`}>INTERNATIONAL</div>
                       <div className="text-xs text-gray-400">Estimated delivery</div>
                     </div>
-                    <span className="text-xs font-black text-[#f0aa93] uppercase">12–18 DAYS</span>
+                    <span className={`text-xs font-black uppercase ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>12–18 DAYS</span>
                   </div>
 
                   <div className="pt-5">
@@ -606,31 +710,35 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
 
             {activeTab === 'exchange' && (
               <div className="animate-fadeIn">
-                <span className="text-[11px] font-mono font-bold tracking-widest text-[#f0aa93] uppercase block mb-1">
+                <span className={`text-[11px] font-mono font-bold tracking-widest uppercase block mb-1 ${
+                  isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                }`}>
                   POST-PURCHASE SUPPORT
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mb-6">
-                  THE RIGHT <span className="text-[#f0aa93]">FIT MATTERS.</span>
+                <h2 className={`text-2xl sm:text-3xl font-black uppercase tracking-tight mb-6 ${
+                  isLight ? 'text-gray-900' : 'text-white'
+                }`}>
+                  THE RIGHT <span className={isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}>FIT MATTERS.</span>
                 </h2>
 
-                <div className="space-y-5 divide-y divide-[#224b5c]">
+                <div className={`space-y-5 divide-y ${isLight ? 'divide-gray-200' : 'divide-[#224b5c]'}`}>
                   <div className="pt-3">
-                    <div className="text-xs font-bold text-white uppercase mb-1">INDIAN ORDERS</div>
-                    <p className="text-xs text-gray-300">
+                    <div className={`text-xs font-bold uppercase mb-1 ${isLight ? 'text-gray-900' : 'text-white'}`}>INDIAN ORDERS</div>
+                    <p className={`text-xs ${isLight ? 'text-gray-600' : 'text-gray-300'}`}>
                       One-time size exchange available, subject to our exchange policy.
                     </p>
                   </div>
 
                   <div className="pt-4">
-                    <div className="text-xs font-bold text-white uppercase mb-1">INTERNATIONAL ORDERS</div>
-                    <p className="text-xs text-gray-300">
+                    <div className={`text-xs font-bold uppercase mb-1 ${isLight ? 'text-gray-900' : 'text-white'}`}>INTERNATIONAL ORDERS</div>
+                    <p className={`text-xs ${isLight ? 'text-gray-600' : 'text-gray-300'}`}>
                       One-time size exchange available. Applicable shipping and processing charges apply.
                     </p>
                   </div>
 
                   <div className="pt-4 space-y-3">
-                    <div className="text-xs font-bold text-white uppercase">NEED ASSISTANCE?</div>
-                    <p className="text-xs text-gray-300 leading-relaxed">
+                    <div className={`text-xs font-bold uppercase ${isLight ? 'text-gray-900' : 'text-white'}`}>NEED ASSISTANCE?</div>
+                    <p className={`text-xs leading-relaxed ${isLight ? 'text-gray-600' : 'text-gray-300'}`}>
                       For an order issue or exchange request, contact our support team promptly. Eligibility and reporting deadlines are governed by our policy.
                     </p>
                     <button
@@ -640,7 +748,11 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
                         if (el) el.click();
                         else alert('Our support team is available 24/7 on Live Chat.');
                       }}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-[#f0aa93] hover:bg-[#f0aa93] hover:text-[#122731] transition-colors text-xs font-bold uppercase tracking-wider text-[#f0aa93] mt-2 cursor-pointer"
+                      className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border transition-colors text-xs font-bold uppercase tracking-wider mt-2 cursor-pointer ${
+                        isLight
+                          ? 'border-[#122731] text-[#122731] hover:bg-[#122731] hover:text-white'
+                          : 'border-[#f0aa93] text-[#f0aa93] hover:bg-[#f0aa93] hover:text-[#122731]'
+                      }`}
                     >
                       <span>CONTACT CUSTOMER SUPPORT</span>
                       <span>↗</span>
@@ -655,12 +767,16 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
 
         {/* Bottom 3 Trust Feature Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
-          <div className="bg-[#163643] rounded-3xl border border-[#224b5c] p-5 flex items-center gap-4 shadow-xl">
-            <div className="w-12 h-12 rounded-full border border-[#224b5c] bg-[#122731] flex items-center justify-center flex-shrink-0 text-[#f0aa93]">
+          <div className={`rounded-3xl border p-5 flex items-center gap-4 shadow-xl ${
+            isLight ? 'bg-white border-gray-200' : 'bg-[#163643] border-[#224b5c]'
+          }`}>
+            <div className={`w-12 h-12 rounded-full border flex items-center justify-center flex-shrink-0 ${
+              isLight ? 'border-gray-200 bg-gray-100 text-[#122731]' : 'border-[#224b5c] bg-[#122731] text-[#f0aa93]'
+            }`}>
               <ShieldCheck size={20} strokeWidth={2} />
             </div>
             <div>
-              <div className="text-sm font-bold text-white tracking-wide uppercase">
+              <div className={`text-sm font-bold tracking-wide uppercase ${isLight ? 'text-gray-900' : 'text-white'}`}>
                 MADE IN INDIA
               </div>
               <div className="text-xs text-gray-400">
@@ -669,12 +785,16 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
             </div>
           </div>
 
-          <div className="bg-[#163643] rounded-3xl border border-[#224b5c] p-5 flex items-center gap-4 shadow-xl">
-            <div className="w-12 h-12 rounded-full border border-[#224b5c] bg-[#122731] flex items-center justify-center flex-shrink-0 text-[#f0aa93]">
+          <div className={`rounded-3xl border p-5 flex items-center gap-4 shadow-xl ${
+            isLight ? 'bg-white border-gray-200' : 'bg-[#163643] border-[#224b5c]'
+          }`}>
+            <div className={`w-12 h-12 rounded-full border flex items-center justify-center flex-shrink-0 ${
+              isLight ? 'border-gray-200 bg-gray-100 text-[#122731]' : 'border-[#224b5c] bg-[#122731] text-[#f0aa93]'
+            }`}>
               <Star size={20} strokeWidth={2} />
             </div>
             <div>
-              <div className="text-sm font-bold text-white tracking-wide uppercase">
+              <div className={`text-sm font-bold tracking-wide uppercase ${isLight ? 'text-gray-900' : 'text-white'}`}>
                 5,000+ CUSTOMERS
               </div>
               <div className="text-xs text-gray-400">
@@ -683,12 +803,16 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
             </div>
           </div>
 
-          <div className="bg-[#163643] rounded-3xl border border-[#224b5c] p-5 flex items-center gap-4 shadow-xl">
-            <div className="w-12 h-12 rounded-full border border-[#224b5c] bg-[#122731] flex items-center justify-center flex-shrink-0 text-[#f0aa93]">
+          <div className={`rounded-3xl border p-5 flex items-center gap-4 shadow-xl ${
+            isLight ? 'bg-white border-gray-200' : 'bg-[#163643] border-[#224b5c]'
+          }`}>
+            <div className={`w-12 h-12 rounded-full border flex items-center justify-center flex-shrink-0 ${
+              isLight ? 'border-gray-200 bg-gray-100 text-[#122731]' : 'border-[#224b5c] bg-[#122731] text-[#f0aa93]'
+            }`}>
               <Layers size={20} strokeWidth={2} />
             </div>
             <div>
-              <div className="text-sm font-bold text-white tracking-wide uppercase">
+              <div className={`text-sm font-bold tracking-wide uppercase ${isLight ? 'text-gray-900' : 'text-white'}`}>
                 260–400 GSM
               </div>
               <div className="text-xs text-gray-400">

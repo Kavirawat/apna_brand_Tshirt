@@ -1,34 +1,47 @@
 import React, { useState } from 'react';
 import { Star } from 'lucide-react';
+import { useThemeColor } from '../context/ThemeColorContext';
 
 export default function Bestsellers({ products, onSelectProduct, onShopNowClick }) {
+  const { themeMode = 'dark' } = useThemeColor?.() || {};
+  const isLight = themeMode === 'light';
   const [hoveredId, setHoveredId] = useState(null);
 
   const bestsellerItems = products.slice(0, 4);
 
   return (
-    <section className="w-full bg-white text-black py-14 sm:py-20 select-none border-b border-gray-200">
+    <section className={`w-full py-14 sm:py-20 select-none border-b transition-colors duration-300 ${
+      isLight
+        ? 'bg-[#122832] text-white border-[#224b5c]'
+        : 'bg-white text-black border-gray-200'
+    }`}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8">
 
       <div className="flex items-center justify-between mb-8 sm:mb-12">
         <div>
-          <span className="text-[11px] font-mono font-bold tracking-widest text-gray-500 uppercase block mb-1">
+          <span className={`text-[11px] font-mono font-bold tracking-widest uppercase block mb-1 ${
+            isLight ? 'text-gray-400' : 'text-gray-500'
+          }`}>
             SACRED SIGNATURE DROPS
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-black uppercase font-sans">
+          <h2 className={`text-2xl sm:text-3xl font-black tracking-tight uppercase font-sans ${
+            isLight ? 'text-white' : 'text-black'
+          }`}>
             BESTSELLERS
           </h2>
         </div>
         <button
           onClick={onShopNowClick}
-          className="text-xs font-bold uppercase tracking-wider text-black hover:text-gray-600 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+          className={`text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-1.5 cursor-pointer ${
+            isLight ? 'text-white hover:text-gray-300' : 'text-black hover:text-gray-600'
+          }`}
         >
           <span>View All Drops</span>
           <span>→</span>
         </button>
       </div>
 
-      {/* 3D Card Grid: Contrasting Dark Teal Cards on White Background */}
+      {/* 3D Card Grid: Inverted contrast for perfect theme rhythm */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
         {bestsellerItems.map((product) => {
           const isHovered = hoveredId === product.id;
@@ -39,14 +52,20 @@ export default function Bestsellers({ products, onSelectProduct, onShopNowClick 
               onClick={() => onSelectProduct(product)}
               onMouseEnter={() => setHoveredId(product.id)}
               onMouseLeave={() => setHoveredId(null)}
-              className="cursor-pointer group flex flex-col rounded-3xl bg-[#163643] border border-[#224b5c] shadow-2xl hover:-translate-y-3 hover:shadow-[0_20px_45px_rgba(18,39,49,0.35)] hover:border-[#f0aa93] transition-all duration-500 overflow-hidden justify-between"
+              className={`cursor-pointer group flex flex-col rounded-3xl border shadow-2xl hover:-translate-y-3 transition-all duration-500 overflow-hidden justify-between ${
+                isLight
+                  ? 'bg-white border-gray-200 text-gray-900 hover:border-[#f0aa93] hover:shadow-2xl'
+                  : 'bg-[#163643] border-[#224b5c] text-white hover:shadow-[0_20px_45px_rgba(18,39,49,0.35)] hover:border-[#f0aa93]'
+              }`}
             >
 
               {/* Upper Image (Fitted seamlessly as 4:5 with zero padding) */}
               <div
-                className="relative aspect-[4/5] w-full overflow-hidden transition-all duration-500 bg-[#122731]"
+                className={`relative aspect-[4/5] w-full overflow-hidden transition-all duration-500 ${
+                  isLight ? 'bg-gray-100' : 'bg-[#122731]'
+                }`}
                 style={{
-                  backgroundColor: product.cardBg || '#183c4b'
+                  backgroundColor: product.cardBg || (isLight ? '#f1f5f9' : '#183c4b')
                 }}
               >
                 <img
@@ -69,22 +88,30 @@ export default function Bestsellers({ products, onSelectProduct, onShopNowClick 
                 )}
               </div>
 
-              {/* Lower Details: White Font & Peach Accents */}
-              <div className="p-4 sm:p-5 flex flex-col justify-between flex-grow space-y-3 bg-[#163643]">
+              {/* Lower Details */}
+              <div className={`p-4 sm:p-5 flex flex-col justify-between flex-grow space-y-3 ${
+                isLight ? 'bg-white' : 'bg-[#163643]'
+              }`}>
 
                 <div className="space-y-1">
-                  <span className="font-sanskrit text-xs text-[#f0aa93] block font-semibold tracking-wide">
+                  <span className={`font-sanskrit text-xs block font-semibold tracking-wide ${
+                    isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                  }`}>
                     {product.sanskritTitle || product.title}
                   </span>
                   <h3
-                    className={`text-sm sm:text-base font-bold text-white uppercase tracking-tight line-clamp-1 transition-colors ${
-                      isHovered ? 'text-[#f0aa93]' : ''
+                    className={`text-sm sm:text-base font-bold uppercase tracking-tight line-clamp-1 transition-colors ${
+                      isLight
+                        ? isHovered ? 'text-[#122731]' : 'text-gray-900'
+                        : isHovered ? 'text-[#f0aa93]' : 'text-white'
                     }`}
                   >
                     {product.title}
                   </h3>
                   <div className="flex items-baseline gap-2 pt-1">
-                    <span className="text-base sm:text-lg font-black text-white font-mono">
+                    <span className={`text-base sm:text-lg font-black font-mono ${
+                      isLight ? 'text-gray-900' : 'text-white'
+                    }`}>
                       Rs. {product.price?.toLocaleString('en-IN') || '5,450'}
                     </span>
                     {product.compareAtPrice && product.compareAtPrice > product.price && (
@@ -96,7 +123,9 @@ export default function Bestsellers({ products, onSelectProduct, onShopNowClick 
                 </div>
 
                 {/* Rating in Stars */}
-                <div className="pt-2 border-t border-[#224b5c] flex items-center justify-between">
+                <div className={`pt-2 border-t flex items-center justify-between ${
+                  isLight ? 'border-gray-100' : 'border-[#224b5c]'
+                }`}>
                   <div className="flex items-center gap-1.5">
                     <div className="flex text-amber-400 text-xs tracking-wider">
                       <span>★</span>
@@ -105,7 +134,9 @@ export default function Bestsellers({ products, onSelectProduct, onShopNowClick 
                       <span>★</span>
                       <span>★</span>
                     </div>
-                    <span className="text-xs font-bold text-white font-mono">
+                    <span className={`text-xs font-bold font-mono ${
+                      isLight ? 'text-gray-900' : 'text-white'
+                    }`}>
                       {product.rating || '4.9'}
                     </span>
                     <span className="text-[11px] text-gray-400 font-medium">
@@ -113,7 +144,9 @@ export default function Bestsellers({ products, onSelectProduct, onShopNowClick 
                     </span>
                   </div>
 
-                  <span className="text-[11px] font-bold text-[#f0aa93] uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                  <span className={`text-[11px] font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform ${
+                    isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                  }`}>
                     View ➔
                   </span>
                 </div>
@@ -127,7 +160,11 @@ export default function Bestsellers({ products, onSelectProduct, onShopNowClick 
       <div className="mt-14 flex justify-center">
         <button
           onClick={onShopNowClick}
-          className="px-10 py-3.5 rounded-full bg-[#122832] hover:bg-black text-white transition-all text-xs font-black tracking-widest uppercase cursor-pointer shadow-xl hover:scale-105 active:scale-95"
+          className={`px-10 py-3.5 rounded-full transition-all text-xs font-black tracking-widest uppercase cursor-pointer shadow-xl hover:scale-105 active:scale-95 ${
+            isLight
+              ? 'bg-white hover:bg-gray-100 text-[#122832]'
+              : 'bg-[#122832] hover:bg-black text-white'
+          }`}
         >
           Shop Now
         </button>
