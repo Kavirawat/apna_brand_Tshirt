@@ -5,20 +5,20 @@
 }
 
 :root {
-  --theme-bg-gradient: radial-gradient(ellipse at 50% 15%, #222228 0%, #0d0d10 60%, #060607 100%);
-  --theme-accent: #d4af37;
-  --theme-glow: rgba(212, 175, 55, 0.22);
-  --theme-card-bg: #151518;
-  --theme-border-glow: rgba(212, 175, 55, 0.35);
-  --theme-text: #f5f5f7;
-  --theme-tag-bg: #25252e;
+  --theme-bg-gradient: radial-gradient(ellipse at 50% 15%, #245263 0%, #173845 55%, #0f242d 100%);
+  --theme-accent: #f0aa93;
+  --theme-glow: rgba(240, 170, 147, 0.25);
+  --theme-card-bg: #183c4a;
+  --theme-border-glow: rgba(240, 170, 147, 0.35);
+  --theme-text: #ffffff;
+  --theme-tag-bg: #1f4756;
 }
 
 body {
   margin: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #0b0c0e;
-  color: var(--theme-text);
+  background-color: #122832;
+  color: #ffffff;
   overflow-x: hidden;
   transition: background-color 0.8s ease, color 0.5s ease;
 }
@@ -28,10 +28,10 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0d0e12;
+  background: #0f222b;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2c35;
+  background: #224b5c;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {

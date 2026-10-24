@@ -43,7 +43,7 @@ export default function Navbar({
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white border-b border-black/10 transition-colors duration-300 relative">
+    <header className="sticky top-0 z-40 bg-[#0f232c]/95 backdrop-blur-xl border-b border-[#224b5c] transition-colors duration-300 relative text-white">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
 
         <div
@@ -53,7 +53,7 @@ export default function Navbar({
           <img
             src="/brand-logo.jpg"
             alt="Brand Logo"
-            className="h-10 sm:h-12 w-auto object-contain hover:opacity-90 transition-opacity rounded"
+            className="h-10 sm:h-12 w-auto object-contain hover:opacity-90 transition-opacity rounded border border-[#f0aa93]/30"
           />
         </div>
 
@@ -64,10 +64,10 @@ export default function Navbar({
               <button
                 key={item.id}
                 onClick={() => onSelectNav(item.id)}
-                className={`text-[13px] font-normal transition-all relative py-1 ${
+                className={`text-[13px] font-normal transition-all relative py-1 cursor-pointer ${
                   isActive
-                    ? 'text-black font-medium border-b-2 border-black'
-                    : 'text-[#121212]/80 hover:text-black hover:border-b-2 hover:border-black/40'
+                    ? 'text-[#f0aa93] font-semibold border-b-2 border-[#f0aa93]'
+                    : 'text-gray-300 hover:text-white hover:border-b-2 hover:border-white/40'
                 }`}
               >
                 {item.label}
@@ -76,11 +76,11 @@ export default function Navbar({
           })}
         </nav>
 
-        <div className="flex items-center space-x-4 sm:space-x-5 text-[#121212]">
+        <div className="flex items-center space-x-4 sm:space-x-5 text-gray-200">
 
           <button
             onClick={onOpenSearch}
-            className="p-1.5 hover:text-black transition-colors"
+            className="p-1.5 hover:text-[#f0aa93] transition-colors cursor-pointer"
             title="Search"
             aria-label="Search"
           >
@@ -90,7 +90,7 @@ export default function Navbar({
           <div className="relative">
             <button
               onClick={() => setAccountPopoverOpen(!accountPopoverOpen)}
-              className="p-1.5 hover:text-black transition-colors flex items-center gap-1.5"
+              className="p-1.5 hover:text-[#f0aa93] transition-colors flex items-center gap-1.5 cursor-pointer"
               title={currentUser ? `Profile: ${currentUser.name || currentUser.username}` : "My Account"}
               aria-label="Account"
             >
@@ -98,7 +98,7 @@ export default function Navbar({
                 <User size={21} strokeWidth={1.5} />
               </div>
               {currentUser && (
-                <span className="hidden md:inline text-xs font-semibold text-gray-800 max-w-[85px] truncate">
+                <span className="hidden md:inline text-xs font-semibold text-gray-200 max-w-[85px] truncate">
                   {currentUser.name?.split(' ')[0] || currentUser.username}
                 </span>
               )}
@@ -113,13 +113,13 @@ export default function Navbar({
 
           <button
             onClick={() => setIsCartOpen(true)}
-            className="p-1.5 hover:text-black transition-colors relative"
+            className="p-1.5 hover:text-[#f0aa93] transition-colors relative cursor-pointer"
             title="Cart"
             aria-label="Cart"
           >
             <ShoppingBag size={21} strokeWidth={1.5} />
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-black text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-[#f0aa93] text-[#122832] text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center shadow-md">
                 {cartCount}
               </span>
             )}
@@ -127,7 +127,7 @@ export default function Navbar({
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-1.5 hover:text-black"
+            className="lg:hidden p-1.5 hover:text-[#f0aa93] cursor-pointer"
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -136,7 +136,7 @@ export default function Navbar({
       </div>
 
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-black/10 px-6 py-4 space-y-3">
+        <div className="lg:hidden bg-[#0f232c] border-b border-[#224b5c] px-6 py-4 space-y-3">
           {navItems.map((item) => (
             <button
               key={item.id}

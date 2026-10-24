@@ -87,7 +87,7 @@ function Storefront() {
   const isDashboardPage = activeNav === 'home' && !selectedProduct;
 
   return (
-    <div className="min-h-screen bg-white text-[#121212] flex flex-col justify-between font-sans selection:bg-black selection:text-white">
+    <div className="min-h-screen bg-[#122832] text-white flex flex-col justify-between font-sans selection:bg-[#f0aa93] selection:text-[#122832]">
 
       <Navbar
         activeNav={activeNav}

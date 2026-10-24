@@ -682,15 +682,15 @@ export default function AdminApp() {
 
   if (!isAdminLoggedIn) {
     return (
-      <div className="min-h-screen bg-[#07090e] text-gray-200 flex flex-col items-center justify-center p-4 sm:p-6 relative selection:bg-[#d4af37] selection:text-black font-sans">
+      <div className="min-h-screen bg-[#122731] text-gray-200 flex flex-col items-center justify-center p-4 sm:p-6 relative selection:bg-[#f0aa93] selection:text-black font-sans">
         {toastMessage && (
-          <div className="fixed bottom-6 right-6 z-60 bg-[#111726] border border-[#d4af37] text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold animate-fadeIn flex items-center gap-2">
-            <Sparkles size={14} className="text-[#d4af37]" />
+          <div className="fixed bottom-6 right-6 z-60 bg-[#183c4a] border border-[#f0aa93] text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold animate-fadeIn flex items-center gap-2">
+            <Sparkles size={14} className="text-[#f0aa93]" />
             <span>{toastMessage}</span>
           </div>
         )}
 
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#d4af37]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#f0aa93]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-10 right-1/4 w-80 h-80 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="w-full max-w-md bg-[#0d121e] border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl relative z-10 animate-fadeIn">
@@ -699,11 +699,11 @@ export default function AdminApp() {
               <img
                 src="/brand-logo.jpg"
                 alt="Brand Logo"
-                className="w-12 h-12 rounded-xl object-cover border border-[#d4af37]/30"
+                className="w-12 h-12 rounded-xl object-cover border border-[#f0aa93]/30"
               />
             </div>
 
-            <div className="inline-block px-3 py-1 rounded-full text-[10px] font-mono font-bold tracking-widest text-[#d4af37] bg-[#d4af37]/10 border border-[#d4af37]/20 uppercase mb-2">
+            <div className="inline-block px-3 py-1 rounded-full text-[10px] font-mono font-bold tracking-widest text-[#f0aa93] bg-[#f0aa93]/10 border border-[#f0aa93]/20 uppercase mb-2">
               Phoenix Studio • Superuser Control
             </div>
 
@@ -735,7 +735,7 @@ export default function AdminApp() {
                   placeholder="e.g. admin or owner"
                   value={authId}
                   onChange={(e) => setAuthId(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white/[0.05] border border-white/10 rounded-xl text-xs text-white placeholder-gray-500 outline-none focus:border-[#d4af37] transition-colors"
+                  className="w-full pl-10 pr-4 py-3 bg-white/[0.05] border border-white/10 rounded-xl text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93] transition-colors"
                 />
               </div>
             </div>
@@ -752,7 +752,7 @@ export default function AdminApp() {
                   placeholder="Enter admin password"
                   value={authPassword}
                   onChange={(e) => setAuthPassword(e.target.value)}
-                  className="w-full pl-10 pr-10 py-3 bg-white/[0.05] border border-white/10 rounded-xl text-xs text-white placeholder-gray-500 outline-none focus:border-[#d4af37] transition-colors font-mono"
+                  className="w-full pl-10 pr-10 py-3 bg-white/[0.05] border border-white/10 rounded-xl text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93] transition-colors font-mono"
                 />
                 <button
                   type="button"
@@ -771,7 +771,7 @@ export default function AdminApp() {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="rounded border-white/20 bg-white/10 text-[#d4af37] focus:ring-0 focus:ring-offset-0 cursor-pointer"
+                  className="rounded border-white/20 bg-white/10 text-[#f0aa93] focus:ring-0 focus:ring-offset-0 cursor-pointer"
                 />
                 <span>Remember me on this browser</span>
               </label>
@@ -779,7 +779,7 @@ export default function AdminApp() {
 
             <button
               type="submit"
-              className="w-full py-3.5 px-4 bg-[#d4af37] hover:bg-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-[#d4af37]/25 flex items-center justify-center gap-2 mt-2 active:scale-[0.98] cursor-pointer"
+              className="w-full py-3.5 px-4 bg-[#f0aa93] hover:bg-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-[#f0aa93]/25 flex items-center justify-center gap-2 mt-2 active:scale-[0.98] cursor-pointer"
             >
               <ShieldCheck size={16} />
               <span>Unlock Admin Console</span>
@@ -799,7 +799,7 @@ export default function AdminApp() {
               }}
               className="w-full py-2.5 px-4 bg-white/[0.06] hover:bg-white/[0.12] text-white font-bold text-xs rounded-xl border border-white/10 transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Key size={14} className="text-[#d4af37]" />
+              <Key size={14} className="text-[#f0aa93]" />
               <span>1-Click Superuser Access</span>
             </button>
           </form>
@@ -807,7 +807,7 @@ export default function AdminApp() {
           <div className="mt-6 pt-5 border-t border-white/[0.08] text-center">
             <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-[11px] text-gray-400">
               <div className="flex items-center justify-center gap-1.5 text-gray-300 font-bold mb-1">
-                <Key size={13} className="text-[#d4af37]" />
+                <Key size={13} className="text-[#f0aa93]" />
                 <span>Default Credentials</span>
               </div>
               <p className="font-mono text-[10px] text-gray-400">
@@ -829,17 +829,17 @@ export default function AdminApp() {
   }
 
   return (
-    <div className="min-h-screen bg-[#07090e] text-gray-200 selection:bg-[#d4af37] selection:text-black font-sans flex flex-col antialiased">
+    <div className="min-h-screen bg-[#122731] text-gray-200 selection:bg-[#f0aa93] selection:text-black font-sans flex flex-col antialiased">
 
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-60 bg-[#111726] border border-[#d4af37] text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold animate-fadeIn flex items-center gap-2">
-          <Sparkles size={14} className="text-[#d4af37]" />
+        <div className="fixed bottom-6 right-6 z-60 bg-[#183c4a] border border-[#f0aa93] text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold animate-fadeIn flex items-center gap-2">
+          <Sparkles size={14} className="text-[#f0aa93]" />
           <span>{toastMessage}</span>
         </div>
       )}
 
       {/* Top Header Bar (Phoenix + DashDark X Style) */}
-      <header className="sticky top-0 z-40 h-16 bg-[#0b0e16]/90 backdrop-blur-xl border-b border-[#1c2638] px-4 sm:px-6 flex items-center justify-between">
+      <header className="sticky top-0 z-40 h-16 bg-[#0f222b]/90 backdrop-blur-xl border-b border-[#224b5c] px-4 sm:px-6 flex items-center justify-between">
         <div className="flex items-center gap-3 sm:gap-4">
           <button
             type="button"
@@ -863,7 +863,7 @@ export default function AdminApp() {
             <img
               src="/brand-logo.jpg"
               alt="Logo"
-              className="w-8 h-8 rounded-lg object-cover border border-[#d4af37]/40 shadow-sm"
+              className="w-8 h-8 rounded-lg object-cover border border-[#f0aa93]/40 shadow-sm"
             />
             <span className="hidden sm:block font-serif text-sm font-black text-white tracking-widest uppercase leading-none">
               {settings.storeName || 'APNA BRAND'}
@@ -894,7 +894,7 @@ export default function AdminApp() {
               placeholder="Search orders, products, CRM... (Ctrl+K)"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-white/[0.04] border border-white/10 rounded-xl text-xs text-white placeholder-gray-500 outline-none focus:border-[#d4af37] transition-all"
+              className="w-full pl-9 pr-4 py-2 bg-white/[0.04] border border-white/10 rounded-xl text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93] transition-all"
             />
             {searchQuery && (
               <button
@@ -914,7 +914,7 @@ export default function AdminApp() {
             className="p-2 rounded-xl text-gray-300 hover:text-white hover:bg-white/[0.06] border border-white/[0.08] transition-all cursor-pointer flex items-center gap-1.5 text-xs font-mono"
             title="Sync latest store data"
           >
-            <RefreshCw size={14} className={isRefreshing ? 'animate-spin text-[#d4af37]' : ''} />
+            <RefreshCw size={14} className={isRefreshing ? 'animate-spin text-[#f0aa93]' : ''} />
             <span className="hidden sm:inline text-[11px]">Sync</span>
           </button>
 
@@ -922,7 +922,7 @@ export default function AdminApp() {
             href={STOREFRONT_URL}
             target="_blank"
             rel="noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-xs font-semibold text-[#d4af37] border border-[#d4af37]/30 transition-all cursor-pointer"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-xs font-semibold text-[#f0aa93] border border-[#f0aa93]/30 transition-all cursor-pointer"
           >
             <ExternalLink size={13} />
             <span>Storefront</span>
@@ -942,10 +942,10 @@ export default function AdminApp() {
             </button>
 
             {isNotificationsOpen && (
-              <div className="absolute right-0 mt-2 w-80 sm:w-88 bg-[#0e1320] border border-white/15 rounded-2xl p-4 shadow-2xl z-50 animate-fadeIn">
+              <div className="absolute right-0 mt-2 w-80 sm:w-88 bg-[#153442] border border-white/15 rounded-2xl p-4 shadow-2xl z-50 animate-fadeIn">
                 <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
                   <span className="text-xs font-bold uppercase tracking-wider text-white">Live Store Activity</span>
-                  <span className="text-[10px] font-mono text-[#d4af37]">{pendingOrdersCount} Pending Orders</span>
+                  <span className="text-[10px] font-mono text-[#f0aa93]">{pendingOrdersCount} Pending Orders</span>
                 </div>
                 <div className="space-y-2.5 max-h-72 overflow-y-auto">
                   {pendingOrdersCount > 0 ? (
@@ -988,7 +988,7 @@ export default function AdminApp() {
 
         {/* Vertical Sidebar Navigation (Phoenix + DashDark X Style) */}
         <aside
-          className={`hidden lg:flex flex-col justify-between bg-[#0b0e16] border-r border-[#1c2638] p-4 transition-all duration-300 flex-shrink-0 select-none ${
+          className={`hidden lg:flex flex-col justify-between bg-[#0f222b] border-r border-[#224b5c] p-4 transition-all duration-300 flex-shrink-0 select-none ${
             isSidebarCollapsed ? 'w-20 items-center' : 'w-64 xl:w-72'
           }`}
         >
@@ -1013,12 +1013,12 @@ export default function AdminApp() {
                         title={isSidebarCollapsed ? item.label : undefined}
                         className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-xs font-semibold transition-all cursor-pointer group ${
                           isActive
-                            ? 'bg-[#141b2a] text-[#d4af37] border border-[#d4af37]/30 shadow-lg shadow-black/40 font-bold'
+                            ? 'bg-[#1b4252] text-[#f0aa93] border border-[#f0aa93]/30 shadow-lg shadow-black/40 font-bold'
                             : 'text-gray-400 hover:text-white hover:bg-white/[0.04]'
                         }`}
                       >
                         <div className="flex items-center gap-3">
-                          <Icon size={16} className={isActive ? 'text-[#d4af37]' : 'text-gray-400 group-hover:text-white'} />
+                          <Icon size={16} className={isActive ? 'text-[#f0aa93]' : 'text-gray-400 group-hover:text-white'} />
                           {!isSidebarCollapsed && <span>{item.label}</span>}
                         </div>
                         {!isSidebarCollapsed && item.badge && (
@@ -1026,7 +1026,7 @@ export default function AdminApp() {
                             item.alert
                               ? 'bg-red-500/20 text-red-400 border border-red-500/30 animate-pulse'
                               : isActive
-                              ? 'bg-[#d4af37]/20 text-[#d4af37]'
+                              ? 'bg-[#f0aa93]/20 text-[#f0aa93]'
                               : 'bg-white/10 text-gray-400'
                           }`}>
                             {item.badge}
@@ -1041,14 +1041,23 @@ export default function AdminApp() {
 
           </div>
 
-          <div className="pt-4 border-t border-[#1c2638] w-full space-y-2">
+          <div className="pt-4 border-t border-[#224b5c] w-full space-y-2">
+            {!isSidebarCollapsed ? (
+              <div className="p-3 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-between text-xs">
+                <div>
+                  <span className="text-white font-bold block truncate">{settings.storeName || 'APNA BRAND'}</span>
+                  <span className="text-[10px] font-mono text-[#f0aa93]">Admin Panel</span>
+                </div>
+              </div>
+            ) : null}
+
             <button
               type="button"
               onClick={handleAdminLogout}
               className="w-full flex items-center justify-center gap-2 p-2.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 text-xs font-bold transition-all cursor-pointer"
             >
               <LogOut size={14} />
-              {!isSidebarCollapsed && <span>Log Out Superuser</span>}
+              {!isSidebarCollapsed && <span>Log Out</span>}
             </button>
           </div>
         </aside>
@@ -1060,7 +1069,7 @@ export default function AdminApp() {
               className="fixed inset-0 bg-black/80 backdrop-blur-sm"
               onClick={() => setIsMobileMenuOpen(false)}
             />
-            <div className="relative w-72 max-w-[85vw] bg-[#0b0e16] border-r border-[#1c2638] p-5 flex flex-col justify-between z-10 overflow-y-auto">
+            <div className="relative w-72 max-w-[85vw] bg-[#0f222b] border-r border-[#224b5c] p-5 flex flex-col justify-between z-10 overflow-y-auto">
               <div className="space-y-6">
                 <div className="flex items-center justify-between pb-4 border-b border-white/10">
                   <div className="flex items-center gap-2.5">
@@ -1084,7 +1093,7 @@ export default function AdminApp() {
                             key={item.id}
                             onClick={() => { setActiveTab(item.id); setIsMobileMenuOpen(false); }}
                             className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-xs font-semibold ${
-                              isActive ? 'bg-[#141b2a] text-[#d4af37] font-bold' : 'text-gray-400 hover:text-white hover:bg-white/5'
+                              isActive ? 'bg-[#1b4252] text-[#f0aa93] font-bold' : 'text-gray-400 hover:text-white hover:bg-white/5'
                             }`}
                           >
                             <div className="flex items-center gap-2.5">
@@ -1120,7 +1129,7 @@ export default function AdminApp() {
           {activeTab === 'dashboard' && (
             <div className="space-y-6 sm:space-y-8 animate-fadeIn">
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#1c2638]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#224b5c]">
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white flex items-center gap-2.5">
                     <span>Dashboard Analytics</span>
@@ -1136,7 +1145,7 @@ export default function AdminApp() {
                 <div className="flex items-center gap-2.5">
                   <button
                     onClick={() => setIsAddModalOpen(true)}
-                    className="px-4 py-2.5 rounded-xl bg-[#d4af37] hover:bg-yellow-400 text-black text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#d4af37]/20"
+                    className="px-4 py-2.5 rounded-xl bg-[#f0aa93] hover:bg-yellow-400 text-black text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#f0aa93]/20"
                   >
                     <Plus size={15} />
                     <span>Create Drop</span>
@@ -1154,7 +1163,7 @@ export default function AdminApp() {
               {/* 4 Top KPI Cards (DashDark X Style) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
 
-                <div className="p-5 rounded-2xl bg-[#111622] border border-[#1c2638] shadow-xl hover:border-white/15 transition-all">
+                <div className="p-5 rounded-2xl bg-[#183c4a] border border-[#224b5c] shadow-xl hover:border-white/15 transition-all">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-[11px] font-mono font-bold text-gray-400 uppercase tracking-wider">
                       Total Gross Sales
@@ -1172,7 +1181,7 @@ export default function AdminApp() {
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#111622] border border-[#1c2638] shadow-xl hover:border-white/15 transition-all">
+                <div className="p-5 rounded-2xl bg-[#183c4a] border border-[#224b5c] shadow-xl hover:border-white/15 transition-all">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-[11px] font-mono font-bold text-gray-400 uppercase tracking-wider">
                       Total Orders
@@ -1190,12 +1199,12 @@ export default function AdminApp() {
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#111622] border border-[#1c2638] shadow-xl hover:border-white/15 transition-all">
+                <div className="p-5 rounded-2xl bg-[#183c4a] border border-[#224b5c] shadow-xl hover:border-white/15 transition-all">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-[11px] font-mono font-bold text-gray-400 uppercase tracking-wider">
                       Catalog Designs
                     </span>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/20 flex items-center gap-1">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono bg-[#f0aa93]/10 text-[#f0aa93] border border-[#f0aa93]/20 flex items-center gap-1">
                       <Package size={11} /> {products.length} Live
                     </span>
                   </div>
@@ -1208,7 +1217,7 @@ export default function AdminApp() {
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#111622] border border-[#1c2638] shadow-xl hover:border-white/15 transition-all">
+                <div className="p-5 rounded-2xl bg-[#183c4a] border border-[#224b5c] shadow-xl hover:border-white/15 transition-all">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-[11px] font-mono font-bold text-gray-400 uppercase tracking-wider">
                       Average Order Value
@@ -1231,7 +1240,7 @@ export default function AdminApp() {
               {/* Row 2: Visual Chart & Order Fulfillment Breakdown (Phoenix Style) */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-                <div className="lg:col-span-8 p-6 rounded-2xl bg-[#111622] border border-[#1c2638] shadow-xl space-y-5">
+                <div className="lg:col-span-8 p-6 rounded-2xl bg-[#183c4a] border border-[#224b5c] shadow-xl space-y-5">
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="font-serif text-sm font-bold uppercase tracking-wider text-white">
@@ -1262,8 +1271,8 @@ export default function AdminApp() {
                           <div
                             className={`w-full rounded-t transition-all duration-700 ${
                               bar.peak
-                                ? 'bg-gradient-to-t from-[#d4af37] to-yellow-300'
-                                : 'bg-gradient-to-t from-blue-600 to-sky-400 group-hover:from-[#d4af37] group-hover:to-yellow-300'
+                                ? 'bg-gradient-to-t from-[#f0aa93] to-yellow-300'
+                                : 'bg-gradient-to-t from-blue-600 to-sky-400 group-hover:from-[#f0aa93] group-hover:to-yellow-300'
                             }`}
                             style={{ height: `${bar.percent}%` }}
                           />
@@ -1288,7 +1297,7 @@ export default function AdminApp() {
                   </div>
                 </div>
 
-                <div className="lg:col-span-4 p-6 rounded-2xl bg-[#111622] border border-[#1c2638] shadow-xl space-y-5 flex flex-col justify-between">
+                <div className="lg:col-span-4 p-6 rounded-2xl bg-[#183c4a] border border-[#224b5c] shadow-xl space-y-5 flex flex-col justify-between">
                   <div>
                     <h3 className="font-serif text-sm font-bold uppercase tracking-wider text-white">
                       Fulfillment Distribution
@@ -1339,7 +1348,7 @@ export default function AdminApp() {
                     </div>
                     <div className="flex justify-between text-gray-400">
                       <span>Active Promo:</span>
-                      <strong className="text-[#d4af37] font-mono">DHARM30 (30% Off)</strong>
+                      <strong className="text-[#f0aa93] font-mono">DHARM30 (30% Off)</strong>
                     </div>
                   </div>
                 </div>
@@ -1347,7 +1356,7 @@ export default function AdminApp() {
               </div>
 
               {/* Row 3: Recent Orders Stream Table (Phoenix Style) */}
-              <div className="p-6 rounded-2xl bg-[#111622] border border-[#1c2638] shadow-xl space-y-4">
+              <div className="p-6 rounded-2xl bg-[#183c4a] border border-[#224b5c] shadow-xl space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
                     <h3 className="font-serif text-sm font-bold uppercase tracking-wider text-white">
@@ -1358,7 +1367,7 @@ export default function AdminApp() {
 
                   <button
                     onClick={() => setActiveTab('orders')}
-                    className="text-xs font-bold text-[#d4af37] hover:underline inline-flex items-center gap-1"
+                    className="text-xs font-bold text-[#f0aa93] hover:underline inline-flex items-center gap-1"
                   >
                     <span>View All Orders</span>
                     <span>→</span>
@@ -1367,7 +1376,7 @@ export default function AdminApp() {
 
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
-                    <thead className="bg-[#0b0e16] text-gray-400 font-mono text-[11px] uppercase border-b border-[#1c2638]">
+                    <thead className="bg-[#0f222b] text-gray-400 font-mono text-[11px] uppercase border-b border-[#224b5c]">
                       <tr>
                         <th className="py-3 px-4">Order ID</th>
                         <th className="py-3 px-4">Customer</th>
@@ -1378,7 +1387,7 @@ export default function AdminApp() {
                         <th className="py-3 px-4 text-right">Quick Action</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#1c2638]">
+                    <tbody className="divide-y divide-[#224b5c]">
                       {orders.slice(0, 5).map((order) => {
                         const orderId = order.orderId || order.id;
                         return (
@@ -1417,7 +1426,7 @@ export default function AdminApp() {
                             <td className="py-3.5 px-4 text-right">
                               <button
                                 onClick={() => setViewTrackingOrder(order)}
-                                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#d4af37] border border-white/10 text-[11px] font-bold cursor-pointer transition-all"
+                                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#f0aa93] border border-white/10 text-[11px] font-bold cursor-pointer transition-all"
                               >
                                 View / Track
                               </button>
@@ -1437,11 +1446,11 @@ export default function AdminApp() {
           {activeTab === 'orders' && (
             <div className="space-y-6 animate-fadeIn">
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#1c2638]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#224b5c]">
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white flex items-center gap-2.5">
                     <span>Orders & Logistics Management</span>
-                    <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/30">
+                    <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#f0aa93]/10 text-[#f0aa93] border border-[#f0aa93]/30">
                       {orders.length} TOTAL
                     </span>
                   </h1>
@@ -1462,7 +1471,7 @@ export default function AdminApp() {
               </div>
 
               {/* Status Filters bar */}
-              <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-[#111622] border border-[#1c2638]">
+              <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-[#183c4a] border border-[#224b5c]">
                 <div className="flex flex-wrap items-center gap-1.5">
                   {[
                     { id: 'all', label: 'All Orders' },
@@ -1479,7 +1488,7 @@ export default function AdminApp() {
                       onClick={() => setOrderStatusFilter(tab.id)}
                       className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                         orderStatusFilter === tab.id
-                          ? 'bg-[#d4af37] text-black font-extrabold shadow-md shadow-[#d4af37]/20'
+                          ? 'bg-[#f0aa93] text-black font-extrabold shadow-md shadow-[#f0aa93]/20'
                           : 'text-gray-400 hover:text-white hover:bg-white/5'
                       }`}
                     >
@@ -1495,16 +1504,16 @@ export default function AdminApp() {
                     placeholder="Search by Order ID, Name, Phone..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-9 pr-3 py-1.5 bg-black/40 border border-white/10 rounded-xl text-xs text-white placeholder-gray-500 outline-none focus:border-[#d4af37]"
+                    className="w-full pl-9 pr-3 py-1.5 bg-black/40 border border-white/10 rounded-xl text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93]"
                   />
                 </div>
               </div>
 
               {/* Complete Orders Table */}
-              <div className="rounded-2xl bg-[#111622] border border-[#1c2638] shadow-xl overflow-hidden">
+              <div className="rounded-2xl bg-[#183c4a] border border-[#224b5c] shadow-xl overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
-                    <thead className="bg-[#0b0e16] text-gray-400 font-mono text-[11px] uppercase border-b border-[#1c2638]">
+                    <thead className="bg-[#0f222b] text-gray-400 font-mono text-[11px] uppercase border-b border-[#224b5c]">
                       <tr>
                         <th className="py-3.5 px-4">Order ID & Date</th>
                         <th className="py-3.5 px-4">Customer Details</th>
@@ -1515,7 +1524,7 @@ export default function AdminApp() {
                         <th className="py-3.5 px-4 text-right">Actions</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#1c2638]">
+                    <tbody className="divide-y divide-[#224b5c]">
                       {filteredOrders.length > 0 ? (
                         filteredOrders.map((order) => {
                           const orderId = order.orderId || order.id;
@@ -1540,7 +1549,7 @@ export default function AdminApp() {
                                     </div>
                                   ))}
                                   {order.items && order.items.length > 2 && (
-                                    <span className="text-[10px] text-[#d4af37] font-mono">+{order.items.length - 2} more items</span>
+                                    <span className="text-[10px] text-[#f0aa93] font-mono">+{order.items.length - 2} more items</span>
                                   )}
                                 </div>
                               </td>
@@ -1554,7 +1563,7 @@ export default function AdminApp() {
                               </td>
                               <td className="py-4 px-4">
                                 <span className="text-white block font-medium">{order.courier?.name || settings.defaultCourier}</span>
-                                <span className="font-mono text-[10px] text-[#d4af37] block">
+                                <span className="font-mono text-[10px] text-[#f0aa93] block">
                                   AWB: {order.courier?.trackingNumber || 'Pending'}
                                 </span>
                                 <span className="text-[10px] text-gray-400 block truncate max-w-[160px]">
@@ -1591,7 +1600,7 @@ export default function AdminApp() {
                                 </button>
                                 <button
                                   onClick={() => setViewTrackingOrder(order)}
-                                  className="px-2.5 py-1.5 rounded-lg bg-[#d4af37]/15 hover:bg-[#d4af37]/25 text-[#d4af37] border border-[#d4af37]/30 text-[11px] font-bold cursor-pointer"
+                                  className="px-2.5 py-1.5 rounded-lg bg-[#f0aa93]/15 hover:bg-[#f0aa93]/25 text-[#f0aa93] border border-[#f0aa93]/30 text-[11px] font-bold cursor-pointer"
                                 >
                                   Preview
                                 </button>
@@ -1618,11 +1627,11 @@ export default function AdminApp() {
           {activeTab === 'products' && (
             <div className="space-y-6 animate-fadeIn">
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#1c2638]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#224b5c]">
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white flex items-center gap-2.5">
                     <span>Product Catalog Studio</span>
-                    <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/30">
+                    <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#f0aa93]/10 text-[#f0aa93] border border-[#f0aa93]/30">
                       {products.length} DESIGNS
                     </span>
                   </h1>
@@ -1637,37 +1646,41 @@ export default function AdminApp() {
                 {filteredProducts.map((p) => (
                   <div
                     key={p.id}
-                    className="p-4 rounded-2xl bg-[#111622] border border-[#1c2638] shadow-xl hover:border-white/15 transition-all flex flex-col justify-between group"
+                    className="p-3.5 rounded-2xl bg-[#183c4a] border border-[#224b5c] shadow-xl hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(10,25,33,0.6)] transition-all duration-300 flex flex-col justify-between group"
                   >
                     <div>
                       <div
-                        className="relative aspect-[3/4] w-full rounded-xl overflow-hidden p-3 flex items-center justify-center mb-3 shadow-md"
+                        className="relative aspect-[4/5] w-full rounded-xl overflow-hidden mb-3 shadow-md group-hover:shadow-2xl transition-all"
                         style={{ backgroundColor: p.cardBg || (p.primaryColor?.name === 'Off White' ? '#ffffff' : '#18191f') }}
                       >
                         <img
                           src={p.images?.[0] || 'https://cdn.shopify.com/s/files/1/0665/6638/9834/files/Aghori_ubg.png?v=1791202359'}
                           alt={p.title}
-                          className="w-full h-full object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500 z-10"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
-                        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-[72%] h-3 bg-black/45 blur-md rounded-full pointer-events-none z-0" />
 
                         {p.isLimitedDrop && (
-                          <span className="absolute top-2 left-2 z-20 px-2 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase bg-red-600 text-white">
+                          <span className="absolute top-2 left-2 z-20 px-2 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase bg-red-600 text-white shadow-md">
                             LIMITED DROP
                           </span>
                         )}
                       </div>
 
                       <div className="space-y-1">
-                        <span className="font-sanskrit text-xs text-[#d4af37] block font-semibold">
+                        <span className="font-sanskrit text-xs text-[#f0aa93] block font-semibold">
                           {p.sanskritTitle || p.title}
                         </span>
                         <h3 className="font-bold text-white text-xs uppercase tracking-wide truncate">
                           {p.title}
                         </h3>
-                        <p className="text-[11px] text-gray-400 font-mono">
-                          ₹{(p.price || 5450).toLocaleString('en-IN')} &nbsp;•&nbsp; {p.gsm || '280 GSM'}
+                        <p className="text-xs font-bold text-[#f0aa93] font-mono">
+                          ₹{(p.price || 5450).toLocaleString('en-IN')} &nbsp;•&nbsp; <span className="text-gray-300 font-normal">{p.gsm || '280 GSM'}</span>
                         </p>
+                        <div className="flex items-center gap-1 text-[11px] text-[#f0aa93] pt-0.5">
+                          <span className="tracking-widest">★ ★ ★ ★ ★</span>
+                          <span className="font-bold text-white text-[10px]">4.9</span>
+                          <span className="text-gray-400 text-[10px]">({p.reviewsCount || 85})</span>
+                        </div>
                       </div>
                     </div>
 
@@ -1694,7 +1707,7 @@ export default function AdminApp() {
           {activeTab === 'drops' && (
             <div className="space-y-6 animate-fadeIn">
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#1c2638]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#224b5c]">
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white flex items-center gap-2.5">
                     <Flame size={24} className="text-red-500" />
@@ -1707,7 +1720,7 @@ export default function AdminApp() {
 
                 <button
                   onClick={() => setIsAddModalOpen(true)}
-                  className="px-4 py-2.5 rounded-xl bg-[#d4af37] hover:bg-yellow-400 text-black text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#d4af37]/20"
+                  className="px-4 py-2.5 rounded-xl bg-[#f0aa93] hover:bg-yellow-400 text-black text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#f0aa93]/20"
                 >
                   <Plus size={15} />
                   <span>Launch New Drop</span>
@@ -1721,7 +1734,7 @@ export default function AdminApp() {
                   return (
                     <div
                       key={p.id}
-                      className="p-5 rounded-2xl bg-[#111622] border border-[#1c2638] shadow-xl flex flex-col justify-between space-y-4"
+                      className="p-5 rounded-2xl bg-[#183c4a] border border-[#224b5c] shadow-xl flex flex-col justify-between space-y-4"
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex items-center gap-3.5">
@@ -1731,7 +1744,7 @@ export default function AdminApp() {
                             className="w-16 h-16 rounded-xl object-contain bg-black/40 border border-white/10"
                           />
                           <div>
-                            <span className="text-[10px] font-mono text-[#d4af37] uppercase font-bold block">
+                            <span className="text-[10px] font-mono text-[#f0aa93] uppercase font-bold block">
                               {p.dropTier || 'SACRED DROP'}
                             </span>
                             <h3 className="font-bold text-white text-sm uppercase truncate max-w-[220px]">
@@ -1791,12 +1804,12 @@ export default function AdminApp() {
           {activeTab === 'customers' && (
             <div className="space-y-6 animate-fadeIn">
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#1c2638]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#224b5c]">
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white flex items-center gap-2.5">
-                    <Users size={24} className="text-[#d4af37]" />
+                    <Users size={24} className="text-[#f0aa93]" />
                     <span>Customers CRM & Directory</span>
-                    <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/30">
+                    <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#f0aa93]/10 text-[#f0aa93] border border-[#f0aa93]/30">
                       {uniqueCustomers.length} BUYERS
                     </span>
                   </h1>
@@ -1812,34 +1825,34 @@ export default function AdminApp() {
                     placeholder="Search by customer name, phone, city..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 bg-[#111622] border border-[#1c2638] rounded-xl text-xs text-white placeholder-gray-500 outline-none focus:border-[#d4af37]"
+                    className="w-full pl-9 pr-3 py-2 bg-[#183c4a] border border-[#224b5c] rounded-xl text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93]"
                   />
                 </div>
               </div>
 
               {/* CRM Metrics Row */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="p-4 rounded-xl bg-[#111622] border border-[#1c2638]">
+                <div className="p-4 rounded-xl bg-[#183c4a] border border-[#224b5c]">
                   <span className="text-[10px] font-mono text-gray-400 uppercase tracking-wider block">Total Registered Seekers</span>
                   <div className="text-xl font-bold font-mono text-white mt-1">{uniqueCustomers.length} Customers</div>
                 </div>
-                <div className="p-4 rounded-xl bg-[#111622] border border-[#1c2638]">
+                <div className="p-4 rounded-xl bg-[#183c4a] border border-[#224b5c]">
                   <span className="text-[10px] font-mono text-gray-400 uppercase tracking-wider block">Repeat Purchase Rate</span>
                   <div className="text-xl font-bold font-mono text-emerald-400 mt-1">28.4% Retention</div>
                 </div>
-                <div className="p-4 rounded-xl bg-[#111622] border border-[#1c2638]">
+                <div className="p-4 rounded-xl bg-[#183c4a] border border-[#224b5c]">
                   <span className="text-[10px] font-mono text-gray-400 uppercase tracking-wider block">Total Customer LTV</span>
-                  <div className="text-xl font-bold font-mono text-[#d4af37] mt-1">
+                  <div className="text-xl font-bold font-mono text-[#f0aa93] mt-1">
                     ₹{uniqueCustomers.reduce((acc, c) => acc + c.totalSpent, 0).toLocaleString('en-IN')}
                   </div>
                 </div>
               </div>
 
               {/* Customers Directory Table */}
-              <div className="rounded-2xl bg-[#111622] border border-[#1c2638] shadow-xl overflow-hidden">
+              <div className="rounded-2xl bg-[#183c4a] border border-[#224b5c] shadow-xl overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
-                    <thead className="bg-[#0b0e16] text-gray-400 font-mono text-[11px] uppercase border-b border-[#1c2638]">
+                    <thead className="bg-[#0f222b] text-gray-400 font-mono text-[11px] uppercase border-b border-[#224b5c]">
                       <tr>
                         <th className="py-3.5 px-4">Customer Name</th>
                         <th className="py-3.5 px-4">Phone Number</th>
@@ -1850,7 +1863,7 @@ export default function AdminApp() {
                         <th className="py-3.5 px-4 text-right">Actions</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#1c2638]">
+                    <tbody className="divide-y divide-[#224b5c]">
                       {filteredCustomers.length > 0 ? (
                         filteredCustomers.map((cust) => (
                           <tr key={cust.id} className="hover:bg-white/[0.02] transition-colors">
@@ -1882,7 +1895,7 @@ export default function AdminApp() {
                             <td className="py-3.5 px-4 text-right">
                               <button
                                 onClick={() => setSelectedCustomer(cust)}
-                                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#d4af37] border border-white/10 text-[11px] font-bold"
+                                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#f0aa93] border border-white/10 text-[11px] font-bold"
                               >
                                 View History
                               </button>
@@ -1908,10 +1921,10 @@ export default function AdminApp() {
           {activeTab === 'coupons' && (
             <div className="space-y-6 animate-fadeIn">
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#1c2638]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#224b5c]">
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white flex items-center gap-2.5">
-                    <Tag size={24} className="text-[#d4af37]" />
+                    <Tag size={24} className="text-[#f0aa93]" />
                     <span>Discounts & Promotions Manager</span>
                   </h1>
                   <p className="text-xs sm:text-sm text-gray-400 mt-1">
@@ -1921,7 +1934,7 @@ export default function AdminApp() {
 
                 <button
                   onClick={() => setIsAddCouponModalOpen(true)}
-                  className="px-4 py-2.5 rounded-xl bg-[#d4af37] hover:bg-yellow-400 text-black text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#d4af37]/20"
+                  className="px-4 py-2.5 rounded-xl bg-[#f0aa93] hover:bg-yellow-400 text-black text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-[#f0aa93]/20"
                 >
                   <Plus size={15} />
                   <span>Create Promo Code</span>
@@ -1932,12 +1945,12 @@ export default function AdminApp() {
                 {coupons.map((c) => (
                   <div
                     key={c.code}
-                    className="p-5 rounded-2xl bg-[#111622] border border-[#1c2638] shadow-xl flex flex-col justify-between space-y-4"
+                    className="p-5 rounded-2xl bg-[#183c4a] border border-[#224b5c] shadow-xl flex flex-col justify-between space-y-4"
                   >
                     <div className="flex items-start justify-between">
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-mono text-lg font-black text-[#d4af37] tracking-widest">
+                          <span className="font-mono text-lg font-black text-[#f0aa93] tracking-widest">
                             {c.code}
                           </span>
                           <span className="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-red-600/20 text-red-400 border border-red-500/30">
@@ -1976,10 +1989,10 @@ export default function AdminApp() {
           {activeTab === 'chats' && (
             <div className="space-y-6 animate-fadeIn">
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#1c2638]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#224b5c]">
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white flex items-center gap-2.5">
-                    <MessageSquare size={24} className="text-[#d4af37]" />
+                    <MessageSquare size={24} className="text-[#f0aa93]" />
                     <span>Support Team Live Desk</span>
                     {unreadChatsCount > 0 && (
                       <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-red-500/20 text-red-400 border border-red-500/30 animate-pulse">
@@ -1993,15 +2006,15 @@ export default function AdminApp() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 h-[650px] rounded-2xl bg-[#111622] border border-[#1c2638] shadow-2xl overflow-hidden">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 h-[650px] rounded-2xl bg-[#183c4a] border border-[#224b5c] shadow-2xl overflow-hidden">
 
                 {/* Left Column: Chat Sessions List */}
-                <div className="lg:col-span-4 border-r border-[#1c2638] flex flex-col h-full bg-[#0b0e16]">
-                  <div className="p-3.5 border-b border-[#1c2638]">
+                <div className="lg:col-span-4 border-r border-[#224b5c] flex flex-col h-full bg-[#0f222b]">
+                  <div className="p-3.5 border-b border-[#224b5c]">
                     <span className="text-xs font-bold text-gray-300 uppercase tracking-wider block">Customer Inquiries</span>
                   </div>
 
-                  <div className="flex-1 overflow-y-auto divide-y divide-[#1c2638]">
+                  <div className="flex-1 overflow-y-auto divide-y divide-[#224b5c]">
                     {chats.length > 0 ? (
                       chats.map(chat => {
                         const isSelected = selectedChatId === chat.id;
@@ -2011,7 +2024,7 @@ export default function AdminApp() {
                             key={chat.id}
                             onClick={() => handleSelectChat(chat.id)}
                             className={`p-3.5 transition-colors cursor-pointer flex flex-col gap-1 ${
-                              isSelected ? 'bg-white/[0.06] border-l-4 border-[#d4af37]' : 'hover:bg-white/[0.02]'
+                              isSelected ? 'bg-white/[0.06] border-l-4 border-[#f0aa93]' : 'hover:bg-white/[0.02]'
                             }`}
                           >
                             <div className="flex items-center justify-between">
@@ -2042,12 +2055,12 @@ export default function AdminApp() {
                 </div>
 
                 {/* Right Column: Chat Conversation Thread */}
-                <div className="lg:col-span-8 flex flex-col h-full bg-[#111622]">
+                <div className="lg:col-span-8 flex flex-col h-full bg-[#183c4a]">
                   {selectedChatId ? (() => {
                     const activeChat = chats.find(c => c.id === selectedChatId);
                     return (
                       <>
-                        <div className="p-4 border-b border-[#1c2638] flex items-center justify-between bg-[#0e1320]">
+                        <div className="p-4 border-b border-[#224b5c] flex items-center justify-between bg-[#153442]">
                           <div>
                             <h3 className="font-bold text-white text-sm">
                               {activeChat?.customerName || 'Customer'}
@@ -2075,7 +2088,7 @@ export default function AdminApp() {
                               >
                                 <div className={`max-w-[80%] rounded-2xl p-3 text-xs shadow-md ${
                                   isAdmin
-                                    ? 'bg-[#d4af37] text-black font-medium'
+                                    ? 'bg-[#f0aa93] text-black font-medium'
                                     : 'bg-[#1a2336] text-white border border-white/10'
                                 }`}>
                                   <span className="text-[10px] font-bold block mb-1 opacity-70">
@@ -2091,18 +2104,18 @@ export default function AdminApp() {
                           })}
                         </div>
 
-                        <form onSubmit={handleSendAdminReply} className="p-3 border-t border-[#1c2638] flex gap-2 bg-[#0e1320]">
+                        <form onSubmit={handleSendAdminReply} className="p-3 border-t border-[#224b5c] flex gap-2 bg-[#153442]">
                           <input
                             type="text"
                             placeholder="Type admin reply to customer..."
                             value={replyText}
                             onChange={(e) => setReplyText(e.target.value)}
-                            className="flex-1 px-4 py-2.5 bg-black/40 border border-white/10 rounded-xl text-xs text-white placeholder-gray-500 outline-none focus:border-[#d4af37]"
+                            className="flex-1 px-4 py-2.5 bg-black/40 border border-white/10 rounded-xl text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93]"
                           />
                           <button
                             type="submit"
                             disabled={isSendingReply || !replyText.trim()}
-                            className="px-5 py-2.5 bg-[#d4af37] hover:bg-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-1.5 disabled:opacity-50 cursor-pointer"
+                            className="px-5 py-2.5 bg-[#f0aa93] hover:bg-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-1.5 disabled:opacity-50 cursor-pointer"
                           >
                             <Send size={14} />
                             <span>Send</span>
@@ -2126,9 +2139,9 @@ export default function AdminApp() {
           {/* TAB 8: T-SHIRT COLOR STUDIO */}
           {activeTab === 'colors' && (
             <div className="space-y-6 animate-fadeIn">
-              <div className="pb-4 border-b border-[#1c2638]">
+              <div className="pb-4 border-b border-[#224b5c]">
                 <h1 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white flex items-center gap-2.5">
-                  <Palette size={24} className="text-[#d4af37]" />
+                  <Palette size={24} className="text-[#f0aa93]" />
                   <span>Dynamic Color Atmosphere Studio</span>
                 </h1>
                 <p className="text-xs sm:text-sm text-gray-400 mt-1">
@@ -2136,7 +2149,7 @@ export default function AdminApp() {
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl bg-[#111622] border border-[#1c2638] space-y-5">
+              <div className="p-6 rounded-2xl bg-[#183c4a] border border-[#224b5c] space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-gray-300 uppercase mb-2">Color Label</label>
@@ -2171,7 +2184,7 @@ export default function AdminApp() {
                         setPreviewGradient(`radial-gradient(ellipse at 50% 20%, ${previewHex}40 0%, #0d0e14 70%, #06070a 100%)`);
                         showToast(`Atmosphere generated for ${previewColorName}!`);
                       }}
-                      className="w-full py-2.5 bg-[#d4af37] text-black font-extrabold text-xs uppercase tracking-wider rounded-xl cursor-pointer"
+                      className="w-full py-2.5 bg-[#f0aa93] text-black font-extrabold text-xs uppercase tracking-wider rounded-xl cursor-pointer"
                     >
                       Generate Atmosphere
                     </button>
@@ -2184,7 +2197,7 @@ export default function AdminApp() {
                 >
                   <div className="text-center p-6 bg-black/50 backdrop-blur-md rounded-2xl border border-white/10">
                     <span className="font-serif text-lg font-bold text-white uppercase block">{previewColorName}</span>
-                    <span className="font-mono text-xs text-[#d4af37] block mt-1">{previewHex}</span>
+                    <span className="font-mono text-xs text-[#f0aa93] block mt-1">{previewHex}</span>
                     <span className="text-[11px] text-gray-400 mt-2 block">Ambient Lighting Active</span>
                   </div>
                 </div>
@@ -2195,10 +2208,10 @@ export default function AdminApp() {
           {/* TAB 9: STORE SETTINGS */}
           {activeTab === 'settings' && (
             <div className="space-y-6 animate-fadeIn">
-              <div className="pb-4 border-b border-[#1c2638] flex items-center justify-between">
+              <div className="pb-4 border-b border-[#224b5c] flex items-center justify-between">
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white flex items-center gap-2.5">
-                    <Settings size={24} className="text-[#d4af37]" />
+                    <Settings size={24} className="text-[#f0aa93]" />
                     <span>Store Configuration & Logistics Hub</span>
                   </h1>
                   <p className="text-xs sm:text-sm text-gray-400 mt-1">
@@ -2215,7 +2228,7 @@ export default function AdminApp() {
                   </button>
                   <button
                     onClick={handleSaveSettings}
-                    className="px-5 py-2 rounded-xl bg-[#d4af37] hover:bg-yellow-400 text-black text-xs font-extrabold uppercase tracking-wider cursor-pointer shadow-lg shadow-[#d4af37]/20"
+                    className="px-5 py-2 rounded-xl bg-[#f0aa93] hover:bg-yellow-400 text-black text-xs font-extrabold uppercase tracking-wider cursor-pointer shadow-lg shadow-[#f0aa93]/20"
                   >
                     Save Settings
                   </button>
@@ -2223,7 +2236,7 @@ export default function AdminApp() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="p-5 rounded-2xl bg-[#111622] border border-[#1c2638] space-y-4">
+                <div className="p-5 rounded-2xl bg-[#183c4a] border border-[#224b5c] space-y-4">
                   <h3 className="font-serif text-sm font-bold uppercase tracking-wider text-white">Brand & Support Identity</h3>
                   <div>
                     <label className="block text-[11px] font-mono text-gray-400 uppercase mb-1">Store Name</label>
@@ -2254,7 +2267,7 @@ export default function AdminApp() {
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#111622] border border-[#1c2638] space-y-4">
+                <div className="p-5 rounded-2xl bg-[#183c4a] border border-[#224b5c] space-y-4">
                   <h3 className="font-serif text-sm font-bold uppercase tracking-wider text-white">Logistics & Courier Defaults</h3>
                   <div>
                     <label className="block text-[11px] font-mono text-gray-400 uppercase mb-1">Default Courier Partner</label>
@@ -2294,7 +2307,7 @@ export default function AdminApp() {
       {/* MODAL 1: ADD NEW PRODUCT MODAL */}
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="w-full max-w-lg bg-[#0e1320] border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-lg bg-[#153442] border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <h3 className="font-serif text-base font-bold uppercase tracking-wider text-white">Add New Sacred Drop</h3>
               <button onClick={() => setIsAddModalOpen(false)} className="p-1 rounded-lg text-gray-400 hover:text-white">
@@ -2311,7 +2324,7 @@ export default function AdminApp() {
                   placeholder="e.g. MAYA / माया — OVERSIZED T-SHIRT"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#d4af37]"
+                  className="w-full px-3 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#f0aa93]"
                 />
               </div>
 
@@ -2323,7 +2336,7 @@ export default function AdminApp() {
                     placeholder="e.g. माया"
                     value={newSanskrit}
                     onChange={(e) => setNewSanskrit(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#d4af37]"
+                    className="w-full px-3 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#f0aa93]"
                   />
                 </div>
                 <div>
@@ -2333,7 +2346,7 @@ export default function AdminApp() {
                     required
                     value={newPrice}
                     onChange={(e) => setNewPrice(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white font-mono outline-none focus:border-[#d4af37]"
+                    className="w-full px-3 py-2.5 bg-black/40 border border-white/10 rounded-xl text-white font-mono outline-none focus:border-[#f0aa93]"
                   />
                 </div>
               </div>
@@ -2388,7 +2401,7 @@ export default function AdminApp() {
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-[#d4af37] text-black font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-lg hover:bg-yellow-400 mt-2"
+                className="w-full py-3 rounded-xl bg-[#f0aa93] text-black font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-lg hover:bg-yellow-400 mt-2"
               >
                 Create Product Drop
               </button>
@@ -2400,13 +2413,13 @@ export default function AdminApp() {
       {/* MODAL 2: 7-STAGE LOGISTICS & TRANSIT MODAL */}
       {trackingModalOrder && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="w-full max-w-lg bg-[#0e1320] border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-lg bg-[#153442] border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <div>
                 <h3 className="font-serif text-base font-bold uppercase tracking-wider text-white">
                   Update Logistics & 7-Stage Transit
                 </h3>
-                <span className="text-[11px] font-mono text-[#d4af37]">
+                <span className="text-[11px] font-mono text-[#f0aa93]">
                   Order {trackingModalOrder.orderId || trackingModalOrder.id} • {trackingModalOrder.customer?.name}
                 </span>
               </div>
@@ -2443,7 +2456,7 @@ export default function AdminApp() {
                       }}
                       className={`p-2.5 rounded-xl border text-left font-semibold transition-all cursor-pointer ${
                         trackingStatus === stage.id
-                          ? 'bg-[#d4af37] text-black border-[#d4af37] font-bold shadow-md'
+                          ? 'bg-[#f0aa93] text-black border-[#f0aa93] font-bold shadow-md'
                           : 'bg-black/40 text-gray-300 border-white/10 hover:border-white/30'
                       }`}
                     >
@@ -2515,7 +2528,7 @@ export default function AdminApp() {
                 <button
                   type="submit"
                   disabled={isSavingTracking}
-                  className="px-6 py-2.5 rounded-xl bg-[#d4af37] text-black font-extrabold uppercase tracking-wider cursor-pointer shadow-lg hover:bg-yellow-400"
+                  className="px-6 py-2.5 rounded-xl bg-[#f0aa93] text-black font-extrabold uppercase tracking-wider cursor-pointer shadow-lg hover:bg-yellow-400"
                 >
                   {isSavingTracking ? 'Saving...' : 'Save & Publish Tracking'}
                 </button>
@@ -2544,7 +2557,7 @@ export default function AdminApp() {
             <div className="p-4 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest block">CURRENT STATUS</span>
-                <span className="text-base font-extrabold text-[#d4af37] block mt-0.5">{viewTrackingOrder.status || 'Confirmed'}</span>
+                <span className="text-base font-extrabold text-[#f0aa93] block mt-0.5">{viewTrackingOrder.status || 'Confirmed'}</span>
                 <span className="text-[11px] text-gray-500 block truncate max-w-[200px]">{viewTrackingOrder.currentLocation || 'Central Warehouse'}</span>
               </div>
               <div className="text-right">
@@ -2573,7 +2586,7 @@ export default function AdminApp() {
                 return (
                   <div key={idx} className="flex items-center gap-3">
                     <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${
-                      isDone ? 'bg-[#d4af37] text-black shadow-sm' : 'bg-gray-200 text-gray-500'
+                      isDone ? 'bg-[#f0aa93] text-black shadow-sm' : 'bg-gray-200 text-gray-500'
                     }`}>
                       {isDone ? '✓' : idx + 1}
                     </div>
@@ -2612,7 +2625,7 @@ export default function AdminApp() {
       {/* MODAL 4: ADD PROMO CODE MODAL */}
       {isAddCouponModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="w-full max-w-sm bg-[#0e1320] border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4">
+          <div className="w-full max-w-sm bg-[#153442] border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <h3 className="font-serif text-base font-bold uppercase tracking-wider text-white">Create Promo Code</h3>
               <button onClick={() => setIsAddCouponModalOpen(false)} className="p-1 rounded-lg text-gray-400 hover:text-white">
@@ -2659,7 +2672,7 @@ export default function AdminApp() {
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-[#d4af37] text-black font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-lg hover:bg-yellow-400 mt-2"
+                className="w-full py-3 rounded-xl bg-[#f0aa93] text-black font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-lg hover:bg-yellow-400 mt-2"
               >
                 Create Promo Code
               </button>
@@ -2671,7 +2684,7 @@ export default function AdminApp() {
       {/* MODAL 5: CUSTOMER DETAILS MODAL */}
       {selectedCustomer && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="w-full max-w-md bg-[#0e1320] border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[85vh] overflow-y-auto">
+          <div className="w-full max-w-md bg-[#153442] border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[85vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <div>
                 <h3 className="font-bold text-base text-white">{selectedCustomer.name}</h3>
@@ -2709,7 +2722,7 @@ export default function AdminApp() {
                       <span className="text-[10px] text-gray-400 font-mono">{new Date(ord.createdAt).toLocaleDateString('en-IN')}</span>
                     </div>
                     <div className="text-right">
-                      <strong className="font-mono text-[#d4af37] block">₹{(ord.total || 0).toLocaleString('en-IN')}</strong>
+                      <strong className="font-mono text-[#f0aa93] block">₹{(ord.total || 0).toLocaleString('en-IN')}</strong>
                       <span className="text-[10px] text-emerald-400 font-mono">{ord.status}</span>
                     </div>
                   </div>
@@ -2732,7 +2745,7 @@ export default function AdminApp() {
       {/* MODAL 6: EDIT TIMED DROP MODAL */}
       {editingDrop && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="w-full max-w-sm bg-[#0e1320] border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4">
+          <div className="w-full max-w-sm bg-[#153442] border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <h3 className="font-serif text-base font-bold uppercase tracking-wider text-white">Edit Drop Timer & Stock</h3>
               <button onClick={() => setEditingDrop(null)} className="p-1 rounded-lg text-gray-400 hover:text-white">
@@ -2775,7 +2788,7 @@ export default function AdminApp() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#d4af37] text-black font-extrabold uppercase tracking-wider cursor-pointer shadow-lg hover:bg-yellow-400"
+                  className="px-5 py-2 rounded-xl bg-[#f0aa93] text-black font-extrabold uppercase tracking-wider cursor-pointer shadow-lg hover:bg-yellow-400"
                 >
                   Save Drop
                 </button>

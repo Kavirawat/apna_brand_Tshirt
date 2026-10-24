@@ -20,7 +20,7 @@ const OFFER_SLIDES = [
   {
     id: 'slide-30-off',
     badge: '🔥 LIMITED FESTIVE DROP • 30% SAVINGS',
-    badgeColor: 'border-red-500/40 bg-red-600/20 text-red-300',
+    badgeColor: 'border-[#f0aa93]/40 bg-[#f0aa93]/20 text-[#f0aa93]',
     discountBig: '30% OFF',
     discountPill: 'FLAT 30% DISCOUNT',
     headline: 'FLAT 30% OFF SITEWIDE',
@@ -29,11 +29,11 @@ const OFFER_SLIDES = [
       'Engineered with 280-320 GSM super-combed compact cotton, custom oversized drop-shoulder drape, and high-density sacred iconography.',
     couponCode: 'DHARM30',
     ctaText: 'SHOP 30% OFF NOW',
-    accentColor: '#d4af37',
+    accentColor: '#f0aa93',
     glyph: 'धर्मो रक्षति रक्षितः',
     secondaryGlyph: 'TAT TVAM ASI • BHARAT STREETWEAR',
-    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #3e1017 0%, #1e070b 55%, #0a0304 100%)',
-    glowColor: 'rgba(230, 57, 70, 0.18)'
+    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #204c5d 0%, #153440 55%, #0d222b 100%)',
+    glowColor: 'rgba(240, 170, 147, 0.22)'
   },
   {
     id: 'slide-25-off',
@@ -47,11 +47,11 @@ const OFFER_SLIDES = [
       'Ribbed lycra collar retaining architectural form for 50+ washes. Pure non-dual Upanishadic art you can wear on the street.',
     couponCode: 'VEDA25',
     ctaText: 'EXPLORE VAULT DROPS',
-    accentColor: '#38bdf8',
+    accentColor: '#f0aa93',
     glyph: 'अहं ब्रह्मास्मि',
     secondaryGlyph: 'INDRA & PARSHURAM • 280 GSM',
-    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #102d42 0%, #071520 55%, #030a0f 100%)',
-    glowColor: 'rgba(56, 189, 248, 0.18)'
+    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #25586b 0%, #173845 55%, #0e242d 100%)',
+    glowColor: 'rgba(240, 170, 147, 0.22)'
   },
   {
     id: 'slide-buy2-30',
@@ -65,11 +65,11 @@ const OFFER_SLIDES = [
       'Curate your sacred rotation. Automatic discount applied at checkout with zero delivery charges across all 26,000+ PIN codes.',
     couponCode: 'APNA30',
     ctaText: 'BUILD YOUR BUNDLE',
-    accentColor: '#34d399',
+    accentColor: '#f0aa93',
     glyph: 'सत्यमेव जयते',
     secondaryGlyph: 'SOVEREIGN DRAPE • BIO-PRESHRUNK',
-    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #0d3326 0%, #061711 55%, #020b08 100%)',
-    glowColor: 'rgba(52, 211, 153, 0.18)'
+    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #1d4655 0%, #13313d 55%, #0a1c23 100%)',
+    glowColor: 'rgba(240, 170, 147, 0.22)'
   },
   {
     id: 'slide-winter-35',
@@ -83,11 +83,11 @@ const OFFER_SLIDES = [
       'Architectural boxy form built for cold resilience and meditative stillness. High-density puff typography and double-layered hoods.',
     couponCode: 'OFF30',
     ctaText: 'SHOP WINTER LUXURY',
-    accentColor: '#fbbf24',
+    accentColor: '#f0aa93',
     glyph: 'महाकाल • KAAL',
     secondaryGlyph: 'FRENCH TERRY • ZERO SHRINKAGE',
-    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #3a2510 0%, #1c1208 55%, #090603 100%)',
-    glowColor: 'rgba(251, 191, 36, 0.18)'
+    backgroundStyle: 'radial-gradient(ellipse at 50% 20%, #2a5a6c 0%, #193c4a 55%, #0e2630 100%)',
+    glowColor: 'rgba(240, 170, 147, 0.22)'
   }
 ];
 
@@ -253,7 +253,7 @@ export default function HeroBanner({ onShopNowClick }) {
               <button
                 type="button"
                 onClick={onShopNowClick}
-                className="px-8 py-3.5 rounded-2xl bg-white hover:bg-gray-200 text-black font-black text-xs uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-2xl hover:scale-[1.02] active:scale-95"
+                className="px-8 py-3.5 rounded-2xl bg-[#f0aa93] hover:bg-white text-[#122832] font-black text-xs uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-2xl hover:scale-[1.02] active:scale-95"
               >
                 <span>{active.ctaText}</span>
                 <ArrowUpRight size={16} />

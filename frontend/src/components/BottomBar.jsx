@@ -25,7 +25,7 @@ export default function BottomBar({ onSelectPhilosophy, onOpenStore, onOpenSuppo
   };
 
   return (
-    <footer className="bg-black text-white border-t border-white/10 pt-16 pb-12 px-4 sm:px-8 lg:px-14 select-none">
+    <footer className="bg-[#0e2028] text-white border-t border-[#224b5c] pt-16 pb-12 px-4 sm:px-8 lg:px-14 select-none">
       <div className="max-w-[1360px] mx-auto flex flex-col items-center text-center space-y-10">
 
         <div className="space-y-5">
