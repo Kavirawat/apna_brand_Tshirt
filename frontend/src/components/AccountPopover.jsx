@@ -16,11 +16,17 @@ import {
   MapPin,
   Edit2,
   Plus,
-  Phone
+  Phone,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { API_BASE } from '../config';
+import { useThemeColor } from '../context/ThemeColorContext';
 
 export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
+  const { themeMode = 'dark', setThemeMode = () => {} } = useThemeColor();
+  const isLight = themeMode === 'light';
+
   const [mode, setMode] = useState('login');
 
   const [loginIdentifier, setLoginIdentifier] = useState('');
@@ -98,8 +104,6 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
     }
   }, [currentUser]);
 
-  if (!isOpen) return null;
-
   const resetFormState = () => {
     setErrorMessage('');
     setSuccessMessage('');
@@ -110,12 +114,8 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
     setErrorMessage('');
     setSuccessMessage('');
 
-    if (!loginIdentifier.trim()) {
-      setErrorMessage('Please enter your username or email.');
-      return;
-    }
-    if (!loginPassword) {
-      setErrorMessage('Please enter your password.');
+    if (!loginIdentifier.trim() || !loginPassword.trim()) {
+      setErrorMessage('Please fill in both identifier and password.');
       return;
     }
 
@@ -132,19 +132,19 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
 
       const data = await res.json();
       if (!res.ok || !data.success) {
-        throw new Error(data.message || 'Login failed. Please check credentials.');
+        throw new Error(data.message || 'Login failed.');
       }
 
       setCurrentUser(data.user);
       localStorage.setItem('brahmman_user', JSON.stringify(data.user));
-      setSuccessMessage(data.message || 'Logged in successfully!');
+      setSuccessMessage(`Welcome back, ${data.user.name || data.user.username}!`);
       setLoginPassword('');
 
       setTimeout(() => {
         setSuccessMessage('');
-      }, 2500);
+      }, 2000);
     } catch (err) {
-      setErrorMessage(err.message || 'Unable to connect to server. Please try again.');
+      setErrorMessage(err.message || 'Invalid credentials.');
     } finally {
       setLoading(false);
     }
@@ -265,22 +265,74 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
       onClick={onClose}
     >
       <div
-        className="w-full max-w-[390px] sm:w-[390px] bg-[#163643] rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] border border-[#224b5c] p-5 sm:p-6 text-white relative mx-auto max-h-[85vh] overflow-y-auto scrollbar-thin select-none"
+        className={`w-full max-w-[390px] sm:w-[390px] rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] border p-5 sm:p-6 relative mx-auto max-h-[85vh] overflow-y-auto scrollbar-thin select-none transition-colors duration-300 ${
+          isLight
+            ? 'bg-white border-gray-200 text-gray-900 shadow-xl'
+            : 'bg-[#163643] border-[#224b5c] text-white shadow-2xl'
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
 
         {/* Modal Header */}
-        <div className="relative flex items-center justify-center pb-3.5 mb-3.5 border-b border-[#224b5c]">
-          <h3 className="font-bold text-[15px] text-white tracking-tight text-center uppercase font-sans">
+        <div className={`relative flex items-center justify-center pb-3.5 mb-3 border-b ${
+          isLight ? 'border-gray-200' : 'border-[#224b5c]'
+        }`}>
+          <h3 className={`font-bold text-[15px] tracking-tight text-center uppercase font-sans ${
+            isLight ? 'text-gray-900' : 'text-white'
+          }`}>
             {currentUser ? 'My Profile' : mode === 'login' ? 'Sign In' : 'Create Account'}
           </h3>
           <button
             onClick={onClose}
-            className="absolute right-0 top-0 p-1.5 rounded-full text-gray-400 hover:text-[#f0aa93] hover:bg-white/10 transition-colors cursor-pointer"
+            className="absolute right-0 top-0 p-1.5 rounded-full text-gray-400 hover:text-[#f0aa93] hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
             aria-label="Close"
           >
             <X size={16} />
           </button>
+        </div>
+
+        {/* Theme Preference Switcher Option (Dark / Light) */}
+        <div className={`p-2.5 rounded-2xl border mb-3.5 flex items-center justify-between ${
+          isLight ? 'bg-gray-50 border-gray-200' : 'bg-[#122731] border-[#224b5c]'
+        }`}>
+          <div className="flex items-center gap-2">
+            {isLight ? <Sun size={15} className="text-amber-500" /> : <Moon size={15} className="text-[#f0aa93]" />}
+            <span className={`text-[11px] font-mono font-bold uppercase tracking-wider ${
+              isLight ? 'text-gray-700' : 'text-gray-300'
+            }`}>
+              Theme Mode:
+            </span>
+          </div>
+
+          <div className={`flex items-center p-1 rounded-xl border ${
+            isLight ? 'bg-white border-gray-200' : 'bg-[#163643] border-[#224b5c]'
+          }`}>
+            <button
+              type="button"
+              onClick={() => setThemeMode('dark')}
+              className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer ${
+                !isLight
+                  ? 'bg-[#f0aa93] text-[#122731] shadow-sm font-black'
+                  : 'text-gray-500 hover:text-black'
+              }`}
+            >
+              <Moon size={11} />
+              <span>Dark</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setThemeMode('light')}
+              className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer ${
+                isLight
+                  ? 'bg-[#122731] text-white shadow-sm font-black'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              <Sun size={11} />
+              <span>Light</span>
+            </button>
+          </div>
         </div>
 
         {/* Error / Success Toast alerts */}
@@ -300,16 +352,22 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
 
         {currentUser ? (
           /* ─────────────────────────────────────────────────────────────
-              LOGGED IN USER PROFILE (DASHBOARD TEAL THEME)
+              LOGGED IN USER PROFILE
              ───────────────────────────────────────────────────────────── */
           <div className="space-y-4">
 
             {/* Profile Avatar & Verified Badge */}
-            <div className="p-4 rounded-2xl bg-[#122731] border border-[#224b5c] shadow-md text-center">
-              <div className="w-14 h-14 mx-auto rounded-full bg-[#163643] text-[#f0aa93] border-2 border-[#f0aa93] flex items-center justify-center font-black text-xl shadow-xl uppercase tracking-wider mb-2">
+            <div className={`p-4 rounded-2xl border text-center shadow-md ${
+              isLight ? 'bg-gray-50 border-gray-200' : 'bg-[#122731] border-[#224b5c]'
+            }`}>
+              <div className={`w-14 h-14 mx-auto rounded-full flex items-center justify-center font-black text-xl shadow-xl uppercase tracking-wider mb-2 border-2 ${
+                isLight
+                  ? 'bg-white text-[#122731] border-[#122731]'
+                  : 'bg-[#163643] text-[#f0aa93] border-[#f0aa93]'
+              }`}>
                 {currentUser.name ? currentUser.name.charAt(0) : currentUser.username ? currentUser.username.charAt(0) : 'U'}
               </div>
-              <h4 className="text-base font-bold text-white tracking-tight">
+              <h4 className={`text-base font-bold tracking-tight ${isLight ? 'text-gray-900' : 'text-white'}`}>
                 {currentUser.name || currentUser.username}
               </h4>
               <div className="inline-flex items-center gap-1 px-3 py-0.5 mt-1.5 rounded-full bg-emerald-950/60 text-emerald-300 border border-emerald-500/30 text-[10px] font-semibold">
@@ -319,52 +377,62 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
             </div>
 
             {/* Account Details Box */}
-            <div className="p-3.5 rounded-2xl bg-[#122731] border border-[#224b5c] shadow-sm space-y-2.5">
-              <div className="flex items-center justify-between pb-2 border-b border-[#224b5c]">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#f0aa93]">
+            <div className={`p-3.5 rounded-2xl border shadow-sm space-y-2.5 ${
+              isLight ? 'bg-gray-50 border-gray-200' : 'bg-[#122731] border-[#224b5c]'
+            }`}>
+              <div className={`flex items-center justify-between pb-2 border-b ${
+                isLight ? 'border-gray-200' : 'border-[#224b5c]'
+              }`}>
+                <span className={`text-[10px] font-mono font-bold uppercase tracking-wider ${
+                  isLight ? 'text-gray-600' : 'text-[#f0aa93]'
+                }`}>
                   Account Details
                 </span>
-                <span className="text-[10px] font-mono text-emerald-400 font-bold">
+                <span className="text-[10px] font-mono text-emerald-500 font-bold">
                   Connected
                 </span>
               </div>
 
               <div className="flex items-center justify-between gap-2 text-xs">
                 <div className="flex items-center gap-1.5 text-gray-400 font-medium">
-                  <User size={13} className="text-[#f0aa93] flex-shrink-0" />
+                  <User size={13} className={isLight ? 'text-[#122731]' : 'text-[#f0aa93]'} />
                   <span>Username</span>
                 </div>
-                <span className="font-bold text-white font-mono text-right truncate">
+                <span className={`font-bold font-mono text-right truncate ${isLight ? 'text-gray-900' : 'text-white'}`}>
                   @{currentUser.username}
                 </span>
               </div>
 
               <div className="flex items-center justify-between gap-2 text-xs">
                 <div className="flex items-center gap-1.5 text-gray-400 font-medium">
-                  <Mail size={13} className="text-[#f0aa93] flex-shrink-0" />
+                  <Mail size={13} className={isLight ? 'text-[#122731]' : 'text-[#f0aa93]'} />
                   <span>Email ID</span>
                 </div>
-                <span className="font-bold text-white font-mono text-right truncate max-w-[200px]" title={currentUser.email}>
+                <span className={`font-bold font-mono text-right truncate max-w-[200px] ${isLight ? 'text-gray-900' : 'text-white'}`} title={currentUser.email}>
                   {currentUser.email}
                 </span>
               </div>
 
               <div className="flex items-center justify-between gap-2 text-xs">
                 <div className="flex items-center gap-1.5 text-gray-400 font-medium">
-                  <Phone size={13} className="text-[#f0aa93] flex-shrink-0" />
+                  <Phone size={13} className={isLight ? 'text-[#122731]' : 'text-[#f0aa93]'} />
                   <span>Phone</span>
                 </div>
-                <span className="font-bold text-white font-mono text-right">
+                <span className={`font-bold font-mono text-right ${isLight ? 'text-gray-900' : 'text-white'}`}>
                   {currentUser.phone || currentUser.deliveryAddress?.phone || 'Not added'}
                 </span>
               </div>
             </div>
 
             {/* Delivery Location Section */}
-            <div className="p-3.5 rounded-2xl border border-[#224b5c] bg-[#122731] shadow-sm space-y-2.5">
-              <div className="flex items-center justify-between pb-2 border-b border-[#224b5c]">
-                <span className="text-xs font-bold text-white flex items-center gap-1.5">
-                  <MapPin size={14} className="text-[#f0aa93]" />
+            <div className={`p-3.5 rounded-2xl border shadow-sm space-y-2.5 ${
+              isLight ? 'bg-gray-50 border-gray-200' : 'bg-[#122731] border-[#224b5c]'
+            }`}>
+              <div className={`flex items-center justify-between pb-2 border-b ${
+                isLight ? 'border-gray-200' : 'border-[#224b5c]'
+              }`}>
+                <span className={`text-xs font-bold flex items-center gap-1.5 ${isLight ? 'text-gray-900' : 'text-white'}`}>
+                  <MapPin size={14} className={isLight ? 'text-[#122731]' : 'text-[#f0aa93]'} />
                   <span>Delivery Location</span>
                 </span>
                 {hasDeliveryAddress && !isEditingAddress && (
@@ -380,12 +448,14 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
               </div>
 
               {hasDeliveryAddress && !isEditingAddress && (
-                <div className="text-xs text-gray-300 space-y-1.5 bg-[#163643] p-3 rounded-xl border border-[#224b5c]">
+                <div className={`text-xs space-y-1.5 p-3 rounded-xl border ${
+                  isLight ? 'bg-white border-gray-200 text-gray-700' : 'bg-[#163643] border-[#224b5c] text-gray-300'
+                }`}>
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-white text-xs">Primary Shipping Address</span>
+                    <span className={`font-bold text-xs ${isLight ? 'text-gray-900' : 'text-white'}`}>Primary Shipping Address</span>
                     <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-950/80 text-emerald-300 font-bold border border-emerald-500/30">Saved</span>
                   </div>
-                  <p className="font-semibold text-white text-left pt-0.5 leading-snug">
+                  <p className={`font-semibold text-left pt-0.5 leading-snug ${isLight ? 'text-gray-900' : 'text-white'}`}>
                     {currentUser.deliveryAddress.street}
                   </p>
                   {currentUser.deliveryAddress.landmark && (
@@ -393,12 +463,14 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                       Landmark: {currentUser.deliveryAddress.landmark}
                     </p>
                   )}
-                  <p className="text-left text-gray-300">
-                    {currentUser.deliveryAddress.city}, {currentUser.deliveryAddress.state} - <strong className="font-mono text-white">{currentUser.deliveryAddress.pincode}</strong>
+                  <p className="text-left text-gray-400">
+                    {currentUser.deliveryAddress.city}, {currentUser.deliveryAddress.state} - <strong className={`font-mono ${isLight ? 'text-gray-900' : 'text-white'}`}>{currentUser.deliveryAddress.pincode}</strong>
                   </p>
                   {currentUser.deliveryAddress.phone && (
-                    <p className="text-[11px] text-gray-400 flex items-center gap-1 pt-1.5 border-t border-[#224b5c]">
-                      <Phone size={11} className="text-[#f0aa93]" /> {currentUser.deliveryAddress.phone}
+                    <p className={`text-[11px] flex items-center gap-1 pt-1.5 border-t ${
+                      isLight ? 'border-gray-200 text-gray-500' : 'border-[#224b5c] text-gray-400'
+                    }`}>
+                      <Phone size={11} className={isLight ? 'text-[#122731]' : 'text-[#f0aa93]'} /> {currentUser.deliveryAddress.phone}
                     </p>
                   )}
                 </div>
@@ -410,9 +482,13 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                   <button
                     type="button"
                     onClick={() => setIsEditingAddress(true)}
-                    className="w-full py-2.5 px-3 border border-dashed border-[#224b5c] hover:border-[#f0aa93] rounded-xl text-xs font-bold text-white flex items-center justify-center gap-1.5 transition-colors bg-[#163643] hover:bg-[#1e4555] cursor-pointer"
+                    className={`w-full py-2.5 px-3 border border-dashed rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+                      isLight
+                        ? 'border-gray-300 hover:border-black bg-white hover:bg-gray-100 text-gray-900'
+                        : 'border-[#224b5c] hover:border-[#f0aa93] bg-[#163643] hover:bg-[#1e4555] text-white'
+                    }`}
                   >
-                    <Plus size={13} className="text-[#f0aa93]" />
+                    <Plus size={13} className={isLight ? 'text-[#122731]' : 'text-[#f0aa93]'} />
                     <span>Add Delivery Location</span>
                   </button>
                 </div>
@@ -428,7 +504,11 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                       value={street}
                       onChange={(e) => setStreet(e.target.value)}
                       required
-                      className="w-full bg-[#163643] border border-[#224b5c] rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93]"
+                      className={`w-full rounded-xl px-3 py-2 text-xs outline-none border ${
+                        isLight
+                          ? 'bg-white border-gray-200 text-gray-900 focus:border-[#122731]'
+                          : 'bg-[#163643] border-[#224b5c] text-white placeholder-gray-500 focus:border-[#f0aa93]'
+                      }`}
                     />
                   </div>
 
@@ -439,7 +519,11 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                       placeholder="e.g. Near Temple or Market"
                       value={landmark}
                       onChange={(e) => setLandmark(e.target.value)}
-                      className="w-full bg-[#163643] border border-[#224b5c] rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93]"
+                      className={`w-full rounded-xl px-3 py-2 text-xs outline-none border ${
+                        isLight
+                          ? 'bg-white border-gray-200 text-gray-900 focus:border-[#122731]'
+                          : 'bg-[#163643] border-[#224b5c] text-white placeholder-gray-500 focus:border-[#f0aa93]'
+                      }`}
                     />
                   </div>
 
@@ -452,7 +536,11 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
                         required
-                        className="w-full bg-[#163643] border border-[#224b5c] rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93]"
+                        className={`w-full rounded-xl px-3 py-2 text-xs outline-none border ${
+                          isLight
+                            ? 'bg-white border-gray-200 text-gray-900 focus:border-[#122731]'
+                            : 'bg-[#163643] border-[#224b5c] text-white placeholder-gray-500 focus:border-[#f0aa93]'
+                        }`}
                       />
                     </div>
                     <div>
@@ -462,7 +550,11 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                         placeholder="State"
                         value={stateName}
                         onChange={(e) => setStateName(e.target.value)}
-                        className="w-full bg-[#163643] border border-[#224b5c] rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93]"
+                        className={`w-full rounded-xl px-3 py-2 text-xs outline-none border ${
+                          isLight
+                            ? 'bg-white border-gray-200 text-gray-900 focus:border-[#122731]'
+                            : 'bg-[#163643] border-[#224b5c] text-white placeholder-gray-500 focus:border-[#f0aa93]'
+                        }`}
                       />
                     </div>
                   </div>
@@ -477,7 +569,11 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                         onChange={(e) => setPincode(e.target.value)}
                         required
                         maxLength={6}
-                        className="w-full bg-[#163643] border border-[#224b5c] rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93] font-mono"
+                        className={`w-full rounded-xl px-3 py-2 text-xs outline-none font-mono border ${
+                          isLight
+                            ? 'bg-white border-gray-200 text-gray-900 focus:border-[#122731]'
+                            : 'bg-[#163643] border-[#224b5c] text-white placeholder-gray-500 focus:border-[#f0aa93]'
+                        }`}
                       />
                     </div>
                     <div>
@@ -487,7 +583,11 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                         placeholder="+91 Phone"
                         value={deliveryPhone}
                         onChange={(e) => setDeliveryPhone(e.target.value)}
-                        className="w-full bg-[#163643] border border-[#224b5c] rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93] font-mono"
+                        className={`w-full rounded-xl px-3 py-2 text-xs outline-none font-mono border ${
+                          isLight
+                            ? 'bg-white border-gray-200 text-gray-900 focus:border-[#122731]'
+                            : 'bg-[#163643] border-[#224b5c] text-white placeholder-gray-500 focus:border-[#f0aa93]'
+                        }`}
                       />
                     </div>
                   </div>
@@ -496,14 +596,14 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                     <button
                       type="submit"
                       disabled={isSavingAddress}
-                      className="flex-1 py-2.5 bg-[#f0aa93] hover:bg-white text-[#122731] rounded-xl text-xs font-black uppercase tracking-wider transition-all disabled:opacity-50 cursor-pointer shadow-md"
+                      className="flex-1 py-2.5 bg-[#f0aa93] hover:bg-white hover:text-black text-[#122731] rounded-xl text-xs font-black uppercase tracking-wider transition-all disabled:opacity-50 cursor-pointer shadow-md"
                     >
                       {isSavingAddress ? 'Saving...' : 'Save Address'}
                     </button>
                     <button
                       type="button"
                       onClick={() => setIsEditingAddress(false)}
-                      className="px-3.5 py-2.5 border border-[#224b5c] hover:bg-white/10 rounded-xl text-xs font-semibold text-gray-300 transition-colors cursor-pointer"
+                      className="px-3.5 py-2.5 border border-[#224b5c] hover:bg-white/10 rounded-xl text-xs font-semibold text-gray-400 transition-colors cursor-pointer"
                     >
                       Cancel
                     </button>
@@ -519,7 +619,7 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                   onClose();
                   onOpenOrders();
                 }}
-                className="flex-1 py-3 px-3 bg-[#f0aa93] hover:bg-white text-[#122731] rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer"
+                className="flex-1 py-3 px-3 bg-[#f0aa93] hover:bg-white hover:text-black text-[#122731] rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer"
               >
                 <Package size={15} />
                 <span>Track Orders</span>
@@ -536,12 +636,14 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
           </div>
         ) : (
           /* ─────────────────────────────────────────────────────────────
-              SIGN IN / SIGN UP FORM (DASHBOARD TEAL THEME)
+              SIGN IN / SIGN UP FORM
              ───────────────────────────────────────────────────────────── */
           <div className="space-y-4">
 
             {/* Mode Switch Tabs */}
-            <div className="flex items-center bg-[#122731] border border-[#224b5c] p-1 rounded-2xl text-xs font-bold text-gray-400 mb-2">
+            <div className={`flex items-center border p-1 rounded-2xl text-xs font-bold mb-2 ${
+              isLight ? 'bg-gray-100 border-gray-200 text-gray-500' : 'bg-[#122731] border-[#224b5c] text-gray-400'
+            }`}>
               <button
                 type="button"
                 onClick={() => {
@@ -550,8 +652,8 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                 }}
                 className={`flex-1 py-2 rounded-xl transition-all cursor-pointer font-bold ${
                   mode === 'login'
-                    ? 'bg-[#f0aa93] text-[#122731] shadow-md'
-                    : 'hover:text-white'
+                    ? (isLight ? 'bg-[#122731] text-white shadow-md' : 'bg-[#f0aa93] text-[#122731] shadow-md')
+                    : (isLight ? 'hover:text-black' : 'hover:text-white')
                 }`}
               >
                 Sign In
@@ -564,8 +666,8 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                 }}
                 className={`flex-1 py-2 rounded-xl transition-all cursor-pointer font-bold ${
                   mode === 'signup'
-                    ? 'bg-[#f0aa93] text-[#122731] shadow-md'
-                    : 'hover:text-white'
+                    ? (isLight ? 'bg-[#122731] text-white shadow-md' : 'bg-[#f0aa93] text-[#122731] shadow-md')
+                    : (isLight ? 'hover:text-black' : 'hover:text-white')
                 }`}
               >
                 Sign Up
@@ -576,7 +678,9 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
             {mode === 'login' && (
               <form onSubmit={handleLogin} className="space-y-3.5">
                 <div>
-                  <label className="text-[11px] font-mono font-bold text-gray-300 uppercase tracking-wider block mb-1">
+                  <label className={`text-[11px] font-mono font-bold uppercase tracking-wider block mb-1 ${
+                    isLight ? 'text-gray-600' : 'text-gray-300'
+                  }`}>
                     Username or Email
                   </label>
                   <div className="relative">
@@ -586,14 +690,20 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                       value={loginIdentifier}
                       onChange={(e) => setLoginIdentifier(e.target.value)}
                       required
-                      className="w-full bg-[#122731] border border-[#224b5c] rounded-xl pl-9 pr-3 py-2.5 text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93] transition-colors"
+                      className={`w-full rounded-xl pl-9 pr-3 py-2.5 text-xs outline-none border transition-colors ${
+                        isLight
+                          ? 'bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:border-[#122731]'
+                          : 'bg-[#122731] border-[#224b5c] text-white placeholder-gray-500 focus:border-[#f0aa93]'
+                      }`}
                     />
                     <User size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-mono font-bold text-gray-300 uppercase tracking-wider block mb-1">
+                  <label className={`text-[11px] font-mono font-bold uppercase tracking-wider block mb-1 ${
+                    isLight ? 'text-gray-600' : 'text-gray-300'
+                  }`}>
                     Password
                   </label>
                   <div className="relative">
@@ -603,7 +713,11 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                       value={loginPassword}
                       onChange={(e) => setLoginPassword(e.target.value)}
                       required
-                      className="w-full bg-[#122731] border border-[#224b5c] rounded-xl pl-9 pr-10 py-2.5 text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93] transition-colors"
+                      className={`w-full rounded-xl pl-9 pr-10 py-2.5 text-xs outline-none border transition-colors ${
+                        isLight
+                          ? 'bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:border-[#122731]'
+                          : 'bg-[#122731] border-[#224b5c] text-white placeholder-gray-500 focus:border-[#f0aa93]'
+                      }`}
                     />
                     <Lock size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                     <button
@@ -620,10 +734,14 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 px-4 rounded-xl bg-[#f0aa93] hover:bg-white text-[#122731] font-black text-xs tracking-wider uppercase transition-all shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 mt-1 cursor-pointer active:scale-95"
+                  className={`w-full py-3 px-4 rounded-xl font-black text-xs tracking-wider uppercase transition-all shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 mt-1 cursor-pointer active:scale-95 ${
+                    isLight
+                      ? 'bg-[#122731] hover:bg-black text-white'
+                      : 'bg-[#f0aa93] hover:bg-white text-[#122731]'
+                  }`}
                 >
                   {loading ? (
-                    <span className="inline-block w-4 h-4 border-2 border-[#122731]/30 border-t-[#122731] rounded-full animate-spin"></span>
+                    <span className="inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
                   ) : (
                     <>
                       <span>Sign In</span>
@@ -642,7 +760,9 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                       setMode('signup');
                       resetFormState();
                     }}
-                    className="text-[11px] font-bold text-[#f0aa93] hover:underline cursor-pointer"
+                    className={`text-[11px] font-bold hover:underline cursor-pointer ${
+                      isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                    }`}
                   >
                     Sign Up
                   </button>
@@ -654,7 +774,9 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
             {mode === 'signup' && (
               <form onSubmit={handleSignup} className="space-y-3">
                 <div>
-                  <label className="text-[11px] font-mono font-bold text-gray-300 uppercase tracking-wider block mb-1">
+                  <label className={`text-[11px] font-mono font-bold uppercase tracking-wider block mb-1 ${
+                    isLight ? 'text-gray-600' : 'text-gray-300'
+                  }`}>
                     Full Name
                   </label>
                   <div className="relative">
@@ -663,14 +785,20 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                       placeholder="e.g. Kavi Rawat"
                       value={signupName}
                       onChange={(e) => setSignupName(e.target.value)}
-                      className="w-full bg-[#122731] border border-[#224b5c] rounded-xl pl-9 pr-3 py-2.5 text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93] transition-colors"
+                      className={`w-full rounded-xl pl-9 pr-3 py-2.5 text-xs outline-none border transition-colors ${
+                        isLight
+                          ? 'bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:border-[#122731]'
+                          : 'bg-[#122731] border-[#224b5c] text-white placeholder-gray-500 focus:border-[#f0aa93]'
+                      }`}
                     />
                     <User size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-mono font-bold text-gray-300 uppercase tracking-wider block mb-1">
+                  <label className={`text-[11px] font-mono font-bold uppercase tracking-wider block mb-1 ${
+                    isLight ? 'text-gray-600' : 'text-gray-300'
+                  }`}>
                     Username <span className="text-red-400">*</span>
                   </label>
                   <div className="relative">
@@ -680,14 +808,22 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                       value={signupUsername}
                       onChange={(e) => setSignupUsername(e.target.value)}
                       required
-                      className="w-full bg-[#122731] border border-[#224b5c] rounded-xl pl-9 pr-3 py-2.5 text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93] transition-colors"
+                      className={`w-full rounded-xl pl-9 pr-3 py-2.5 text-xs outline-none border transition-colors ${
+                        isLight
+                          ? 'bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:border-[#122731]'
+                          : 'bg-[#122731] border-[#224b5c] text-white placeholder-gray-500 focus:border-[#f0aa93]'
+                      }`}
                     />
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#f0aa93] font-mono text-xs">@</span>
+                    <span className={`absolute left-3 top-1/2 -translate-y-1/2 font-mono text-xs ${
+                      isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                    }`}>@</span>
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-mono font-bold text-gray-300 uppercase tracking-wider block mb-1">
+                  <label className={`text-[11px] font-mono font-bold uppercase tracking-wider block mb-1 ${
+                    isLight ? 'text-gray-600' : 'text-gray-300'
+                  }`}>
                     Email Address <span className="text-red-400">*</span>
                   </label>
                   <div className="relative">
@@ -697,14 +833,20 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                       value={signupEmail}
                       onChange={(e) => setSignupEmail(e.target.value)}
                       required
-                      className="w-full bg-[#122731] border border-[#224b5c] rounded-xl pl-9 pr-3 py-2.5 text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93] transition-colors"
+                      className={`w-full rounded-xl pl-9 pr-3 py-2.5 text-xs outline-none border transition-colors ${
+                        isLight
+                          ? 'bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:border-[#122731]'
+                          : 'bg-[#122731] border-[#224b5c] text-white placeholder-gray-500 focus:border-[#f0aa93]'
+                      }`}
                     />
                     <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-mono font-bold text-gray-300 uppercase tracking-wider block mb-1">
+                  <label className={`text-[11px] font-mono font-bold uppercase tracking-wider block mb-1 ${
+                    isLight ? 'text-gray-600' : 'text-gray-300'
+                  }`}>
                     Password <span className="text-red-400">*</span>
                   </label>
                   <div className="relative">
@@ -714,7 +856,11 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                       value={signupPassword}
                       onChange={(e) => setSignupPassword(e.target.value)}
                       required
-                      className="w-full bg-[#122731] border border-[#224b5c] rounded-xl pl-9 pr-10 py-2.5 text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93] transition-colors"
+                      className={`w-full rounded-xl pl-9 pr-10 py-2.5 text-xs outline-none border transition-colors ${
+                        isLight
+                          ? 'bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:border-[#122731]'
+                          : 'bg-[#122731] border-[#224b5c] text-white placeholder-gray-500 focus:border-[#f0aa93]'
+                      }`}
                     />
                     <Lock size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                     <button
@@ -731,10 +877,14 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 px-4 rounded-xl bg-[#f0aa93] hover:bg-white text-[#122731] font-black text-xs tracking-wider uppercase transition-all shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 mt-1 cursor-pointer active:scale-95"
+                  className={`w-full py-3 px-4 rounded-xl font-black text-xs tracking-wider uppercase transition-all shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 mt-1 cursor-pointer active:scale-95 ${
+                    isLight
+                      ? 'bg-[#122731] hover:bg-black text-white'
+                      : 'bg-[#f0aa93] hover:bg-white text-[#122731]'
+                  }`}
                 >
                   {loading ? (
-                    <span className="inline-block w-4 h-4 border-2 border-[#122731]/30 border-t-[#122731] rounded-full animate-spin"></span>
+                    <span className="inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
                   ) : (
                     <>
                       <span>Create Account</span>
@@ -753,7 +903,9 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
                       setMode('login');
                       resetFormState();
                     }}
-                    className="text-[11px] font-bold text-[#f0aa93] hover:underline cursor-pointer"
+                    className={`text-[11px] font-bold hover:underline cursor-pointer ${
+                      isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                    }`}
                   >
                     Sign In
                   </button>
@@ -762,16 +914,20 @@ export default function AccountPopover({ isOpen, onClose, onOpenOrders }) {
             )}
 
             {/* Quick Guest / Orders helper */}
-            <div className="pt-2.5 border-t border-[#224b5c] flex items-center justify-between text-[11px] text-gray-400">
+            <div className={`pt-2.5 border-t flex items-center justify-between text-[11px] ${
+              isLight ? 'border-gray-200 text-gray-500' : 'border-[#224b5c] text-gray-400'
+            }`}>
               <button
                 type="button"
                 onClick={() => {
                   onClose();
                   onOpenOrders();
                 }}
-                className="flex items-center gap-1.5 hover:text-[#f0aa93] transition-colors font-medium cursor-pointer"
+                className={`flex items-center gap-1.5 transition-colors font-medium cursor-pointer ${
+                  isLight ? 'hover:text-black' : 'hover:text-[#f0aa93]'
+                }`}
               >
-                <Package size={14} className="text-[#f0aa93]" />
+                <Package size={14} className={isLight ? 'text-[#122731]' : 'text-[#f0aa93]'} />
                 <span>Track Orders with Order ID</span>
               </button>
             </div>

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { ChevronDown, Check } from 'lucide-react';
+import { useThemeColor } from '../context/ThemeColorContext';
 
 export default function BottomBar({ onSelectPhilosophy, onOpenStore, onOpenSupport }) {
+  const { themeMode = 'dark' } = useThemeColor();
+  const isLight = themeMode === 'light';
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState('India | INR ₹');
 
@@ -25,15 +28,21 @@ export default function BottomBar({ onSelectPhilosophy, onOpenStore, onOpenSuppo
   };
 
   return (
-    <footer className="bg-[#0e2028] text-white border-t border-[#224b5c] pt-16 pb-12 px-4 sm:px-8 lg:px-14 select-none">
+    <footer className={`pt-16 pb-12 px-4 sm:px-8 lg:px-14 select-none border-t transition-colors duration-300 ${
+      isLight ? 'bg-[#f8fafc] text-gray-900 border-gray-200' : 'bg-[#0e2028] text-white border-[#224b5c]'
+    }`}>
       <div className="max-w-[1360px] mx-auto flex flex-col items-center text-center space-y-10">
 
         <div className="space-y-5">
-          <h4 className="text-xs font-bold tracking-widest text-white uppercase">
+          <h4 className={`text-xs font-bold tracking-widest uppercase ${
+            isLight ? 'text-gray-900' : 'text-white'
+          }`}>
             Quick links
           </h4>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-3 text-xs text-gray-400">
+          <div className={`flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-3 text-xs ${
+            isLight ? 'text-gray-600' : 'text-gray-400'
+          }`}>
             {[
               'Shipping Policy',
               'Returns & Refund policy',
@@ -46,7 +55,9 @@ export default function BottomBar({ onSelectPhilosophy, onOpenStore, onOpenSuppo
                 key={link}
                 type="button"
                 onClick={() => handleLinkClick(link)}
-                className="hover:text-white transition-colors cursor-pointer text-xs font-normal"
+                className={`transition-colors cursor-pointer text-xs font-normal ${
+                  isLight ? 'hover:text-black' : 'hover:text-white'
+                }`}
               >
                 {link}
               </button>
@@ -63,7 +74,11 @@ export default function BottomBar({ onSelectPhilosophy, onOpenStore, onOpenSuppo
             <button
               type="button"
               onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
-              className="px-4 py-2 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 text-white text-xs font-normal flex items-center gap-2 transition-colors cursor-pointer shadow-sm"
+              className={`px-4 py-2 rounded-full border text-xs font-normal flex items-center gap-2 transition-colors cursor-pointer shadow-sm ${
+                isLight
+                  ? 'border-gray-300 bg-white hover:bg-gray-50 text-gray-800'
+                  : 'border-white/20 bg-white/5 hover:bg-white/10 text-white'
+              }`}
             >
               <span>{selectedCurrency}</span>
               <ChevronDown size={14} className="text-gray-400" />
@@ -75,7 +90,9 @@ export default function BottomBar({ onSelectPhilosophy, onOpenStore, onOpenSuppo
                   className="fixed inset-0 z-40"
                   onClick={() => setCurrencyDropdownOpen(false)}
                 />
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 bg-[#16171d] border border-white/15 rounded-2xl shadow-2xl py-2 z-50 text-xs text-left">
+                <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 border rounded-2xl shadow-2xl py-2 z-50 text-xs text-left ${
+                  isLight ? 'bg-white border-gray-200 text-gray-800' : 'bg-[#16171d] border-white/15 text-gray-300'
+                }`}>
                   {currencies.map((curr) => (
                     <button
                       key={curr.code}
@@ -84,8 +101,10 @@ export default function BottomBar({ onSelectPhilosophy, onOpenStore, onOpenSuppo
                         setSelectedCurrency(curr.label);
                         setCurrencyDropdownOpen(false);
                       }}
-                      className={`w-full px-4 py-2 hover:bg-white/10 flex items-center justify-between transition-colors ${
-                        selectedCurrency === curr.label ? 'text-[#d4af37] font-semibold' : 'text-gray-300'
+                      className={`w-full px-4 py-2 flex items-center justify-between transition-colors ${
+                        isLight ? 'hover:bg-gray-100' : 'hover:bg-white/10'
+                      } ${
+                        selectedCurrency === curr.label ? 'text-[#d4af37] font-semibold' : ''
                       }`}
                     >
                       <span>{curr.label}</span>
@@ -98,9 +117,11 @@ export default function BottomBar({ onSelectPhilosophy, onOpenStore, onOpenSuppo
           </div>
         </div>
 
-        <div className="pt-6 border-t border-white/10 w-full flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-gray-500 gap-2">
+        <div className={`pt-6 border-t w-full flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono gap-2 ${
+          isLight ? 'border-gray-200 text-gray-500' : 'border-white/10 text-gray-500'
+        }`}>
           <span>© 2026 APNA BRAND. ALL RIGHTS RESERVED.</span>
-          <span className="text-gray-600">ROOTED IN BHARAT • WORN EVERYWHERE</span>
+          <span className={isLight ? 'text-gray-600' : 'text-gray-600'}>ROOTED IN BHARAT • WORN EVERYWHERE</span>
         </div>
 
       </div>

@@ -1,7 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { ChevronDown, SlidersHorizontal, Check } from 'lucide-react';
+import { useThemeColor } from '../context/ThemeColorContext';
 
 export default function CollectionsAll({ products, onSelectProduct }) {
+  const { themeMode = 'dark' } = useThemeColor?.() || {};
+  const isLight = themeMode === 'light';
 
   const [availabilityFilter, setAvailabilityFilter] = useState('all');
   const [minPrice, setMinPrice] = useState('');
@@ -59,13 +62,15 @@ export default function CollectionsAll({ products, onSelectProduct }) {
   };
 
   return (
-    <div className="bg-[#122832] min-h-screen py-8 px-4 sm:px-8 max-w-[1440px] mx-auto text-white">
+    <div className={`min-h-screen py-8 px-4 sm:px-8 max-w-[1440px] mx-auto transition-colors duration-300 ${
+      isLight ? 'bg-white text-gray-900' : 'bg-[#122832] text-white'
+    }`}>
 
-      <div className="py-4 mb-6 border-b border-[#224b5c]">
+      <div className={`py-4 mb-6 border-b ${isLight ? 'border-gray-200' : 'border-[#224b5c]'}`}>
         <div className="flex flex-wrap items-center justify-between gap-4">
 
           <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm">
-            <span className="text-[#f0aa93] font-semibold mr-1">
+            <span className={`font-semibold mr-1 ${isLight ? 'text-[#122731]' : 'text-[#f0aa93]'}`}>
               Filter:
             </span>
 
@@ -73,42 +78,46 @@ export default function CollectionsAll({ products, onSelectProduct }) {
               <button
                 onClick={() => setOpenDropdown(openDropdown === 'availability' ? null : 'availability')}
                 className={`flex items-center gap-1.5 transition-colors ${
-                  availabilityFilter !== 'all' ? 'text-black font-semibold' : 'text-gray-800 hover:text-black'
+                  availabilityFilter !== 'all'
+                    ? isLight ? 'text-black font-semibold' : 'text-[#f0aa93] font-semibold'
+                    : isLight ? 'text-gray-700 hover:text-black' : 'text-gray-300 hover:text-white'
                 }`}
               >
                 <span>Availability</span>
-                <ChevronDown size={14} className={`transition-transform text-gray-500 ${openDropdown === 'availability' ? 'rotate-180' : ''}`} />
+                <ChevronDown size={14} className={`transition-transform text-gray-400 ${openDropdown === 'availability' ? 'rotate-180' : ''}`} />
               </button>
 
               {openDropdown === 'availability' && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-xl p-3 z-30 animate-fadeIn space-y-2 text-xs">
-                  <label className="flex items-center gap-2 cursor-pointer hover:text-black">
+                <div className={`absolute top-full left-0 mt-2 w-48 border rounded-xl shadow-xl p-3 z-30 animate-fadeIn space-y-2 text-xs ${
+                  isLight ? 'bg-white border-gray-200 text-gray-800' : 'bg-[#183c4a] border-[#224b5c] text-white'
+                }`}>
+                  <label className="flex items-center gap-2 cursor-pointer hover:text-[#f0aa93]">
                     <input
                       type="radio"
                       name="avail"
                       checked={availabilityFilter === 'all'}
                       onChange={() => { setAvailabilityFilter('all'); setOpenDropdown(null); }}
-                      className="accent-black"
+                      className="accent-[#f0aa93]"
                     />
                     <span>All Products</span>
                   </label>
-                  <label className="flex items-center gap-2 cursor-pointer hover:text-black">
+                  <label className="flex items-center gap-2 cursor-pointer hover:text-[#f0aa93]">
                     <input
                       type="radio"
                       name="avail"
                       checked={availabilityFilter === 'in-stock'}
                       onChange={() => { setAvailabilityFilter('in-stock'); setOpenDropdown(null); }}
-                      className="accent-black"
+                      className="accent-[#f0aa93]"
                     />
                     <span>In stock only</span>
                   </label>
-                  <label className="flex items-center gap-2 cursor-pointer hover:text-black">
+                  <label className="flex items-center gap-2 cursor-pointer hover:text-[#f0aa93]">
                     <input
                       type="radio"
                       name="avail"
                       checked={availabilityFilter === 'out-of-stock'}
                       onChange={() => { setAvailabilityFilter('out-of-stock'); setOpenDropdown(null); }}
-                      className="accent-black"
+                      className="accent-[#f0aa93]"
                     />
                     <span>Out of stock</span>
                   </label>
@@ -120,48 +129,56 @@ export default function CollectionsAll({ products, onSelectProduct }) {
               <button
                 onClick={() => setOpenDropdown(openDropdown === 'price' ? null : 'price')}
                 className={`flex items-center gap-1.5 transition-colors ${
-                  minPrice !== '' || maxPrice !== '' ? 'text-black font-semibold' : 'text-gray-800 hover:text-black'
+                  minPrice !== '' || maxPrice !== ''
+                    ? isLight ? 'text-black font-semibold' : 'text-[#f0aa93] font-semibold'
+                    : isLight ? 'text-gray-700 hover:text-black' : 'text-gray-300 hover:text-white'
                 }`}
               >
                 <span>Price</span>
-                <ChevronDown size={14} className={`transition-transform text-gray-500 ${openDropdown === 'price' ? 'rotate-180' : ''}`} />
+                <ChevronDown size={14} className={`transition-transform text-gray-400 ${openDropdown === 'price' ? 'rotate-180' : ''}`} />
               </button>
 
               {openDropdown === 'price' && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-xl shadow-xl p-4 z-30 animate-fadeIn text-xs">
-                  <div className="font-semibold text-gray-700 mb-2">The highest price is Rs. 5,450.00</div>
+                <div className={`absolute top-full left-0 mt-2 w-64 border rounded-xl shadow-xl p-4 z-30 animate-fadeIn text-xs ${
+                  isLight ? 'bg-white border-gray-200 text-gray-800' : 'bg-[#183c4a] border-[#224b5c] text-white'
+                }`}>
+                  <div className={`font-semibold mb-2 ${isLight ? 'text-gray-700' : 'text-gray-300'}`}>The highest price is Rs. 5,450.00</div>
                   <div className="grid grid-cols-2 gap-2 mb-3">
                     <div>
-                      <span className="text-[10px] text-gray-500 uppercase block">Rs. Min</span>
+                      <span className="text-[10px] text-gray-400 uppercase block">Rs. Min</span>
                       <input
                         type="number"
                         placeholder="0"
                         value={minPrice}
                         onChange={(e) => setMinPrice(e.target.value)}
-                        className="w-full border border-gray-300 rounded px-2 py-1 text-xs outline-none focus:border-black"
+                        className={`w-full border rounded px-2 py-1 text-xs outline-none ${
+                          isLight ? 'border-gray-300 text-gray-900 bg-white' : 'border-white/10 text-white bg-black/40'
+                        }`}
                       />
                     </div>
                     <div>
-                      <span className="text-[10px] text-gray-500 uppercase block">Rs. Max</span>
+                      <span className="text-[10px] text-gray-400 uppercase block">Rs. Max</span>
                       <input
                         type="number"
                         placeholder="5450"
                         value={maxPrice}
                         onChange={(e) => setMaxPrice(e.target.value)}
-                        className="w-full border border-gray-300 rounded px-2 py-1 text-xs outline-none focus:border-black"
+                        className={`w-full border rounded px-2 py-1 text-xs outline-none ${
+                          isLight ? 'border-gray-300 text-gray-900 bg-white' : 'border-white/10 text-white bg-black/40'
+                        }`}
                       />
                     </div>
                   </div>
-                  <div className="flex justify-between items-center pt-2 border-t border-gray-100">
+                  <div className={`flex justify-between items-center pt-2 border-t ${isLight ? 'border-gray-200' : 'border-white/10'}`}>
                     <button
                       onClick={() => { setMinPrice(''); setMaxPrice(''); }}
-                      className="text-[11px] text-gray-500 hover:underline"
+                      className="text-[11px] text-gray-400 hover:underline"
                     >
                       Reset
                     </button>
                     <button
                       onClick={() => setOpenDropdown(null)}
-                      className="px-3 py-1 bg-black text-white rounded text-[11px] font-bold"
+                      className="px-3 py-1 bg-[#f0aa93] text-[#122832] rounded text-[11px] font-bold"
                     >
                       Apply
                     </button>
@@ -173,7 +190,7 @@ export default function CollectionsAll({ products, onSelectProduct }) {
             {activeFiltersCount > 0 && (
               <button
                 onClick={clearAllFilters}
-                className="text-xs text-gray-500 hover:text-black underline ml-2"
+                className="text-xs text-gray-400 hover:text-white underline ml-2"
               >
                 Clear all ({activeFiltersCount})
               </button>
@@ -181,26 +198,28 @@ export default function CollectionsAll({ products, onSelectProduct }) {
           </div>
 
           <div className="flex items-center gap-4 text-xs sm:text-sm">
-            <span className="text-gray-600 font-normal">Sort by:</span>
+            <span className={`font-normal ${isLight ? 'text-gray-500' : 'text-gray-400'}`}>Sort by:</span>
             <div className="relative">
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-transparent border-none text-xs sm:text-sm text-[#121212] font-normal outline-none cursor-pointer pr-6 appearance-none"
+                className={`bg-transparent border-none text-xs sm:text-sm font-normal outline-none cursor-pointer pr-6 appearance-none ${
+                  isLight ? 'text-gray-900' : 'text-white'
+                }`}
               >
-                <option value="alpha-a-z">Alphabetically, A-Z</option>
-                <option value="alpha-z-a">Alphabetically, Z-A</option>
-                <option value="featured">Featured</option>
-                <option value="best-selling">Best selling</option>
-                <option value="price-low-high">Price, low to high</option>
-                <option value="price-high-low">Price, high to low</option>
-                <option value="date-new-old">Date, new to old</option>
-                <option value="date-old-new">Date, old to new</option>
+                <option value="alpha-a-z" className="text-black bg-white">Alphabetically, A-Z</option>
+                <option value="alpha-z-a" className="text-black bg-white">Alphabetically, Z-A</option>
+                <option value="featured" className="text-black bg-white">Featured</option>
+                <option value="best-selling" className="text-black bg-white">Best selling</option>
+                <option value="price-low-high" className="text-black bg-white">Price, low to high</option>
+                <option value="price-high-low" className="text-black bg-white">Price, high to low</option>
+                <option value="date-new-old" className="text-black bg-white">Date, new to old</option>
+                <option value="date-old-new" className="text-black bg-white">Date, old to new</option>
               </select>
-              <ChevronDown size={14} className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500" />
+              <ChevronDown size={14} className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" />
             </div>
 
-            <span className="text-gray-500 text-xs sm:text-sm font-normal pl-2 hidden md:inline">
+            <span className="text-gray-400 text-xs sm:text-sm font-normal pl-2 hidden md:inline">
               {filteredProducts.length} products
             </span>
           </div>
@@ -221,14 +240,18 @@ export default function CollectionsAll({ products, onSelectProduct }) {
                 onClick={() => onSelectProduct(product)}
                 onMouseEnter={() => setHoveredCardId(product.id)}
                 onMouseLeave={() => setHoveredCardId(null)}
-                className="cursor-pointer group flex flex-col rounded-3xl bg-[#163643] border border-[#234f60] border-t-white/20 shadow-2xl hover:-translate-y-3 hover:shadow-[0_25px_50px_rgba(10,25,33,0.85)] hover:border-[#f0aa93]/60 transition-all duration-500 overflow-hidden justify-between"
+                className={`cursor-pointer group flex flex-col rounded-3xl border shadow-2xl hover:-translate-y-3 transition-all duration-500 overflow-hidden justify-between ${
+                  isLight
+                    ? 'bg-white border-gray-200 text-gray-900 hover:border-[#122731] hover:shadow-xl'
+                    : 'bg-[#163643] border-[#234f60] border-t-white/20 text-white hover:border-[#f0aa93]/60 hover:shadow-[0_25px_50px_rgba(10,25,33,0.85)]'
+                }`}
               >
 
                 {/* Upper Image */}
                 <div
-                  className="relative aspect-[4/5] w-full overflow-hidden transition-all duration-500 bg-black/20"
+                  className="relative aspect-[4/5] w-full overflow-hidden transition-all duration-500 bg-black/10"
                   style={{
-                    backgroundColor: product.cardBg || (product.primaryColor?.name === 'Off White' ? '#ffffff' : '#18191f')
+                    backgroundColor: product.cardBg || (product.primaryColor?.name === 'Off White' ? '#ffffff' : (isLight ? '#f1f5f9' : '#18191f'))
                   }}
                 >
                   <img
@@ -252,38 +275,48 @@ export default function CollectionsAll({ products, onSelectProduct }) {
                 </div>
 
                 {/* Lower Details: Name, Price, and Rating Stars */}
-                <div className="p-4 sm:p-5 flex flex-col justify-between flex-grow space-y-3">
+                <div className={`p-4 sm:p-5 flex flex-col justify-between flex-grow space-y-3 ${
+                  isLight ? 'bg-white' : 'bg-[#163643]'
+                }`}>
                   <div className="space-y-1">
                     <span className="font-sanskrit text-xs text-[#f0aa93] block font-semibold">
                       {product.sanskritTitle || product.title}
                     </span>
                     <h3
-                      className={`text-sm sm:text-base font-bold text-white uppercase tracking-tight line-clamp-1 transition-colors ${
-                        isHovered ? 'text-[#f0aa93]' : ''
+                      className={`text-sm sm:text-base font-bold uppercase tracking-tight line-clamp-1 transition-colors ${
+                        isLight
+                          ? isHovered ? 'text-[#122731]' : 'text-gray-900'
+                          : isHovered ? 'text-[#f0aa93]' : 'text-white'
                       }`}
                     >
                       {product.title}
                     </h3>
-                    <p className="text-base sm:text-lg font-black text-[#f0aa93] font-mono pt-1">
+                    <p className={`text-base sm:text-lg font-black font-mono pt-1 ${
+                      isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                    }`}>
                       Rs. {product.price?.toLocaleString('en-IN') || '5,450'}
                     </p>
                   </div>
 
                   {/* Rating in Stars */}
-                  <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+                  <div className={`pt-2 border-t flex items-center justify-between ${
+                    isLight ? 'border-gray-100' : 'border-white/10'
+                  }`}>
                     <div className="flex items-center gap-1.5">
-                      <div className="flex text-[#f0aa93] text-xs tracking-wider">
+                      <div className="flex text-amber-400 text-xs tracking-wider">
                         <span>★</span>
                         <span>★</span>
                         <span>★</span>
                         <span>★</span>
                         <span>★</span>
                       </div>
-                      <span className="text-xs font-bold text-white font-mono">4.9</span>
-                      <span className="text-[11px] text-[#a8c5cf]">({product.reviewsCount || 85})</span>
+                      <span className={`text-xs font-bold font-mono ${isLight ? 'text-gray-900' : 'text-white'}`}>4.9</span>
+                      <span className="text-[11px] text-gray-400">({product.reviewsCount || 85})</span>
                     </div>
 
-                    <span className="text-[11px] font-bold text-[#f0aa93] uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                    <span className={`text-[11px] font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform ${
+                      isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                    }`}>
                       View ➔
                     </span>
                   </div>

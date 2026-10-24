@@ -20,7 +20,24 @@ body {
   background-color: #122832;
   color: #ffffff;
   overflow-x: hidden;
-  transition: background-color 0.8s ease, color 0.5s ease;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+html.light-theme body {
+  background-color: #ffffff;
+  color: #122832;
+}
+
+html.light-theme ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+html.light-theme ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+
+html.light-theme ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
 /* Custom Scrollbar */

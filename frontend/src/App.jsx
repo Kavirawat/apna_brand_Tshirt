@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CartProvider } from './context/CartContext';
-import { ThemeColorProvider } from './context/ThemeColorContext';
+import { ThemeColorProvider, useThemeColor } from './context/ThemeColorContext';
 import Navbar from './components/Navbar';
 import HeroBanner from './components/HeroBanner';
 import Bestsellers from './components/Bestsellers';
@@ -20,6 +20,8 @@ import { API_BASE } from './config';
 import initialProducts from './data/products.json';
 
 function Storefront() {
+  const { themeMode = 'dark' } = useThemeColor();
+  const isLight = themeMode === 'light';
   const [products, setProducts] = useState(initialProducts);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [activeNav, setActiveNav] = useState(() => {
@@ -87,7 +89,9 @@ function Storefront() {
   const isDashboardPage = activeNav === 'home' && !selectedProduct;
 
   return (
-    <div className="min-h-screen bg-[#122832] text-white flex flex-col justify-between font-sans selection:bg-[#f0aa93] selection:text-[#122832]">
+    <div className={`min-h-screen flex flex-col justify-between font-sans selection:bg-[#f0aa93] selection:text-[#122832] transition-colors duration-300 ${
+      isLight ? 'bg-white text-gray-900' : 'bg-[#122832] text-white'
+    }`}>
 
       <Navbar
         activeNav={activeNav}
@@ -143,13 +147,13 @@ function Storefront() {
           <TrackOrderView initialOrderId={trackingOrderId} />
         ) : (
 
-          <div className="max-w-3xl mx-auto py-16 px-4 space-y-6 text-white">
-            <h2 className="text-2xl font-bold uppercase mb-4 text-white">Apna Brand Policy</h2>
-            <div className="space-y-4 text-sm text-gray-300 leading-relaxed border-t border-white/10 pt-4">
-              <p><strong className="text-white">1. Shipping:</strong> We provide express domestic delivery across India. Orders are processed within 24–48 hours.</p>
-              <p><strong className="text-white">2. 7-Day Exchange:</strong> Size exchanges are accepted within 7 days of delivery, provided tags remain intact.</p>
-              <p><strong className="text-white">3. Cash on Delivery:</strong> Available across 26,000+ PIN codes with zero advance payment requirement.</p>
-              <p><strong className="text-white">4. Craft Integrity:</strong> 100% super-combed bio-washed cotton, engineered for longevity.</p>
+          <div className={`max-w-3xl mx-auto py-16 px-4 space-y-6 ${isLight ? 'text-gray-900' : 'text-white'}`}>
+            <h2 className={`text-2xl font-bold uppercase mb-4 ${isLight ? 'text-gray-900' : 'text-white'}`}>Apna Brand Policy</h2>
+            <div className={`space-y-4 text-sm leading-relaxed border-t pt-4 ${isLight ? 'text-gray-600 border-gray-200' : 'text-gray-300 border-white/10'}`}>
+              <p><strong className={isLight ? 'text-gray-900' : 'text-white'}>1. Shipping:</strong> We provide express domestic delivery across India. Orders are processed within 24–48 hours.</p>
+              <p><strong className={isLight ? 'text-gray-900' : 'text-white'}>2. 7-Day Exchange:</strong> Size exchanges are accepted within 7 days of delivery, provided tags remain intact.</p>
+              <p><strong className={isLight ? 'text-gray-900' : 'text-white'}>3. Cash on Delivery:</strong> Available across 26,000+ PIN codes with zero advance payment requirement.</p>
+              <p><strong className={isLight ? 'text-gray-900' : 'text-white'}>4. Craft Integrity:</strong> 100% super-combed bio-washed cotton, engineered for longevity.</p>
             </div>
           </div>
         )}

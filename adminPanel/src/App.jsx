@@ -7,7 +7,7 @@ import {
   Bell, MapPin, Settings, Sliders, Store, CreditCard, BellRing, Save, RotateCcw,
   ChevronRight, Globe, BarChart3, TrendingUp, ShieldAlert, Cpu, ArrowDownRight,
   Menu, LogOut, Eye, EyeOff, Key, Copy, Users, Tag, Percent, Download, Filter,
-  ChevronDown, CheckCheck, HelpCircle, Activity
+  ChevronDown, CheckCheck, HelpCircle, Activity, Sun, Moon
 } from 'lucide-react';
 import {
   FaBox,
@@ -35,6 +35,38 @@ export default function AdminApp() {
 
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+
+  const [themeMode, setThemeMode] = useState(() => {
+    try {
+      return localStorage.getItem('brahmman_theme_mode') || 'dark';
+    } catch {
+      return 'dark';
+    }
+  });
+
+  const handleSetTheme = (mode) => {
+    setThemeMode(mode);
+    try {
+      localStorage.setItem('brahmman_theme_mode', mode);
+    } catch {}
+    if (mode === 'light') {
+      document.documentElement.classList.add('light-theme');
+      document.documentElement.classList.remove('dark-theme');
+    } else {
+      document.documentElement.classList.add('dark-theme');
+      document.documentElement.classList.remove('light-theme');
+    }
+  };
+
+  useEffect(() => {
+    if (themeMode === 'light') {
+      document.documentElement.classList.add('light-theme');
+      document.documentElement.classList.remove('dark-theme');
+    } else {
+      document.documentElement.classList.add('dark-theme');
+      document.documentElement.classList.remove('light-theme');
+    }
+  }, [themeMode]);
 
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => {
     try {
@@ -829,7 +861,9 @@ export default function AdminApp() {
   }
 
   return (
-    <div className="min-h-screen bg-[#122731] text-gray-200 selection:bg-[#f0aa93] selection:text-black font-sans flex flex-col antialiased">
+    <div className={`min-h-screen selection:bg-[#f0aa93] selection:text-black font-sans flex flex-col antialiased transition-colors duration-200 ${
+      themeMode === 'light' ? 'bg-[#f4f7f8] text-gray-900' : 'bg-[#122731] text-gray-200'
+    }`}>
 
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-60 bg-[#183c4a] border border-[#f0aa93] text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold animate-fadeIn flex items-center gap-2">
@@ -839,7 +873,11 @@ export default function AdminApp() {
       )}
 
       {/* Top Header Bar (Phoenix + DashDark X Style) */}
-      <header className="sticky top-0 z-40 h-16 bg-[#0f222b]/90 backdrop-blur-xl border-b border-[#224b5c] px-4 sm:px-6 flex items-center justify-between">
+      <header className={`sticky top-0 z-40 h-16 backdrop-blur-xl border-b px-4 sm:px-6 flex items-center justify-between transition-colors duration-200 ${
+        themeMode === 'light'
+          ? 'bg-white/95 border-gray-200 text-gray-900 shadow-xs'
+          : 'bg-[#0f222b]/90 border-[#224b5c] text-white'
+      }`}>
         <div className="flex items-center gap-3 sm:gap-4">
           <button
             type="button"
@@ -865,7 +903,9 @@ export default function AdminApp() {
               alt="Logo"
               className="w-8 h-8 rounded-lg object-cover border border-[#f0aa93]/40 shadow-sm"
             />
-            <span className="hidden sm:block font-serif text-sm font-black text-white tracking-widest uppercase leading-none">
+            <span className={`hidden sm:block font-serif text-sm font-black tracking-widest uppercase leading-none ${
+              themeMode === 'light' ? 'text-gray-900' : 'text-white'
+            }`}>
               {settings.storeName || 'APNA BRAND'}
             </span>
           </div>
@@ -894,7 +934,11 @@ export default function AdminApp() {
               placeholder="Search orders, products, CRM... (Ctrl+K)"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-white/[0.04] border border-white/10 rounded-xl text-xs text-white placeholder-gray-500 outline-none focus:border-[#f0aa93] transition-all"
+              className={`w-full pl-9 pr-4 py-2 border rounded-xl text-xs outline-none focus:border-[#f0aa93] transition-all ${
+                themeMode === 'light'
+                  ? 'bg-gray-100 border-gray-300 text-gray-900 placeholder-gray-500'
+                  : 'bg-white/[0.04] border-white/10 text-white placeholder-gray-500'
+              }`}
             />
             {searchQuery && (
               <button
@@ -911,11 +955,38 @@ export default function AdminApp() {
             type="button"
             onClick={() => fetchData(true)}
             disabled={isRefreshing}
-            className="p-2 rounded-xl text-gray-300 hover:text-white hover:bg-white/[0.06] border border-white/[0.08] transition-all cursor-pointer flex items-center gap-1.5 text-xs font-mono"
+            className={`p-2 rounded-xl border transition-all cursor-pointer flex items-center gap-1.5 text-xs font-mono ${
+              themeMode === 'light'
+                ? 'text-gray-700 hover:text-black hover:bg-gray-100 border-gray-300'
+                : 'text-gray-300 hover:text-white hover:bg-white/[0.06] border-white/[0.08]'
+            }`}
             title="Sync latest store data"
           >
             <RefreshCw size={14} className={isRefreshing ? 'animate-spin text-[#f0aa93]' : ''} />
             <span className="hidden sm:inline text-[11px]">Sync</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleSetTheme(themeMode === 'dark' ? 'light' : 'dark')}
+            className={`p-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 text-xs font-mono border ${
+              themeMode === 'light'
+                ? 'bg-gray-100 hover:bg-gray-200 text-gray-800 border-gray-300'
+                : 'text-gray-300 hover:text-white hover:bg-white/[0.06] border-white/[0.08]'
+            }`}
+            title={themeMode === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+          >
+            {themeMode === 'dark' ? (
+              <>
+                <Sun size={15} className="text-[#f0aa93]" />
+                <span className="hidden sm:inline text-[11px] font-bold">Light</span>
+              </>
+            ) : (
+              <>
+                <Moon size={15} className="text-[#122731]" />
+                <span className="hidden sm:inline text-[11px] font-bold">Dark</span>
+              </>
+            )}
           </button>
 
           <a
@@ -988,7 +1059,11 @@ export default function AdminApp() {
 
         {/* Vertical Sidebar Navigation (Phoenix + DashDark X Style) */}
         <aside
-          className={`hidden lg:flex flex-col justify-between bg-[#0f222b] border-r border-[#224b5c] p-4 transition-all duration-300 flex-shrink-0 select-none ${
+          className={`hidden lg:flex flex-col justify-between border-r p-4 transition-all duration-300 flex-shrink-0 select-none ${
+            themeMode === 'light'
+              ? 'bg-white border-gray-200 text-gray-900 shadow-xs'
+              : 'bg-[#0f222b] border-[#224b5c] text-gray-200'
+          } ${
             isSidebarCollapsed ? 'w-20 items-center' : 'w-64 xl:w-72'
           }`}
         >
@@ -997,7 +1072,9 @@ export default function AdminApp() {
             {navGroups.map((group, gIdx) => (
               <div key={gIdx} className="space-y-1.5">
                 {!isSidebarCollapsed && (
-                  <span className="text-[10px] font-mono font-bold tracking-widest text-gray-400 uppercase px-3 block">
+                  <span className={`text-[10px] font-mono font-bold tracking-widest uppercase px-3 block ${
+                    themeMode === 'light' ? 'text-gray-500' : 'text-gray-400'
+                  }`}>
                     {group.group}
                   </span>
                 )}
@@ -1013,12 +1090,24 @@ export default function AdminApp() {
                         title={isSidebarCollapsed ? item.label : undefined}
                         className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-xs font-semibold transition-all cursor-pointer group ${
                           isActive
-                            ? 'bg-[#1b4252] text-[#f0aa93] border border-[#f0aa93]/30 shadow-lg shadow-black/40 font-bold'
+                            ? themeMode === 'light'
+                              ? 'bg-[#122731] text-white shadow-md font-bold'
+                              : 'bg-[#1b4252] text-[#f0aa93] border border-[#f0aa93]/30 shadow-lg shadow-black/40 font-bold'
+                            : themeMode === 'light'
+                            ? 'text-gray-600 hover:text-black hover:bg-gray-100'
                             : 'text-gray-400 hover:text-white hover:bg-white/[0.04]'
                         }`}
                       >
                         <div className="flex items-center gap-3">
-                          <Icon size={16} className={isActive ? 'text-[#f0aa93]' : 'text-gray-400 group-hover:text-white'} />
+                          <Icon size={16} className={
+                            isActive
+                              ? themeMode === 'light'
+                                ? 'text-[#f0aa93]'
+                                : 'text-[#f0aa93]'
+                              : themeMode === 'light'
+                              ? 'text-gray-500 group-hover:text-black'
+                              : 'text-gray-400 group-hover:text-white'
+                          } />
                           {!isSidebarCollapsed && <span>{item.label}</span>}
                         </div>
                         {!isSidebarCollapsed && item.badge && (
@@ -1026,7 +1115,11 @@ export default function AdminApp() {
                             item.alert
                               ? 'bg-red-500/20 text-red-400 border border-red-500/30 animate-pulse'
                               : isActive
-                              ? 'bg-[#f0aa93]/20 text-[#f0aa93]'
+                              ? themeMode === 'light'
+                                ? 'bg-white/20 text-white'
+                                : 'bg-[#f0aa93]/20 text-[#f0aa93]'
+                              : themeMode === 'light'
+                              ? 'bg-gray-200 text-gray-700'
                               : 'bg-white/10 text-gray-400'
                           }`}>
                             {item.badge}
@@ -1041,11 +1134,13 @@ export default function AdminApp() {
 
           </div>
 
-          <div className="pt-4 border-t border-[#224b5c] w-full space-y-2">
+          <div className={`pt-4 border-t w-full space-y-2 ${themeMode === 'light' ? 'border-gray-200' : 'border-[#224b5c]'}`}>
             {!isSidebarCollapsed ? (
-              <div className="p-3 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-between text-xs">
+              <div className={`p-3 rounded-2xl border flex items-center justify-between text-xs ${
+                themeMode === 'light' ? 'bg-gray-50 border-gray-200' : 'bg-white/[0.04] border-white/[0.08]'
+              }`}>
                 <div>
-                  <span className="text-white font-bold block truncate">{settings.storeName || 'APNA BRAND'}</span>
+                  <span className={`font-bold block truncate ${themeMode === 'light' ? 'text-gray-900' : 'text-white'}`}>{settings.storeName || 'APNA BRAND'}</span>
                   <span className="text-[10px] font-mono text-[#f0aa93]">Admin Panel</span>
                 </div>
               </div>
@@ -1707,9 +1802,13 @@ export default function AdminApp() {
           {activeTab === 'drops' && (
             <div className="space-y-6 animate-fadeIn">
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#224b5c]">
+              <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b ${
+                themeMode === 'light' ? 'border-gray-200' : 'border-[#224b5c]'
+              }`}>
                 <div>
-                  <h1 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white flex items-center gap-2.5">
+                  <h1 className={`text-2xl sm:text-3xl font-extrabold uppercase tracking-tight flex items-center gap-2.5 ${
+                    themeMode === 'light' ? 'text-gray-900' : 'text-white'
+                  }`}>
                     <Flame size={24} className="text-red-500" />
                     <span>Limited Drops & Expiry Studio</span>
                   </h1>
@@ -1734,63 +1833,103 @@ export default function AdminApp() {
                   return (
                     <div
                       key={p.id}
-                      className="p-5 rounded-2xl bg-[#183c4a] border border-[#224b5c] shadow-xl flex flex-col justify-between space-y-4"
+                      className={`p-4 sm:p-5 rounded-2xl border transition-all hover:border-[#f0aa93]/60 flex flex-col sm:flex-row gap-5 items-stretch ${
+                        themeMode === 'light'
+                          ? 'bg-white border-gray-200 shadow-md text-gray-900'
+                          : 'bg-[#183c4a] border-[#224b5c] shadow-xl text-white'
+                      }`}
                     >
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex items-center gap-3.5">
-                          <img
-                            src={p.images?.[0]}
-                            alt={p.title}
-                            className="w-16 h-16 rounded-xl object-contain bg-black/40 border border-white/10"
-                          />
-                          <div>
-                            <span className="text-[10px] font-mono text-[#f0aa93] uppercase font-bold block">
-                              {p.dropTier || 'SACRED DROP'}
-                            </span>
-                            <h3 className="font-bold text-white text-sm uppercase truncate max-w-[220px]">
-                              {p.title}
-                            </h3>
-                            <span className="text-xs text-gray-400 font-mono">
+                      {/* Properly Fitted 4:5 Product Image */}
+                      <div className="w-full sm:w-44 md:w-48 aspect-[4/5] rounded-xl overflow-hidden bg-black/10 border border-white/10 relative flex-shrink-0 group">
+                        <img
+                          src={p.images?.[0] || 'https://cdn.shopify.com/s/files/1/0665/6638/9834/files/Aghori_ubg.png?v=1791202359'}
+                          alt={p.title}
+                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute top-2.5 left-2.5 z-10">
+                          <span className="text-[9px] font-mono font-bold tracking-widest px-2 py-0.5 rounded uppercase bg-black/70 backdrop-blur-md text-[#f0aa93] border border-[#f0aa93]/30">
+                            {p.dropTier || 'SACRED DROP'}
+                          </span>
+                        </div>
+                        <div className="absolute top-2.5 right-2.5 z-10">
+                          <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase backdrop-blur-md ${
+                            isExpired
+                              ? 'bg-gray-900/80 text-gray-300 border border-gray-500/30'
+                              : 'bg-red-900/80 text-red-300 border border-red-500/40 animate-pulse'
+                          }`}>
+                            {isExpired ? 'VAULT CLOSED' : 'ACTIVE DROP'}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Drop Info & Controls */}
+                      <div className="flex-1 flex flex-col justify-between space-y-3">
+                        <div>
+                          <span className="text-[10px] font-mono text-[#f0aa93] uppercase font-bold tracking-wider block">
+                            {p.category || 'EXCLUSIVE EDITION'}
+                          </span>
+                          <h3 className={`font-bold text-sm sm:text-base uppercase leading-snug line-clamp-2 mt-0.5 ${
+                            themeMode === 'light' ? 'text-gray-900' : 'text-white'
+                          }`}>
+                            {p.title}
+                          </h3>
+                          <div className="flex items-baseline gap-2 mt-2">
+                            <span className={`text-base sm:text-lg font-mono font-black ${
+                              themeMode === 'light' ? 'text-[#122731]' : 'text-[#f0aa93]'
+                            }`}>
                               ₹{(p.price || 5450).toLocaleString('en-IN')}
                             </span>
+                            {p.originalPrice && (
+                              <span className="text-xs text-gray-400 line-through font-mono">
+                                ₹{p.originalPrice.toLocaleString('en-IN')}
+                              </span>
+                            )}
                           </div>
                         </div>
 
-                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase ${
-                          isExpired
-                            ? 'bg-gray-500/10 text-gray-400 border border-gray-500/20'
-                            : 'bg-red-500/10 text-red-400 border border-red-500/30 animate-pulse'
+                        <div className={`grid grid-cols-2 gap-2.5 p-3 rounded-xl border text-xs ${
+                          themeMode === 'light'
+                            ? 'bg-gray-50 border-gray-200'
+                            : 'bg-black/30 border-white/[0.06]'
                         }`}>
-                          {isExpired ? 'VAULT CLOSED' : 'ACTIVE DROP'}
-                        </span>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-3 p-3 rounded-xl bg-black/40 border border-white/[0.06] text-xs">
-                        <div>
-                          <span className="text-gray-400 block text-[10px] uppercase font-mono">Remaining Stock</span>
-                          <strong className="text-white text-sm font-mono">{p.remainingUnits || 25} / {p.totalUnits || 75} units</strong>
+                          <div>
+                            <span className="text-gray-400 block text-[10px] uppercase font-mono">Remaining Stock</span>
+                            <strong className={`text-xs sm:text-sm font-mono block mt-0.5 ${
+                              themeMode === 'light' ? 'text-gray-900' : 'text-white'
+                            }`}>
+                              {p.remainingUnits || 25} / {p.totalUnits || 75} units
+                            </strong>
+                          </div>
+                          <div>
+                            <span className="text-gray-400 block text-[10px] uppercase font-mono">Expiry Target</span>
+                            <strong className={`text-[11px] sm:text-xs font-mono block mt-0.5 ${
+                              themeMode === 'light' ? 'text-gray-900' : 'text-white'
+                            }`}>
+                              {expiresAt.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                            </strong>
+                          </div>
                         </div>
-                        <div>
-                          <span className="text-gray-400 block text-[10px] uppercase font-mono">Expiry Target</span>
-                          <strong className="text-white text-xs font-mono">{expiresAt.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</strong>
+
+                        <div className="flex items-center justify-between pt-2 border-t border-white/[0.08] gap-2">
+                          <span className="text-[11px] text-gray-400 italic line-clamp-1">
+                            "{p.urgencyText || 'LIMITED RUN OF 50 PIECES ONLY'}"
+                          </span>
+
+                          <button
+                            onClick={() => {
+                              setEditingDrop(p);
+                              setEditExpiryDate(expiresAt.toISOString().split('T')[0]);
+                              setEditRemainingUnits(p.remainingUnits || 25);
+                            }}
+                            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex-shrink-0 ${
+                              themeMode === 'light'
+                                ? 'bg-[#122731] hover:bg-black text-white'
+                                : 'bg-white/10 hover:bg-[#f0aa93] hover:text-[#122731] text-white border border-white/10'
+                            }`}
+                          >
+                            Edit Timer & Stock
+                          </button>
                         </div>
-                      </div>
-
-                      <div className="flex items-center justify-between pt-2 border-t border-white/[0.08]">
-                        <span className="text-[11px] text-gray-400 italic">
-                          "{p.urgencyText || 'LIMITED RUN OF 50 PIECES ONLY'}"
-                        </span>
-
-                        <button
-                          onClick={() => {
-                            setEditingDrop(p);
-                            setEditExpiryDate(expiresAt.toISOString().split('T')[0]);
-                            setEditRemainingUnits(p.remainingUnits || 25);
-                          }}
-                          className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-bold border border-white/10 transition-colors"
-                        >
-                          Edit Timer & Stock
-                        </button>
                       </div>
                     </div>
                   );
@@ -2208,9 +2347,13 @@ export default function AdminApp() {
           {/* TAB 9: STORE SETTINGS */}
           {activeTab === 'settings' && (
             <div className="space-y-6 animate-fadeIn">
-              <div className="pb-4 border-b border-[#224b5c] flex items-center justify-between">
+              <div className={`pb-4 border-b flex items-center justify-between ${
+                themeMode === 'light' ? 'border-gray-200' : 'border-[#224b5c]'
+              }`}>
                 <div>
-                  <h1 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white flex items-center gap-2.5">
+                  <h1 className={`text-2xl sm:text-3xl font-extrabold uppercase tracking-tight flex items-center gap-2.5 ${
+                    themeMode === 'light' ? 'text-gray-900' : 'text-white'
+                  }`}>
                     <Settings size={24} className="text-[#f0aa93]" />
                     <span>Store Configuration & Logistics Hub</span>
                   </h1>
@@ -2222,7 +2365,11 @@ export default function AdminApp() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleResetSettings}
-                    className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 text-xs font-semibold border border-white/10 cursor-pointer"
+                    className={`px-3.5 py-2 rounded-xl text-xs font-semibold border cursor-pointer ${
+                      themeMode === 'light'
+                        ? 'bg-gray-100 hover:bg-gray-200 text-gray-700 border-gray-300'
+                        : 'bg-white/5 hover:bg-white/10 text-gray-300 border-white/10'
+                    }`}
                   >
                     Restore Defaults
                   </button>
@@ -2235,16 +2382,83 @@ export default function AdminApp() {
                 </div>
               </div>
 
+              {/* Theme & Atmosphere Option Card */}
+              <div className={`p-5 rounded-2xl border space-y-4 ${
+                themeMode === 'light' ? 'bg-white border-gray-200 text-gray-900 shadow-sm' : 'bg-[#183c4a] border-[#224b5c] text-white'
+              }`}>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <h3 className={`font-serif text-sm font-bold uppercase tracking-wider ${themeMode === 'light' ? 'text-gray-900' : 'text-white'}`}>
+                      Theme & Atmosphere Preference (Dark / Light)
+                    </h3>
+                    <p className="text-xs text-gray-400 mt-0.5">
+                      Toggle between iconic Dark Teal and clean White theme across the store & admin panel.
+                    </p>
+                  </div>
+                  <span className={`text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold self-start sm:self-auto ${
+                    themeMode === 'light'
+                      ? 'bg-[#122731]/10 text-[#122731] border border-[#122731]/20'
+                      : 'bg-[#f0aa93]/20 text-[#f0aa93] border border-[#f0aa93]/30'
+                  }`}>
+                    {themeMode === 'light' ? 'Light Theme Active' : 'Dark Theme Active'}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => handleSetTheme('dark')}
+                    className={`p-4 rounded-xl border flex items-center gap-3.5 transition-all cursor-pointer ${
+                      themeMode === 'dark'
+                        ? 'bg-[#122731] border-[#f0aa93] text-white shadow-lg ring-2 ring-[#f0aa93]/40'
+                        : themeMode === 'light'
+                        ? 'bg-gray-50 border-gray-200 text-gray-600 hover:text-black'
+                        : 'bg-white/5 border-white/10 text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-[#163643] border border-[#224b5c] flex items-center justify-center flex-shrink-0">
+                      <Moon size={20} className="text-[#f0aa93]" />
+                    </div>
+                    <div className="text-left">
+                      <span className="block text-xs font-bold uppercase tracking-wider text-white">Dark Theme (Default)</span>
+                      <span className="text-[11px] text-gray-400">Dark Teal #122731 • Sacred Ambience</span>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleSetTheme('light')}
+                    className={`p-4 rounded-xl border flex items-center gap-3.5 transition-all cursor-pointer ${
+                      themeMode === 'light'
+                        ? 'bg-white border-[#122731] text-gray-900 shadow-md ring-2 ring-[#122731]/40'
+                        : 'bg-white/5 border-white/10 text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-gray-100 border border-gray-300 flex items-center justify-center flex-shrink-0">
+                      <Sun size={20} className="text-[#122731]" />
+                    </div>
+                    <div className="text-left">
+                      <span className={`block text-xs font-bold uppercase tracking-wider ${themeMode === 'light' ? 'text-gray-900' : 'text-white'}`}>Light Theme</span>
+                      <span className="text-[11px] text-gray-400">Pure White #ffffff • Crisp Charcoal</span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="p-5 rounded-2xl bg-[#183c4a] border border-[#224b5c] space-y-4">
-                  <h3 className="font-serif text-sm font-bold uppercase tracking-wider text-white">Brand & Support Identity</h3>
+                <div className={`p-5 rounded-2xl border space-y-4 ${
+                  themeMode === 'light' ? 'bg-white border-gray-200 text-gray-900' : 'bg-[#183c4a] border-[#224b5c] text-white'
+                }`}>
+                  <h3 className={`font-serif text-sm font-bold uppercase tracking-wider ${themeMode === 'light' ? 'text-gray-900' : 'text-white'}`}>Brand & Support Identity</h3>
                   <div>
                     <label className="block text-[11px] font-mono text-gray-400 uppercase mb-1">Store Name</label>
                     <input
                       type="text"
                       value={settings.storeName}
                       onChange={(e) => setSettings({ ...settings, storeName: e.target.value })}
-                      className="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-xs text-white"
+                      className={`w-full px-3 py-2 border rounded-xl text-xs ${
+                        themeMode === 'light' ? 'bg-gray-50 border-gray-300 text-gray-900' : 'bg-black/40 border-white/10 text-white'
+                      }`}
                     />
                   </div>
                   <div>
@@ -2253,7 +2467,9 @@ export default function AdminApp() {
                       type="email"
                       value={settings.supportEmail}
                       onChange={(e) => setSettings({ ...settings, supportEmail: e.target.value })}
-                      className="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-xs text-white"
+                      className={`w-full px-3 py-2 border rounded-xl text-xs ${
+                        themeMode === 'light' ? 'bg-gray-50 border-gray-300 text-gray-900' : 'bg-black/40 border-white/10 text-white'
+                      }`}
                     />
                   </div>
                   <div>
@@ -2262,20 +2478,26 @@ export default function AdminApp() {
                       type="text"
                       value={settings.supportPhone}
                       onChange={(e) => setSettings({ ...settings, supportPhone: e.target.value })}
-                      className="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-xs text-white"
+                      className={`w-full px-3 py-2 border rounded-xl text-xs ${
+                        themeMode === 'light' ? 'bg-gray-50 border-gray-300 text-gray-900' : 'bg-black/40 border-white/10 text-white'
+                      }`}
                     />
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#183c4a] border border-[#224b5c] space-y-4">
-                  <h3 className="font-serif text-sm font-bold uppercase tracking-wider text-white">Logistics & Courier Defaults</h3>
+                <div className={`p-5 rounded-2xl border space-y-4 ${
+                  themeMode === 'light' ? 'bg-white border-gray-200 text-gray-900' : 'bg-[#183c4a] border-[#224b5c] text-white'
+                }`}>
+                  <h3 className={`font-serif text-sm font-bold uppercase tracking-wider ${themeMode === 'light' ? 'text-gray-900' : 'text-white'}`}>Logistics & Courier Defaults</h3>
                   <div>
                     <label className="block text-[11px] font-mono text-gray-400 uppercase mb-1">Default Courier Partner</label>
                     <input
                       type="text"
                       value={settings.defaultCourier}
                       onChange={(e) => setSettings({ ...settings, defaultCourier: e.target.value })}
-                      className="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-xs text-white"
+                      className={`w-full px-3 py-2 border rounded-xl text-xs ${
+                        themeMode === 'light' ? 'bg-gray-50 border-gray-300 text-gray-900' : 'bg-black/40 border-white/10 text-white'
+                      }`}
                     />
                   </div>
                   <div>
@@ -2284,7 +2506,9 @@ export default function AdminApp() {
                       type="text"
                       value={settings.dispatchHub}
                       onChange={(e) => setSettings({ ...settings, dispatchHub: e.target.value })}
-                      className="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-xs text-white"
+                      className={`w-full px-3 py-2 border rounded-xl text-xs ${
+                        themeMode === 'light' ? 'bg-gray-50 border-gray-300 text-gray-900' : 'bg-black/40 border-white/10 text-white'
+                      }`}
                     />
                   </div>
                   <div>
@@ -2293,7 +2517,9 @@ export default function AdminApp() {
                       type="text"
                       value={settings.estimatedDeliveryDays}
                       onChange={(e) => setSettings({ ...settings, estimatedDeliveryDays: e.target.value })}
-                      className="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-xs text-white"
+                      className={`w-full px-3 py-2 border rounded-xl text-xs ${
+                        themeMode === 'light' ? 'bg-gray-50 border-gray-300 text-gray-900' : 'bg-black/40 border-white/10 text-white'
+                      }`}
                     />
                   </div>
                 </div>

@@ -12,6 +12,8 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
 
   const { addToCart, setIsCartOpen } = useCart();
   const theme = useThemeColor?.() || {};
+  const { themeMode = 'dark' } = theme;
+  const isLight = themeMode === 'light';
   const setThemeByColorName = theme.setThemeByColorName || (() => {});
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -78,19 +80,27 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
   const singlePrice = product.price || 5450;
 
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-8 bg-[#122731] text-white font-sans selection:bg-[#f0aa93] selection:text-[#122731]">
+    <div className={`min-h-screen py-8 px-4 sm:px-8 font-sans selection:bg-[#f0aa93] selection:text-[#122731] transition-colors duration-300 ${
+      isLight ? 'bg-white text-gray-900' : 'bg-[#122731] text-white'
+    }`}>
       <div className="max-w-[1360px] mx-auto">
 
         {/* Back Link & Brand Ticker */}
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-[#224b5c]">
+        <div className={`flex items-center justify-between mb-8 pb-4 border-b ${
+          isLight ? 'border-gray-200' : 'border-[#224b5c]'
+        }`}>
           <button
             onClick={onBack}
-            className="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase text-gray-400 hover:text-[#f0aa93] transition-colors cursor-pointer"
+            className={`inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase transition-colors cursor-pointer ${
+              isLight ? 'text-gray-600 hover:text-black' : 'text-gray-400 hover:text-[#f0aa93]'
+            }`}
           >
             <ArrowLeft size={16} /> Back to Catalog
           </button>
 
-          <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#f0aa93]">
+          <span className={`text-[11px] font-mono font-bold tracking-widest uppercase ${
+            isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+          }`}>
             APNA BRAND • SACRED APPAREL
           </span>
         </div>
@@ -206,7 +216,7 @@ export default function ProductView({ product, onBack, onOpenSizeGuide }) {
                 expiresAt={product.dropExpiresAt}
                 totalUnits={product.totalUnits || 75}
                 remainingUnits={product.remainingUnits || 20}
-                isLight={false}
+                isLight={isLight}
               />
             </div>
 

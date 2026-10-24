@@ -93,6 +93,43 @@ export const ThemeColorProvider = ({ children }) => {
   const [currentColor, setCurrentColor] = useState(COLOR_PALETTES['Black']);
   const [isDynamicLocked, setIsDynamicLocked] = useState(false);
 
+  const [themeMode, setThemeModeState] = useState(() => {
+    try {
+      return localStorage.getItem('brahmman_theme_mode') || 'dark';
+    } catch {
+      return 'dark';
+    }
+  });
+
+  const setThemeMode = (mode) => {
+    setThemeModeState(mode);
+    try {
+      localStorage.setItem('brahmman_theme_mode', mode);
+    } catch {}
+    if (mode === 'light') {
+      document.documentElement.classList.add('light-theme');
+      document.documentElement.classList.remove('dark-theme');
+    } else {
+      document.documentElement.classList.add('dark-theme');
+      document.documentElement.classList.remove('light-theme');
+    }
+  };
+
+  const toggleThemeMode = () => {
+    setThemeMode(themeMode === 'dark' ? 'light' : 'dark');
+  };
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (themeMode === 'light') {
+      root.classList.add('light-theme');
+      root.classList.remove('dark-theme');
+    } else {
+      root.classList.add('dark-theme');
+      root.classList.remove('light-theme');
+    }
+  }, [themeMode]);
+
   useEffect(() => {
     const root = document.documentElement;
     root.style.setProperty('--theme-bg-gradient', currentColor.bgGradient);
@@ -137,7 +174,10 @@ export const ThemeColorProvider = ({ children }) => {
       resetToDefault,
       isDynamicLocked,
       setIsDynamicLocked,
-      palettes: COLOR_PALETTES
+      palettes: COLOR_PALETTES,
+      themeMode,
+      setThemeMode,
+      toggleThemeMode
     }}>
       {children}
     </ThemeColorContext.Provider>
@@ -155,7 +195,10 @@ export const useThemeColor = () => {
       resetToDefault: () => {},
       isDynamicLocked: false,
       setIsDynamicLocked: () => {},
-      palettes: COLOR_PALETTES
+      palettes: COLOR_PALETTES,
+      themeMode: 'dark',
+      setThemeMode: () => {},
+      toggleThemeMode: () => {}
     };
   }
   return context;

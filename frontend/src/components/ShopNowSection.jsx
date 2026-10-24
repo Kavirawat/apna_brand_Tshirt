@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useThemeColor } from '../context/ThemeColorContext';
 
 const FEATURED_SHOP_PRODUCTS = [
   {
@@ -44,6 +45,8 @@ const FEATURED_SHOP_PRODUCTS = [
 ];
 
 export default function ShopNowSection({ products, onSelectProduct, onViewAllClick }) {
+  const { themeMode = 'dark' } = useThemeColor?.() || {};
+  const isLight = themeMode === 'light';
   const [hoveredProductId, setHoveredProductId] = useState(null);
 
   const displayProducts = FEATURED_SHOP_PRODUCTS.map((feat) => {
@@ -55,14 +58,20 @@ export default function ShopNowSection({ products, onSelectProduct, onViewAllCli
   });
 
   return (
-    <section className="bg-[#122832] text-white py-16 sm:py-24 px-4 sm:px-8 lg:px-14 select-none border-b border-[#224b5c]">
+    <section className={`py-16 sm:py-24 px-4 sm:px-8 lg:px-14 select-none border-b transition-colors duration-300 ${
+      isLight ? 'bg-white text-gray-900 border-gray-200' : 'bg-[#122832] text-white border-[#224b5c]'
+    }`}>
       <div className="max-w-[1360px] mx-auto">
 
         <div className="text-center mb-12">
-          <span className="text-[11px] font-mono font-bold tracking-widest text-[#f0aa93] uppercase block mb-1">
+          <span className={`text-[11px] font-mono font-bold tracking-widest uppercase block mb-1 ${
+            isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+          }`}>
             CURATED COLLECTION
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-white uppercase">
+          <h2 className={`text-2xl sm:text-3xl font-black tracking-tight uppercase ${
+            isLight ? 'text-gray-900' : 'text-white'
+          }`}>
             SHOP NOW
           </h2>
         </div>
@@ -76,13 +85,19 @@ export default function ShopNowSection({ products, onSelectProduct, onViewAllCli
                 onClick={() => onSelectProduct && onSelectProduct(prod)}
                 onMouseEnter={() => setHoveredProductId(prod.id)}
                 onMouseLeave={() => setHoveredProductId(null)}
-                className="cursor-pointer group flex flex-col rounded-3xl bg-[#163643] border border-[#224b5c] shadow-2xl hover:-translate-y-3 hover:shadow-[0_25px_50px_rgba(10,25,33,0.85)] hover:border-[#f0aa93]/60 transition-all duration-500 overflow-hidden justify-between"
+                className={`cursor-pointer group flex flex-col rounded-3xl border shadow-2xl hover:-translate-y-3 transition-all duration-500 overflow-hidden justify-between ${
+                  isLight
+                    ? 'bg-white border-gray-200 text-gray-900 hover:border-[#122731] hover:shadow-xl'
+                    : 'bg-[#163643] border-[#224b5c] text-white hover:shadow-[0_25px_50px_rgba(10,25,33,0.85)] hover:border-[#f0aa93]/60'
+                }`}
               >
 
                 {/* Upper Image */}
                 <div
-                  className="relative aspect-[4/5] w-full overflow-hidden transition-all duration-500 bg-[#122731]"
-                  style={{ backgroundColor: prod.cardBg || '#183c4b' }}
+                  className={`relative aspect-[4/5] w-full overflow-hidden transition-all duration-500 ${
+                    isLight ? 'bg-gray-100' : 'bg-[#122731]'
+                  }`}
+                  style={{ backgroundColor: prod.cardBg || (isLight ? '#f1f5f9' : '#183c4b') }}
                 >
                   <img
                     src={prod.image || prod.images?.[0]}
@@ -92,26 +107,34 @@ export default function ShopNowSection({ products, onSelectProduct, onViewAllCli
                   />
                 </div>
 
-                {/* Lower Details: Dark Teal Card + White Font & Peach Price */}
-                <div className="p-4 sm:p-5 flex flex-col justify-between flex-grow space-y-3 bg-[#163643]">
+                {/* Lower Details */}
+                <div className={`p-4 sm:p-5 flex flex-col justify-between flex-grow space-y-3 ${
+                  isLight ? 'bg-white' : 'bg-[#163643]'
+                }`}>
                   <div className="space-y-1">
                     <span className="text-[10px] font-mono uppercase tracking-wider text-gray-400 block font-semibold">
                       {prod.category || 'Oversized Tee'}
                     </span>
                     <h3
-                      className={`text-sm sm:text-base font-bold text-white uppercase tracking-tight line-clamp-1 transition-colors ${
-                        isHovered ? 'text-[#f0aa93]' : ''
+                      className={`text-sm sm:text-base font-bold uppercase tracking-tight line-clamp-1 transition-colors ${
+                        isLight
+                          ? isHovered ? 'text-[#122731]' : 'text-gray-900'
+                          : isHovered ? 'text-[#f0aa93]' : 'text-white'
                       }`}
                     >
                       {prod.title}
                     </h3>
-                    <p className="text-base sm:text-lg font-black text-[#f0aa93] font-mono pt-1">
+                    <p className={`text-base sm:text-lg font-black font-mono pt-1 ${
+                      isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                    }`}>
                       Rs. {prod.price?.toLocaleString('en-IN') || '5,450'}
                     </p>
                   </div>
 
                   {/* Rating in Stars */}
-                  <div className="pt-2 border-t border-[#224b5c] flex items-center justify-between">
+                  <div className={`pt-2 border-t flex items-center justify-between ${
+                    isLight ? 'border-gray-100' : 'border-[#224b5c]'
+                  }`}>
                     <div className="flex items-center gap-1.5">
                       <div className="flex text-amber-400 text-xs tracking-wider">
                         <span>★</span>
@@ -120,11 +143,13 @@ export default function ShopNowSection({ products, onSelectProduct, onViewAllCli
                         <span>★</span>
                         <span>★</span>
                       </div>
-                      <span className="text-xs font-bold text-white font-mono">4.9</span>
+                      <span className={`text-xs font-bold font-mono ${isLight ? 'text-gray-900' : 'text-white'}`}>4.9</span>
                       <span className="text-[11px] text-gray-400">(72)</span>
                     </div>
 
-                    <span className="text-[11px] font-bold text-[#f0aa93] uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                    <span className={`text-[11px] font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform ${
+                      isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                    }`}>
                       View ➔
                     </span>
                   </div>

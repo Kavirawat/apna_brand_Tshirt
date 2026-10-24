@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, User, ShoppingBag, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useThemeColor } from '../context/ThemeColorContext';
 import AccountPopover from './AccountPopover';
 
 export default function Navbar({
@@ -9,6 +10,8 @@ export default function Navbar({
   onOpenSearch,
   onOpenOrders
 }) {
+  const { themeMode = 'dark' } = useThemeColor();
+  const isLight = themeMode === 'light';
   const { cartCount, setIsCartOpen } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [accountPopoverOpen, setAccountPopoverOpen] = useState(false);
@@ -43,7 +46,11 @@ export default function Navbar({
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-[#0f232c]/95 backdrop-blur-xl border-b border-[#224b5c] transition-colors duration-300 relative text-white">
+    <header className={`sticky top-0 z-40 backdrop-blur-xl border-b transition-colors duration-300 relative ${
+      isLight
+        ? 'bg-white/95 border-gray-200 text-gray-900 shadow-xs'
+        : 'bg-[#0f232c]/95 border-[#224b5c] text-white'
+    }`}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
 
         <div
@@ -66,7 +73,11 @@ export default function Navbar({
                 onClick={() => onSelectNav(item.id)}
                 className={`text-[13px] font-normal transition-all relative py-1 cursor-pointer ${
                   isActive
-                    ? 'text-[#f0aa93] font-semibold border-b-2 border-[#f0aa93]'
+                    ? isLight
+                      ? 'text-[#122731] font-bold border-b-2 border-[#122731]'
+                      : 'text-[#f0aa93] font-semibold border-b-2 border-[#f0aa93]'
+                    : isLight
+                    ? 'text-gray-600 hover:text-black hover:border-b-2 hover:border-black/30'
                     : 'text-gray-300 hover:text-white hover:border-b-2 hover:border-white/40'
                 }`}
               >
@@ -76,7 +87,7 @@ export default function Navbar({
           })}
         </nav>
 
-        <div className="flex items-center space-x-4 sm:space-x-5 text-gray-200">
+        <div className={`flex items-center space-x-4 sm:space-x-5 ${isLight ? 'text-gray-700' : 'text-gray-200'}`}>
 
           <button
             onClick={onOpenSearch}
@@ -98,7 +109,9 @@ export default function Navbar({
                 <User size={21} strokeWidth={1.5} />
               </div>
               {currentUser && (
-                <span className="hidden md:inline text-xs font-semibold text-gray-200 max-w-[85px] truncate">
+                <span className={`hidden md:inline text-xs font-semibold max-w-[85px] truncate ${
+                  isLight ? 'text-gray-800' : 'text-gray-200'
+                }`}>
                   {currentUser.name?.split(' ')[0] || currentUser.username}
                 </span>
               )}
@@ -136,7 +149,9 @@ export default function Navbar({
       </div>
 
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#0f232c] border-b border-[#224b5c] px-6 py-4 space-y-3">
+        <div className={`lg:hidden border-b px-6 py-4 space-y-3 ${
+          isLight ? 'bg-white border-gray-200' : 'bg-[#0f232c] border-[#224b5c]'
+        }`}>
           {navItems.map((item) => (
             <button
               key={item.id}
@@ -144,7 +159,9 @@ export default function Navbar({
                 onSelectNav(item.id);
                 setMobileMenuOpen(false);
               }}
-              className="block w-full text-left text-sm text-[#121212] py-2 border-b border-black/5"
+              className={`block w-full text-left text-sm py-2 border-b ${
+                isLight ? 'text-gray-800 border-gray-100' : 'text-gray-200 border-white/5'
+              }`}
             >
               {item.label}
             </button>

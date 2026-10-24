@@ -9,6 +9,20 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   background-color: #122731;
   color: #f3f4f6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.light-theme body {
+  background-color: #f4f7f8;
+  color: #0f172a;
+}
+
+html.light-theme ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+html.light-theme ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
 }
 
 .font-sanskrit {

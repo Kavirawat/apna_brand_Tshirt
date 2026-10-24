@@ -16,8 +16,11 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { API_BASE } from '../config';
+import { useThemeColor } from '../context/ThemeColorContext';
 
 export default function TrackOrderView({ initialOrderId = '' }) {
+  const { themeMode = 'dark' } = useThemeColor?.() || {};
+  const isLight = themeMode === 'light';
   const [query, setQuery] = useState(initialOrderId || '');
   const [loading, setLoading] = useState(false);
   const [order, setOrder] = useState(null);
@@ -117,14 +120,18 @@ export default function TrackOrderView({ initialOrderId = '' }) {
   });
 
   return (
-    <div className="min-h-screen bg-[#122731] text-white font-sans py-12 px-4 sm:px-6 animate-fadeIn selection:bg-[#f0aa93] selection:text-[#122731]">
+    <div className={`min-h-screen font-sans py-12 px-4 sm:px-6 animate-fadeIn selection:bg-[#f0aa93] selection:text-[#122731] transition-colors duration-300 ${
+      isLight ? 'bg-white text-gray-900' : 'bg-[#122731] text-white'
+    }`}>
 
       {/* Header & Search Bar */}
       <div className="max-w-xl mx-auto mb-8 text-center">
         <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#f0aa93] font-bold block mb-1">
           Express Dispatch & Live Tracking
         </span>
-        <h2 className="text-2xl sm:text-3xl font-black uppercase text-white tracking-wide font-sans">
+        <h2 className={`text-2xl sm:text-3xl font-black uppercase tracking-wide font-sans ${
+          isLight ? 'text-gray-900' : 'text-white'
+        }`}>
           Track Your Order
         </h2>
 
@@ -142,7 +149,11 @@ export default function TrackOrderView({ initialOrderId = '' }) {
               placeholder="Enter Order ID (e.g. ORD-18193)"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-[#163643] border border-[#224b5c] rounded-2xl text-xs sm:text-sm text-white placeholder-gray-400 outline-none focus:border-[#f0aa93] transition-colors shadow-xl"
+              className={`w-full pl-10 pr-4 py-3 rounded-2xl text-xs sm:text-sm outline-none transition-colors shadow-xl ${
+                isLight
+                  ? 'bg-gray-50 border border-gray-300 text-gray-900 placeholder-gray-500 focus:border-[#122731]'
+                  : 'bg-[#163643] border border-[#224b5c] text-white placeholder-gray-400 focus:border-[#f0aa93]'
+              }`}
             />
           </div>
           <button
