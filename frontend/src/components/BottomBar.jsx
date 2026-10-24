@@ -29,7 +29,7 @@ export default function BottomBar({ onSelectPhilosophy, onOpenStore, onOpenSuppo
 
   return (
     <footer className={`pt-16 pb-12 px-4 sm:px-8 lg:px-14 select-none border-t transition-colors duration-300 ${
-      isLight ? 'bg-[#f8fafc] text-gray-900 border-gray-200' : 'bg-[#0e2028] text-white border-[#224b5c]'
+      isLight ? 'bg-white text-gray-900 border-gray-200' : 'bg-[#122832] text-white border-[#224b5c]'
     }`}>
       <div className="max-w-[1360px] mx-auto flex flex-col items-center text-center space-y-10">
 

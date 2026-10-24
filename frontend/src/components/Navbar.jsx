@@ -54,7 +54,7 @@ export default function Navbar({
     <header className={`sticky top-0 z-40 backdrop-blur-xl border-b transition-colors duration-300 relative ${
       isLight
         ? 'bg-white/95 border-gray-200 text-gray-900 shadow-xs'
-        : 'bg-[#0f232c]/95 border-[#224b5c] text-white'
+        : 'bg-[#122832]/95 border-[#224b5c] text-white'
     }`}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
 
@@ -157,7 +157,7 @@ export default function Navbar({
 
       {mobileMenuOpen && (
         <div className={`lg:hidden border-b px-6 py-4 space-y-3 ${
-          isLight ? 'bg-white border-gray-200' : 'bg-[#0f232c] border-[#224b5c]'
+          isLight ? 'bg-white border-gray-200' : 'bg-[#122832] border-[#224b5c]'
         }`}>
           {navItems.map((item) => (
             <button

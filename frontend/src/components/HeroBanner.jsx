@@ -136,9 +136,26 @@ export default function HeroBanner({ onShopNowClick }) {
   const [isPaused, setIsPaused] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef(null);
+  const tagSlideRef = useRef(null);
+  const [tagSlideHeight, setTagSlideHeight] = useState(null);
   const { applyCoupon } = useCart?.() || {};
 
   const active = HERO_SLIDES[currentSlide];
+
+  // Measure tag composition slide height so video slide height matches exactly pixel-for-pixel
+  useEffect(() => {
+    const measure = () => {
+      if (tagSlideRef.current) {
+        const h = tagSlideRef.current.offsetHeight;
+        if (h && h > 200) {
+          setTagSlideHeight(h);
+        }
+      }
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [currentSlide]);
 
   // Auto slide interval alternating offer banners & brand film videos automatically
   useEffect(() => {
@@ -204,7 +221,10 @@ export default function HeroBanner({ onShopNowClick }) {
           1. BRAND FILM VIDEO SLIDES
          ───────────────────────────────────────────────────────────── */}
       {active.type === 'video' ? (
-        <div className="relative min-h-[70vh] sm:min-h-[82vh] flex items-end justify-start p-6 sm:p-12 lg:p-16 bg-black">
+        <div
+          className="relative px-5 sm:px-10 lg:px-16 py-14 sm:py-20 lg:py-24 flex items-center justify-start bg-black overflow-hidden transition-all duration-700"
+          style={tagSlideHeight ? { height: `${tagSlideHeight}px`, minHeight: `${tagSlideHeight}px`, maxHeight: `${tagSlideHeight}px` } : {}}
+        >
           {/* Background Video */}
           <video
             key={active.videoSrc}
@@ -239,41 +259,56 @@ export default function HeroBanner({ onShopNowClick }) {
             </button>
           </div>
 
-          {/* Video Overlay Content */}
-          <div className="relative z-10 max-w-2xl space-y-4 pt-16">
-            <div className="flex flex-wrap items-center gap-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-[#f0aa93]/40 text-[11px] font-mono tracking-widest text-[#f0aa93] uppercase">
-                <Film size={13} />
-                <span>BHARAT CAMPAIGN • {active.category}</span>
+          <div className="relative max-w-[1380px] mx-auto z-10 w-full">
+            {/* Top Ticker Row - perfectly matches banner ticker */}
+            <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono tracking-widest text-gray-400 uppercase pb-6 mb-8 border-b border-white/10">
+              <div className="flex items-center gap-2.5">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                <span className="text-white font-bold">APNA BRAND • BHARAT CAMPAIGN • {active.category}</span>
               </div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600/90 text-white font-mono text-[10px] font-black tracking-widest uppercase shadow-lg border border-red-400/40">
-                <span>🔥 SPECIAL DROP • DHARM60</span>
+              <div className="flex items-center gap-3 text-[11px]">
+                <span className="text-[#f0aa93] font-semibold">धर्मो रक्षति रक्षितः</span>
+                <span className="text-gray-600 hidden sm:inline">•</span>
+                <span className="hidden sm:inline text-gray-400">SACRED APPAREL FILM</span>
               </div>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-tight text-white drop-shadow-2xl font-serif">
-              {active.title} <br />
-              <span className="text-gray-200 font-sans text-2xl sm:text-4xl lg:text-5xl font-light tracking-wide block mt-1">
-                {active.subtitle}
-              </span>
-            </h1>
+            {/* Video Overlay Content */}
+            <div className="max-w-2xl space-y-4">
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-[#f0aa93]/40 text-[11px] font-mono tracking-widest text-[#f0aa93] uppercase">
+                  <Film size={13} />
+                  <span>BHARAT CAMPAIGN • {active.category}</span>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600/90 text-white font-mono text-[10px] font-black tracking-widest uppercase shadow-lg border border-red-400/40">
+                  <span>🔥 SPECIAL DROP • DHARM60</span>
+                </div>
+              </div>
 
-            <p className="text-xs sm:text-sm text-gray-300 max-w-lg leading-relaxed font-normal">
-              {active.description}
-            </p>
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-tight text-white drop-shadow-2xl font-serif">
+                {active.title} <br />
+                <span className="text-gray-200 font-sans text-2xl sm:text-4xl lg:text-5xl font-light tracking-wide block mt-1">
+                  {active.subtitle}
+                </span>
+              </h1>
 
-            <div className="pt-2">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onShopNowClick();
-                }}
-                type="button"
-                className="px-8 py-3.5 bg-[#f0aa93] hover:bg-white text-[#122731] rounded-full text-xs font-black tracking-widest uppercase transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-2xl active:scale-95 cursor-pointer"
-              >
-                <span>{active.ctaText}</span>
-                <ArrowUpRight size={16} />
-              </button>
+              <p className="text-xs sm:text-sm text-gray-300 max-w-lg leading-relaxed font-normal">
+                {active.description}
+              </p>
+
+              <div className="pt-2">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onShopNowClick();
+                  }}
+                  type="button"
+                  className="px-8 py-3.5 bg-[#f0aa93] hover:bg-white text-[#122731] rounded-full text-xs font-black tracking-widest uppercase transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-2xl active:scale-95 cursor-pointer"
+                >
+                  <span>{active.ctaText}</span>
+                  <ArrowUpRight size={16} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -282,6 +317,7 @@ export default function HeroBanner({ onShopNowClick }) {
             2. 3D SALES DISCOUNT PRICE TAG COMPOSITION SLIDES
            ───────────────────────────────────────────────────────────── */
         <div
+          ref={tagSlideRef}
           className="relative px-5 sm:px-10 lg:px-16 py-14 sm:py-20 lg:py-24 transition-all duration-700"
           style={{ background: active.backgroundStyle }}
         >

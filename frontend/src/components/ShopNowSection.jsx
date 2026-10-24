@@ -87,17 +87,17 @@ export default function ShopNowSection({ products, onSelectProduct, onViewAllCli
                 onMouseLeave={() => setHoveredProductId(null)}
                 className={`cursor-pointer group flex flex-col rounded-3xl border shadow-2xl hover:-translate-y-3 transition-all duration-500 overflow-hidden justify-between ${
                   isLight
-                    ? 'bg-white border-gray-200 text-gray-900 hover:border-[#122731] hover:shadow-xl'
-                    : 'bg-[#163643] border-[#224b5c] text-white hover:shadow-[0_25px_50px_rgba(10,25,33,0.85)] hover:border-[#f0aa93]/60'
+                    ? 'bg-[#163643] border-[#224b5c] text-white hover:border-[#f0aa93] hover:shadow-[0_25px_50px_rgba(10,25,33,0.85)]'
+                    : 'bg-white border-gray-200 text-gray-900 hover:border-[#122731] hover:shadow-2xl'
                 }`}
               >
 
                 {/* Upper Image */}
                 <div
                   className={`relative aspect-[4/5] w-full overflow-hidden transition-all duration-500 ${
-                    isLight ? 'bg-gray-100' : 'bg-[#122731]'
+                    isLight ? 'bg-[#122731]' : 'bg-gray-100'
                   }`}
-                  style={{ backgroundColor: prod.cardBg || (isLight ? '#f1f5f9' : '#183c4b') }}
+                  style={{ backgroundColor: prod.cardBg || (isLight ? '#183c4b' : '#f1f5f9') }}
                 >
                   <img
                     src={prod.image || prod.images?.[0]}
@@ -109,23 +109,25 @@ export default function ShopNowSection({ products, onSelectProduct, onViewAllCli
 
                 {/* Lower Details */}
                 <div className={`p-4 sm:p-5 flex flex-col justify-between flex-grow space-y-3 ${
-                  isLight ? 'bg-white' : 'bg-[#163643]'
+                  isLight ? 'bg-[#163643]' : 'bg-white'
                 }`}>
                   <div className="space-y-1">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-gray-400 block font-semibold">
+                    <span className={`text-[10px] font-mono uppercase tracking-wider block font-semibold ${
+                      isLight ? 'text-gray-400' : 'text-gray-500'
+                    }`}>
                       {prod.category || 'Oversized Tee'}
                     </span>
                     <h3
                       className={`text-sm sm:text-base font-bold uppercase tracking-tight line-clamp-1 transition-colors ${
                         isLight
-                          ? isHovered ? 'text-[#122731]' : 'text-gray-900'
-                          : isHovered ? 'text-[#f0aa93]' : 'text-white'
+                          ? isHovered ? 'text-[#f0aa93]' : 'text-white'
+                          : isHovered ? 'text-[#122731]' : 'text-gray-900'
                       }`}
                     >
                       {prod.title}
                     </h3>
                     <p className={`text-base sm:text-lg font-black font-mono pt-1 ${
-                      isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                      isLight ? 'text-[#f0aa93]' : 'text-[#122731]'
                     }`}>
                       Rs. {prod.price?.toLocaleString('en-IN') || '5,450'}
                     </p>
@@ -133,7 +135,7 @@ export default function ShopNowSection({ products, onSelectProduct, onViewAllCli
 
                   {/* Rating in Stars */}
                   <div className={`pt-2 border-t flex items-center justify-between ${
-                    isLight ? 'border-gray-100' : 'border-[#224b5c]'
+                    isLight ? 'border-[#224b5c]' : 'border-gray-100'
                   }`}>
                     <div className="flex items-center gap-1.5">
                       <div className="flex text-amber-400 text-xs tracking-wider">
@@ -143,12 +145,12 @@ export default function ShopNowSection({ products, onSelectProduct, onViewAllCli
                         <span>★</span>
                         <span>★</span>
                       </div>
-                      <span className={`text-xs font-bold font-mono ${isLight ? 'text-gray-900' : 'text-white'}`}>4.9</span>
-                      <span className="text-[11px] text-gray-400">(72)</span>
+                      <span className={`text-xs font-bold font-mono ${isLight ? 'text-white' : 'text-gray-900'}`}>4.9</span>
+                      <span className={`text-[11px] ${isLight ? 'text-gray-400' : 'text-gray-500'}`}>(72)</span>
                     </div>
 
                     <span className={`text-[11px] font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform ${
-                      isLight ? 'text-[#122731]' : 'text-[#f0aa93]'
+                      isLight ? 'text-[#f0aa93]' : 'text-[#122731]'
                     }`}>
                       View ➔
                     </span>
@@ -163,7 +165,7 @@ export default function ShopNowSection({ products, onSelectProduct, onViewAllCli
         <div className="mt-14 flex justify-center">
           <button
             onClick={onViewAllClick}
-            className="px-10 py-3.5 rounded-full bg-[#f0aa93] hover:bg-white text-[#122832] transition-all text-xs font-black tracking-widest uppercase cursor-pointer shadow-xl hover:scale-105 active:scale-95"
+            className="px-10 py-3.5 rounded-full bg-[#f0aa93] hover:bg-white text-[#122731] transition-all text-xs font-black tracking-widest uppercase cursor-pointer shadow-xl hover:scale-105 active:scale-95"
           >
             View More
           </button>

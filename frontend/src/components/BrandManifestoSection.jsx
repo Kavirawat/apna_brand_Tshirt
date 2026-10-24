@@ -10,7 +10,7 @@ export default function BrandManifestoSection({ onDiscoverClick }) {
     <section className={`w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-14 border-t select-none transition-colors duration-300 ${
       isLight
         ? 'bg-white text-gray-900 border-gray-200'
-        : 'bg-[#122731] text-white border-[#224b5c]'
+        : 'bg-[#122832] text-white border-[#224b5c]'
     }`}>
       <div className="max-w-[1360px] mx-auto">
 
